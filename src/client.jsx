@@ -7,5 +7,6 @@ if (container) {
     const initialEvents = JSON.parse(container.dataset.events);
     const initialSport = container.dataset.sport || 'all';
     const isHomepage = container.dataset.homepage === 'true';
-    hydrateRoot(container, <FilterEngine initialEvents={initialEvents} initialSport={initialSport} isHomepage={isHomepage} />);
+    const initialDate = container.dataset.date || 'today';
+    hydrateRoot(container, <FilterEngine initialEvents={initialEvents} initialSport={initialSport} isHomepage={isHomepage} initialDate={initialDate} />);
 }

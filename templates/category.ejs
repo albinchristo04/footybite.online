@@ -6,9 +6,11 @@
     </div>
 </section>
 
-<div id="filter-engine-root" data-events='<%- JSON.stringify(events) %>' data-sport="<%= catSlug %>"
-    data-homepage="false">
-    <%- filterHtml %>
+<div id="filter-engine-root" data-events="<%= JSON.stringify(events).replace(/" /g, '&quot;' ) %>"
+    data-sport="<%= catSlug %>"
+        data-homepage="false"
+        data-date="<%= typeof initialDate !=='undefined' ? initialDate : 'today' %>">
+            <%- filterHtml %>
 </div>
 
 <section class="container">

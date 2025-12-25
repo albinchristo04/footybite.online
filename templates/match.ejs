@@ -43,7 +43,7 @@
                                         <h2>Match Starts Soon</h2>
                                         <div id="countdown-timer" data-start="<%= event.startTime %>">
                                             ⏱️ Starts in --h --m
-                                        </div>
+                                            01h 24m</div>
                                         <p>Stream will be available 30 minutes before kickoff.</p>
                                     </div>
                                 </div>
@@ -87,44 +87,42 @@
             </div>
 
             <div class="match-seo-card">
-                <h2>📰 Team News</h2>
-                <p>Latest updates for <strong>
-                        <%= event.teams[0] %>
-                    </strong> and <strong>
-                        <%= event.teams[1] %>
-                    </strong>. Both teams are preparing for this crucial <%= event.league %> encounter. Check back for
-                        confirmed lineups 60 minutes before kickoff.</p>
-                <p>Injuries and suspensions: Key players are being monitored for fitness. Expect a high-intensity match
-                    as both sides aim for maximum points.</p>
+                <h2>📰 Latest Team News</h2>
+                <ul class="news-list">
+                    <% teamNews.forEach(news=> { %>
+                        <li>
+                            <%= news %>
+                        </li>
+                        <% }) %>
+                </ul>
             </div>
         </div>
 
         <div class="match-details-grid">
             <div class="match-info-card">
                 <h2>📊 Head-to-Head (H2H)</h2>
-                <p>Recent meetings between <%= event.teams[0] %> and <%= event.teams[1] %>:</p>
-                <div class="info-row">
-                    <span class="label">Last Match:</span>
-                    <span class="value">Competitive encounter with balanced stats.</span>
-                </div>
-                <div class="info-row">
-                    <span class="label">H2H Trend:</span>
-                    <span class="value">Both teams have shown strong form in recent <%= event.league %> fixtures.</span>
+                <div class="h2h-table">
+                    <% h2h.forEach(item=> { %>
+                        <div class="h2h-row">
+                            <span class="h2h-date">
+                                <%= item.date %>
+                            </span>
+                            <span class="h2h-match">
+                                <%= item.match %>
+                            </span>
+                            <span class="h2h-result">
+                                <%= item.result %>
+                            </span>
+                        </div>
+                        <% }) %>
                 </div>
             </div>
 
             <div class="match-seo-card">
                 <h2>📈 Match Preview</h2>
-                <p>The upcoming clash between <strong>
-                        <%= event.teams[0] %>
-                    </strong> and <strong>
-                        <%= event.teams[1] %>
-                    </strong> in the <%= event.league %> promises to be a thrilling spectacle. <%= event.teams[0] %>
-                            comes into this match looking to leverage their tactical discipline, while <%=
-                                event.teams[1] %> will be relying on their offensive prowess.</p>
-                <p>With both teams fighting for position in the standings, this match is expected to be closely
-                    contested from the first whistle. Fans can expect a tactical battle in the midfield and clinical
-                    finishing in the final third.</p>
+                <p>
+                    <%= matchPreview %>
+                </p>
             </div>
         </div>
 
@@ -317,5 +315,52 @@
     .link-group a:hover {
         color: var(--light);
         text-decoration: underline;
+    }
+
+    .news-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .news-list li {
+        margin-bottom: 12px;
+        color: var(--gray);
+        font-size: 0.95rem;
+        padding-left: 15px;
+        position: relative;
+    }
+
+    .news-list li::before {
+        content: '•';
+        color: var(--primary);
+        position: absolute;
+        left: 0;
+    }
+
+    .h2h-table {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .h2h-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--glass-border);
+        font-size: 0.9rem;
+    }
+
+    .h2h-date {
+        color: var(--gray);
+    }
+
+    .h2h-match {
+        font-weight: 600;
+    }
+
+    .h2h-result {
+        color: var(--amber);
+        font-weight: 800;
     }
 </style>

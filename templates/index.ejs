@@ -11,7 +11,8 @@
     </div>
 </section>
 
-<div id="filter-engine-root" data-events='<%- JSON.stringify(events) %>' data-sport="all" data-homepage="true">
+<div id="filter-engine-root" data-events="<%= JSON.stringify(events).replace(/" /g, '&quot;' ) %>" data-sport="all"
+    data-homepage="true">
     <%- filterHtml %>
 </div>
 
