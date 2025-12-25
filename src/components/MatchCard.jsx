@@ -2,7 +2,7 @@ import React from 'react';
 import Countdown from './Countdown';
 
 const FALLBACK_IMAGES = {
-    'soccer': 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop',
+    'football': 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop',
     'nba': 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=800&auto=format&fit=crop',
     'nfl': 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=800&auto=format&fit=crop',
     'boxing': 'https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=800&auto=format&fit=crop',
@@ -12,9 +12,6 @@ const FALLBACK_IMAGES = {
 
 export default function MatchCard({ event }) {
     const { id, sport, league, teams, startTime, status, thumbnail, url } = event;
-
-    const isLive = status === 'live';
-    const isUpcoming = status === 'upcoming';
 
     const thumb = thumbnail || FALLBACK_IMAGES[sport] || FALLBACK_IMAGES.default;
 
@@ -27,9 +24,6 @@ export default function MatchCard({ event }) {
                     alt={`${teams.join(' vs ')} live stream thumbnail`}
                     loading="lazy"
                 />
-                <div className="match-status-overlay">
-                    {isLive && <span className="status-badge live">LIVE NOW</span>}
-                </div>
             </div>
 
             <div className="match-card-content">
@@ -46,13 +40,7 @@ export default function MatchCard({ event }) {
                 </div>
 
                 <div className="match-card-footer">
-                    {isUpcoming && (
-                        <div className="status-badge upcoming">
-                            <span>⏱️ Starts in </span>
-                            <Countdown startTime={startTime} />
-                        </div>
-                    )}
-                    {isLive && <span className="status-badge live">LIVE NOW</span>}
+                    <Countdown startTime={startTime} />
                 </div>
             </div>
         </a>

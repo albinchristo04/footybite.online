@@ -6,67 +6,102 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
     const [selectedDate, setSelectedDate] = useState('today');
     const [selectedLeague, setSelectedLeague] = useState('all');
 
-    // Sync with URL on mount (only for category pages)
+    // Sync with URL on mount
     useEffect(() => {
-        if (isHomepage) return;
         const params = new URLSearchParams(window.location.search);
-        const sport = params.get('sport');
-        const league = params.get('league');
         const date = params.get('date');
-        if (sport) setSelectedSport(sport);
-        if (league) setSelectedLeague(league);
+        const league = params.get('league');
         if (date) setSelectedDate(date);
-    }, [isHomepage]);
+        if (league) setSelectedLeague(league);
+    }, []);
 
-    // Update URL when filters change (only for category pages)
+    // Update URL when filters change
     useEffect(() => {
         if (isHomepage) return;
         const url = new URL(window.location);
-        if (selectedSport !== 'all') url.searchParams.set('sport', selectedSport);
-        else url.searchParams.delete('sport');
+        if (selectedDate !== 'today') url.searchParams.set('date', selectedDate);
+        else url.searchParams.delete('date');
 
         if (selectedLeague !== 'all') url.searchParams.set('league', selectedLeague);
         else url.searchParams.delete('league');
 
-        if (selectedDate !== 'today') url.searchParams.set('date', selectedDate);
-        else url.searchParams.delete('date');
-
         window.history.pushState({}, '', url);
-    }, [selectedSport, selectedLeague, selectedDate, isHomepage]);
+    }, [selectedDate, selectedLeague, isHomepage]);
 
     const leagues = useMemo(() => {
-        if (isHomepage) return [];
-        const filtered = selectedSport === 'all'
-            ? initialEvents
-            : initialEvents.filter(e => e.sport === selectedSport);
-
+        const filtered = initialEvents.filter(e => e.sport === initialSport || initialSport === 'all');
         const uniqueLeagues = [...new Set(filtered.map(e => e.league).filter(Boolean))];
         return uniqueLeagues.sort();
-    }, [selectedSport, initialEvents, isHomepage]);
+    }, [initialEvents, initialSport]);
+
+    const filteredEvents = useMemo(() => {
+        return initialEvents.filter(event => {
+            // 1. Sport Filter (already handled by initialEvents for category pages)
+            if (initialSport !== 'all' && event.sport !== initialSport) return false;
+
+            // 2. Date Filter
+            const eventDate = new Date(event.startTime);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const nextWeek = new Date(today);
+            nextWeek.setDate(nextWeek.getDate() + 7);
+
+            const eventDay = new Date(eventDate);
+            eventDay.setHours(0, 0, 0, 0);
+
+            if (selectedDate === 'today') {
+                if (eventDay.getTime() !== today.getTime()) return false;
+            } else if (selectedDate === 'tomorrow') {
+                if (eventDay.getTime() !== tomorrow.getTime()) return false;
+            } else if (selectedDate === 'week') {
+                if (eventDay < today || eventDay > nextWeek) return false;
+            }
+
+            // 3. League Filter
+            if (selectedLeague !== 'all' && event.league !== selectedLeague) return false;
+
+            // 4. No finished matches
+            if (event.status === 'finished') return false;
+
+            return true;
+        }).sort((a, b) => b.popularityScore - a.popularityScore);
+    }, [initialEvents, initialSport, selectedDate, selectedLeague]);
 
     const sections = useMemo(() => {
         if (!isHomepage) {
-            const filtered = initialEvents.filter(event => {
-                if (selectedSport !== 'all' && event.sport !== selectedSport) return false;
-                if (selectedLeague !== 'all' && event.league !== selectedLeague) return false;
-
-                const eventDate = new Date(event.startTime);
+            // Category Page Layout
+            const popular = filteredEvents.filter(e => e.popularityScore >= 50);
+            const live = filteredEvents.filter(e => e.status === 'live');
+            const upcomingToday = filteredEvents.filter(e => {
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
-                const tomorrow = new Date(today);
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                const nextWeek = new Date(today);
-                nextWeek.setDate(nextWeek.getDate() + 7);
-
-                const eventDay = new Date(eventDate);
+                const eventDay = new Date(e.startTime);
                 eventDay.setHours(0, 0, 0, 0);
-
-                if (selectedDate === 'today') return eventDay.getTime() === today.getTime();
-                if (selectedDate === 'tomorrow') return eventDay.getTime() === tomorrow.getTime();
-                if (selectedDate === 'week') return eventDay >= today && eventDay <= nextWeek;
-                return true;
+                return e.status === 'upcoming' && eventDay.getTime() === today.getTime();
             });
-            return [{ title: 'Matches', events: filtered }];
+            const tomorrowSection = filteredEvents.filter(e => {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                tomorrow.setHours(0, 0, 0, 0);
+                const eventDay = new Date(e.startTime);
+                eventDay.setHours(0, 0, 0, 0);
+                return eventDay.getTime() === tomorrow.getTime();
+            });
+
+            const result = [];
+            if (popular.length > 0) result.push({ title: '🔥 Popular Matches', events: popular });
+            if (live.length > 0) result.push({ title: '🔴 Live Football Matches', events: live });
+            if (upcomingToday.length > 0) result.push({ title: '⏱️ Upcoming Today', events: upcomingToday });
+            if (tomorrowSection.length > 0) result.push({ title: '📅 Tomorrow', events: tomorrowSection });
+
+            // If no sections matched but we have events (e.g. "This Week" filter), show them all
+            if (result.length === 0 && filteredEvents.length > 0) {
+                result.push({ title: 'Matches', events: filteredEvents });
+            }
+
+            return result;
         }
 
         // Homepage Logic: Group by Status then Sport
@@ -74,7 +109,7 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
         const upcoming = initialEvents.filter(e => e.status === 'upcoming' && (e.startTime - Date.now()) < 24 * 60 * 60 * 1000);
 
         const sports = [
-            { id: 'soccer', name: 'Soccer', icon: '⚽' },
+            { id: 'football', name: 'Football', icon: '⚽' },
             { id: 'nfl', name: 'NFL', icon: '🏈' },
             { id: 'nba', name: 'NBA', icon: '🏀' },
             { id: 'boxing', name: 'Boxing / UFC', icon: '🥊' },
@@ -83,15 +118,15 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
 
         const sportSections = sports.map(s => ({
             title: `${s.icon} ${s.name}`,
-            events: initialEvents.filter(e => e.sport === s.id && e.status !== 'finished')
+            events: initialEvents.filter(e => e.sport === s.id && e.status !== 'finished').sort((a, b) => b.popularityScore - a.popularityScore)
         }));
 
         return [
-            { title: '🔴 LIVE NOW', events: live },
-            { title: '⏱️ UPCOMING (Next 24h)', events: upcoming },
+            { title: '🔴 LIVE NOW', events: live.sort((a, b) => b.popularityScore - a.popularityScore) },
+            { title: '⏱️ UPCOMING (Next 24h)', events: upcoming.sort((a, b) => b.popularityScore - a.popularityScore) },
             ...sportSections
         ];
-    }, [initialEvents, isHomepage, selectedSport, selectedDate, selectedLeague]);
+    }, [filteredEvents, initialEvents, isHomepage]);
 
     return (
         <div className="container">
@@ -117,21 +152,24 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
 
             <div className="sections-container">
                 {sections.map(section => (
-                    <div key={section.title} className="match-section">
-                        <h2 className="section-title">{section.title}</h2>
-                        <div className="match-grid">
-                            {section.events.length > 0 ? (
-                                section.events.map(event => (
+                    section.events.length > 0 && (
+                        <div key={section.title} className="match-section">
+                            <h2 className="section-title">{section.title}</h2>
+                            <div className="match-grid">
+                                {section.events.map(event => (
                                     <MatchCard key={event.id} event={event} />
-                                ))
-                            ) : (
-                                <div className="empty-state-small">
-                                    <p>No {section.title.toLowerCase()} right now</p>
-                                </div>
-                            )}
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )
                 ))}
+                {sections.every(s => s.events.length === 0) && (
+                    <div className="empty-state">
+                        <h3>No matches found</h3>
+                        <p>Try adjusting your filters or checking back later.</p>
+                        <button className="reset-btn" onClick={() => { setSelectedDate('today'); setSelectedLeague('all'); }}>Reset All Filters</button>
+                    </div>
+                )}
             </div>
         </div>
     );
