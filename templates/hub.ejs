@@ -1,0 +1,217 @@
+<section class="hero">
+    <div class="container">
+        <h1>
+            <%= keyword %> LIVE Stream Free
+        </h1>
+        <p>Your ultimate destination for <%= keyword %>. Watch high-quality streams for free on FootyBite.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="hub-content-wrapper">
+        <div class="hub-main-content">
+            <article class="seo-article">
+                <h2>The Best Way to Watch <%= keyword %> Today</h2>
+                <p>Are you looking for a reliable <strong>
+                        <%= keyword %>
+                    </strong>? You've come to the right place. FootyBite (often searched as Footybyte or Fotybyte) is
+                    the world's leading platform for sports fans who want to watch their favorite games without paying
+                    for expensive cable subscriptions.</p>
+
+                <p>Whether it's a high-stakes football match, an intense NBA game, or a thrilling F1 race, we provide
+                    multiple high-definition links to ensure you never miss a second of the action. Our platform is
+                    optimized for all devices, meaning you can watch <%= keyword %> on your phone, tablet, or desktop
+                        with ease.</p>
+
+                <h3>Why Choose FootyBite for <%= keyword %>?</h3>
+                <p>There are many streaming sites out there, but FootyBite stands out for several reasons. First and
+                    foremost is our commitment to quality. We aggregate links from the most trusted sources on the
+                    internet, including Reddit soccer streams and other popular communities, to bring you the best
+                    possible viewing experience.</p>
+
+                <ul>
+                    <li><strong>Free Access:</strong> No hidden fees, no subscriptions, no credit cards. Just free
+                        sports.</li>
+                    <li><strong>HD Quality:</strong> We prioritize 1080p and 720p streams for crystal-clear visuals.
+                    </li>
+                    <li><strong>Mobile Optimized:</strong> Our site is fast and responsive on all mobile browsers.</li>
+                    <li><strong>Real-Time Updates:</strong> Links are updated every hour to ensure they are always
+                        working.</li>
+                </ul>
+
+                <h3>How to Watch <%= keyword %> Safely</h3>
+                <p>When searching for a <%= keyword %>, safety is paramount. We recommend using a modern browser with
+                        ad-blocking capabilities to ensure a smooth experience. Our team manually verifies links to
+                        filter out low-quality or broken streams, providing you with a curated list of the best
+                        available options.</p>
+
+                <p>To get started, simply scroll through our live feed or use the category navigation to find the
+                    specific match you're looking for. Once you find your game, click the link, and you'll be taken
+                    directly to the player. It's that simple!</p>
+
+                <h3>Frequently Asked Questions about <%= keyword %>
+                </h3>
+                <div class="hub-faq">
+                    <div class="faq-item">
+                        <h4>Is <%= keyword %> really free on FootyBite?</h4>
+                        <p>Yes! FootyBite is a free link aggregation service. We do not charge users for access to any
+                            of the sports streams we list.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Do I need to create an account?</h4>
+                        <p>No registration is required. We value your privacy and want to make the process as fast as
+                            possible.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What if a stream stops working?</h4>
+                        <p>We provide multiple mirror links for every match. If one link goes down, simply try another
+                            one from the list.</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <aside class="hub-sidebar">
+            <div class="sidebar-card">
+                <h3>🔥 Trending Now</h3>
+                <div class="mini-match-list">
+                    <% events.forEach(event=> { %>
+                        <a href="/<%= event.url %>" class="mini-match-item">
+                            <span class="mini-sport">
+                                <%= event.sport.toUpperCase() %>
+                            </span>
+                            <span class="mini-name">
+                                <%= event.name %>
+                            </span>
+                        </a>
+                        <% }) %>
+                </div>
+            </div>
+            <div class="sidebar-card">
+                <h3>🌍 Popular Hubs</h3>
+                <div class="hub-links">
+                    <a href="/live-streams/">Live Streams</a>
+                    <a href="/football-live-tv/">Football Live TV</a>
+                    <a href="/nba-live-stream/">NBA Live Stream</a>
+                    <a href="/nfl-live-stream/">NFL Live Stream</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<style>
+    .hub-content-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        margin: 4rem 0;
+    }
+
+    .seo-article h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--light);
+    }
+
+    .seo-article h3 {
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+    }
+
+    .seo-article p {
+        margin-bottom: 1.5rem;
+        color: var(--gray);
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .seo-article ul {
+        margin-bottom: 2rem;
+        padding-left: 20px;
+    }
+
+    .seo-article li {
+        margin-bottom: 10px;
+        color: var(--gray);
+        font-size: 1.1rem;
+    }
+
+    .hub-faq {
+        margin-top: 3rem;
+        background: var(--glass);
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid var(--glass-border);
+    }
+
+    .hub-faq .faq-item {
+        margin-bottom: 20px;
+    }
+
+    .hub-faq h4 {
+        color: var(--light);
+        margin-bottom: 8px;
+    }
+
+    .sidebar-card {
+        background: var(--glass);
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid var(--glass-border);
+        margin-bottom: 30px;
+    }
+
+    .sidebar-card h3 {
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+    }
+
+    .mini-match-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .mini-match-item {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .mini-match-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .mini-sport {
+        font-size: 0.7rem;
+        color: var(--primary);
+        font-weight: 800;
+    }
+
+    .mini-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .hub-links a {
+        display: block;
+        padding: 10px;
+        color: var(--gray);
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .hub-links a:hover {
+        color: var(--primary);
+    }
+
+    @media (max-width: 992px) {
+        .hub-content-wrapper {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

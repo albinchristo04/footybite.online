@@ -39,3 +39,7 @@ jobs:
           projectName: footybite-online
           directory: dist
           branch: main
+
+      - name: Ping Google Sitemap
+        run: |
+          curl "https://www.google.com/ping?sitemap=https://footybite.online/sitemap-index.xml"

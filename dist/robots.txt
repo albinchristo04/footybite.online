@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://footybite.online/sitemap.xml
+Sitemap: https://footybite.online/sitemap-index.xml
 Disallow: /*?
