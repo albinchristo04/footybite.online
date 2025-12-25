@@ -431,8 +431,233 @@ header {
     border: none;
 }
 
+/* Match Page Styles */
+.match-page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+}
+
+.cinematic-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    filter: blur(60px) brightness(0.3);
+    opacity: 0.6;
+    z-index: -1;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.match-main {
+    padding-top: 3rem;
+}
+
+.match-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.match-meta-top {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.sport-label {
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.league-label {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+.live-indicator {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    animation: pulse-red 1.5s infinite;
+}
+
+.match-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.match-time-info {
+    font-size: 1.1rem;
+    color: var(--gray);
+}
+
+.time-badge {
+    background: var(--glass);
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+}
+
+/* Player Section */
+.player-section {
+    margin-bottom: 4rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: #000;
+}
+
+.player-aspect-ratio {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9 */
+}
+
+.player-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.player-controls-hint {
+    padding: 15px;
+    background: #0a0a0a;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gray);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Match Details Grid */
+.match-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 4rem;
+}
+
+.match-info-card,
+.match-seo-card {
+    background: var(--glass);
+    padding: 30px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+}
+
+.match-info-card h2,
+.match-seo-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--light);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row .label {
+    color: var(--gray);
+    font-weight: 600;
+}
+
+.info-row .value {
+    color: var(--light);
+    font-weight: 700;
+}
+
+.value.status-live {
+    color: var(--primary);
+}
+
+.value.status-upcoming {
+    color: var(--amber);
+}
+
+.match-seo-card p {
+    color: var(--gray);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* SEO Content Bottom */
+.seo-content-bottom {
+    margin-top: 4rem;
+}
+
+.seo-content-bottom h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.faq-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--light);
+}
+
+.faq-item p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
 /* Responsive */
+@media (max-width: 992px) {
+    .match-title {
+        font-size: 2.5rem;
+    }
+
+    .match-details-grid,
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
+    .match-title {
+        font-size: 2rem;
+    }
+
     .hero h1 {
         font-size: 2.5rem;
     }
