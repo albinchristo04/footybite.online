@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Combat Sports Live Streams | Watch Combat Sports Online - Footybite</title>
+    <title>
+        Free Combat Sports Live Streams | Watch Combat Sports Online - Footybite
+    </title>
     <meta name="description" content="Watch the best Combat Sports live streams for free. Footybite coverage of all Combat Sports events. Fotybyte and Footybyte official site.">
     <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="canonical" href="https://footybite.online/combat-sports/">
-    
+
     <!-- Schema.org -->
     <script type="application/ld+json">
         {"@context":"https://schema.org","@type":"WebPage","name":"Combat Sports Live Streams","url":"https://footybite.online/combat-sports/"}
     </script>
 </head>
+
 <body>
     <header>
         <div class="container nav-content">
             <a href="/" class="logo">FOOTYBITE</a>
             <nav class="nav-links">
-                <a href="/soccer/">Soccer</a>
-                <a href="/american-football/">NFL</a>
-                <a href="/basketball/">NBA</a>
-                <a href="/fighting/">Boxing/UFC</a>
-                <a href="/live-streams/">All Streams</a>
+                <a href="/soccer/" data-sport="soccer">Soccer</a>
+                <a href="/american-football/" data-sport="american-football">NFL</a>
+                <a href="/basketball/" data-sport="basketball">NBA</a>
+                <a href="/fighting/" data-sport="fighting">Boxing/UFC</a>
+                <a href="/formula-1/" data-sport="formula-1">F1</a>
+                <a href="/live-streams/" data-sport="all">All Streams</a>
             </nav>
         </div>
     </header>
@@ -39,26 +44,11 @@
     </div>
 </section>
 
-<section class="container">
-    <div class="match-grid">
-        
-            <a href="/combat-sports/2026-01-25/ufc-324-gaethje-vs-pimblett/" class="match-card">
-                <span class="category">
-                    Combat Sports
-                </span>
-                <h3>
-                    UFC 324: Gaethje vs. Pimblett
-                </h3>
-                <div class="match-info">
-                    <span>
-                        January 25th, 2026 5:30 AM
-                    </span>
-                    
-                </div>
-            </a>
-            
-    </div>
+<div id="filter-engine-root" data-events='[{"id":14284,"name":"UFC 324: Gaethje vs. Pimblett","tag":"Paramount+","poster":"https://old.ppv.to/assets/thumb/0009785da1e175b7995e8c25313f5404-thumbnail.jpg","blurhash":"LGFOKAxav0V?L4$*R#V?8^WCpdof","colors":["#eaad9a","#b26064"],"uri_name":"ufc-324","starts_at":1769299200,"ends_at":1769328000,"always_live":0,"locale":"en","category_name":"Combat Sports","iframe":"https://pooembed.top/embed/ufc-324","viewers":"0","substreams":[],"url":"combat-sports/2026-01-25/ufc-324-gaethje-vs-pimblett/","catSlug":"combat-sports","dateStr":"2026-01-25","time":"January 25th, 2026 5:30 AM"}]' data-sport="combat-sports">
+        <div class="container"><div class="filters-container"><div class="tabs"><div class="tab active">Today</div><div class="tab ">Tomorrow</div><div class="tab ">This Week</div></div><div class="filter-row"><div class="select-wrapper"><select><option value="all">All Sports</option><option value="soccer">Soccer</option><option value="basketball">NBA</option><option value="american-football">NFL</option><option value="fighting">Boxing/UFC</option><option value="formula-1">Formula 1</option></select></div><div class="select-wrapper"><select><option value="all" selected="">All Leagues</option><option value="Paramount+">Paramount+</option></select></div></div></div><div class="match-grid"><div style="text-align:center;grid-column:1/-1;padding:4rem;color:var(--gray)">No matches found for the selected filters.</div></div></div>
+</div>
 
+<section class="container">
     <div class="seo-content">
         <h2>Watch Combat Sports Online Free</h2>
         <p>Footybite is the premier destination for Combat Sports fans. We offer a wide range of free Combat Sports streams, from major leagues to international tournaments. Our goal is to provide a
@@ -66,6 +56,8 @@
         <p>Whether you call it Footybite, Fotybyte, or Footybyte, you can trust us to deliver the best Combat Sports live streams available on the internet. Bookmark this page to stay updated with all upcoming Combat Sports matches.</p>
     </div>
 </section>
+
+<script src="/assets/client.iife.js"></script>
     </main>
 
     <footer>
@@ -79,5 +71,20 @@
             <p>&copy; 2025 Footybite Online. All rights reserved. Footybite, Fotybyte, Footybyte official site.</p>
         </div>
     </footer>
+
+    <script>
+        // Active link highlighting
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+        // Optional: Intercept nav clicks for SPA-like filtering if on home/category pages
+        // This is handled by the React component if we use query params,
+        // but since we have static category pages, we let the browser navigate for SEO.
+    </script>
 </body>
+
 </html>

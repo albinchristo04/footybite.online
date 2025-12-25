@@ -1,9 +1,16 @@
+require('esbuild-register');
 const axios = require('axios');
 const fs = require('fs-extra');
 const ejs = require('ejs');
 const path = require('path');
 const slugify = require('slugify');
 const { format, isAfter, isBefore, addHours } = require('date-fns');
+const React = require('react');
+const { renderToString } = require('react-dom/server');
+
+// Import React components
+const FilterEngine = require('./src/components/FilterEngine').default;
+const MatchCard = require('./src/components/MatchCard').default;
 
 const DATA_URL = 'https://raw.githubusercontent.com/albinchristo04/ptv/refs/heads/main/events.json';
 const DIST_DIR = path.join(__dirname, 'dist');
@@ -13,10 +20,10 @@ const DOMAIN = 'https://footybite.online';
 async function generate() {
     console.log('Starting generation...');
 
-    // Ensure dist directory exists and is empty
-    await fs.emptyDir(DIST_DIR);
+    // Ensure dist directory exists
+    await fs.ensureDir(DIST_DIR);
 
-    // Copy CSS
+    // Copy static assets
     await fs.copy(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
 
     // Fetch data
@@ -44,7 +51,6 @@ async function generate() {
                 catSlug,
                 dateStr,
                 time: format(eventDate, 'PPP p'),
-                isLive: isBefore(new Date(), addHours(eventDate, 3)) && isAfter(new Date(), eventDate),
                 category_name: cat.category
             };
 
@@ -70,6 +76,11 @@ async function generate() {
 
         // Generate Category Page
         const catUrl = `${catSlug}/`;
+        const filterHtml = renderToString(React.createElement(FilterEngine, {
+            initialEvents: catEvents,
+            initialSport: catSlug
+        }));
+
         await renderPage(
             path.join(DIST_DIR, catUrl, 'index.html'),
             'category',
@@ -78,49 +89,21 @@ async function generate() {
                 description: `Watch the best ${cat.category} live streams for free. Footybite coverage of all ${cat.category} events. Fotybyte and Footybyte official site.`,
                 canonical: `${DOMAIN}/${catUrl}`,
                 categoryName: cat.category,
+                catSlug: catSlug,
                 events: catEvents,
+                filterHtml,
                 schema: generateCategorySchema(cat.category, catUrl)
             }
         );
         sitemapEntries.push(`${DOMAIN}/${catUrl}`);
-
-        // Generate Date Pages (Optional, but good for SEO)
-        const dates = [...new Set(catEvents.map(e => e.dateStr))];
-        for (const d of dates) {
-            const dateUrl = `${catSlug}/${d}/`;
-            const dateEvents = catEvents.filter(e => e.dateStr === d);
-            await renderPage(
-                path.join(DIST_DIR, dateUrl, 'index.html'),
-                'category',
-                {
-                    title: `${cat.category} Streams for ${d} | Live ${cat.category} Today`,
-                    description: `Watch ${cat.category} live streams for ${d}. Free ${cat.category} online on Footybite, Fotybyte, and Footybyte.`,
-                    canonical: `${DOMAIN}/${dateUrl}`,
-                    categoryName: `${cat.category} (${d})`,
-                    events: dateEvents,
-                    schema: generateCategorySchema(`${cat.category} ${d}`, dateUrl)
-                }
-            );
-            sitemapEntries.push(`${DOMAIN}/${dateUrl}`);
-        }
     }
 
-    // Generate Live Streams Hub
-    await renderPage(
-        path.join(DIST_DIR, 'live-streams', 'index.html'),
-        'category',
-        {
-            title: 'Free Live Sports Streaming | Soccer, NFL, NBA Streams - Footybite',
-            description: 'Watch all live sports streams for free on Footybite. The ultimate hub for soccer streams, NFL, NBA, and more. Fotybyte and Footybyte official site.',
-            canonical: `${DOMAIN}/live-streams/`,
-            categoryName: 'All Live Streams',
-            events: allEvents,
-            schema: generateCategorySchema('All Live Streams', 'live-streams/')
-        }
-    );
-    sitemapEntries.push(`${DOMAIN}/live-streams/`);
-
     // Generate Homepage
+    const homeFilterHtml = renderToString(React.createElement(FilterEngine, {
+        initialEvents: allEvents,
+        initialSport: 'all'
+    }));
+
     await renderPage(
         path.join(DIST_DIR, 'index.html'),
         'index',
@@ -128,7 +111,8 @@ async function generate() {
             title: 'Footybite | Free Live Sports Streaming | Soccer Streams, NFL, NBA',
             description: 'Footybite (Fotybyte) is the best place for free soccer streams, NFL, NBA, and live sports streaming. Watch Footybyte official streams online.',
             canonical: `${DOMAIN}/`,
-            events: allEvents.slice(0, 50), // Show top 50 on home
+            events: allEvents,
+            filterHtml: homeFilterHtml,
             schema: generateHomeSchema()
         }
     );

@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Darts Live Streams | Watch Darts Online - Footybite</title>
+    <title>
+        Free Darts Live Streams | Watch Darts Online - Footybite
+    </title>
     <meta name="description" content="Watch the best Darts live streams for free. Footybite coverage of all Darts events. Fotybyte and Footybyte official site.">
     <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="canonical" href="https://footybite.online/darts/">
-    
+
     <!-- Schema.org -->
     <script type="application/ld+json">
         {"@context":"https://schema.org","@type":"WebPage","name":"Darts Live Streams","url":"https://footybite.online/darts/"}
     </script>
 </head>
+
 <body>
     <header>
         <div class="container nav-content">
             <a href="/" class="logo">FOOTYBITE</a>
             <nav class="nav-links">
-                <a href="/soccer/">Soccer</a>
-                <a href="/american-football/">NFL</a>
-                <a href="/basketball/">NBA</a>
-                <a href="/fighting/">Boxing/UFC</a>
-                <a href="/live-streams/">All Streams</a>
+                <a href="/soccer/" data-sport="soccer">Soccer</a>
+                <a href="/american-football/" data-sport="american-football">NFL</a>
+                <a href="/basketball/" data-sport="basketball">NBA</a>
+                <a href="/fighting/" data-sport="fighting">Boxing/UFC</a>
+                <a href="/formula-1/" data-sport="formula-1">F1</a>
+                <a href="/live-streams/" data-sport="all">All Streams</a>
             </nav>
         </div>
     </header>
@@ -39,26 +44,11 @@
     </div>
 </section>
 
-<section class="container">
-    <div class="match-grid">
-        
-            <a href="/darts/2025-12-27/world-darts-championship/" class="match-card">
-                <span class="category">
-                    Darts
-                </span>
-                <h3>
-                    World Darts Championship
-                </h3>
-                <div class="match-info">
-                    <span>
-                        December 27th, 2025 6:00 PM
-                    </span>
-                    
-                </div>
-            </a>
-            
-    </div>
+<div id="filter-engine-root" data-events='[{"id":14899,"name":"World Darts Championship","tag":"PDC Darts","poster":"https://old.ppv.to/assets/thumb/4e218218e0ba40cac4b0d2867873c96a-thumbnail.jpg","blurhash":"LABfz^PB9Zot~4o?Sws;00sDxuWE","colors":["#103a9c","#131643"],"uri_name":"2025-world-darts-championship","starts_at":1766838600,"ends_at":1766878200,"always_live":0,"locale":"en","category_name":"Darts","iframe":"https://pooembed.top/embed/2025-world-darts-championship","viewers":"22","substreams":[],"url":"darts/2025-12-27/world-darts-championship/","catSlug":"darts","dateStr":"2025-12-27","time":"December 27th, 2025 6:00 PM"}]' data-sport="darts">
+        <div class="container"><div class="filters-container"><div class="tabs"><div class="tab active">Today</div><div class="tab ">Tomorrow</div><div class="tab ">This Week</div></div><div class="filter-row"><div class="select-wrapper"><select><option value="all">All Sports</option><option value="soccer">Soccer</option><option value="basketball">NBA</option><option value="american-football">NFL</option><option value="fighting">Boxing/UFC</option><option value="formula-1">Formula 1</option></select></div><div class="select-wrapper"><select><option value="all" selected="">All Leagues</option><option value="PDC Darts">PDC Darts</option></select></div></div></div><div class="match-grid"><div style="text-align:center;grid-column:1/-1;padding:4rem;color:var(--gray)">No matches found for the selected filters.</div></div></div>
+</div>
 
+<section class="container">
     <div class="seo-content">
         <h2>Watch Darts Online Free</h2>
         <p>Footybite is the premier destination for Darts fans. We offer a wide range of free Darts streams, from major leagues to international tournaments. Our goal is to provide a
@@ -66,6 +56,8 @@
         <p>Whether you call it Footybite, Fotybyte, or Footybyte, you can trust us to deliver the best Darts live streams available on the internet. Bookmark this page to stay updated with all upcoming Darts matches.</p>
     </div>
 </section>
+
+<script src="/assets/client.iife.js"></script>
     </main>
 
     <footer>
@@ -79,5 +71,20 @@
             <p>&copy; 2025 Footybite Online. All rights reserved. Footybite, Fotybyte, Footybyte official site.</p>
         </div>
     </footer>
+
+    <script>
+        // Active link highlighting
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+        // Optional: Intercept nav clicks for SPA-like filtering if on home/category pages
+        // This is handled by the React component if we use query params,
+        // but since we have static category pages, we let the browser navigate for SEO.
+    </script>
 </body>
+
 </html>

@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UFC 324: Gaethje vs. Pimblett Live Stream - Watch Combat Sports Online Free</title>
+    <title>
+        UFC 324: Gaethje vs. Pimblett Live Stream - Watch Combat Sports Online Free
+    </title>
     <meta name="description" content="Watch UFC 324: Gaethje vs. Pimblett free live stream online. Footybite coverage of Combat Sports. Fotybyte and Footybyte official streams.">
     <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="canonical" href="https://footybite.online/combat-sports/2026-01-25/ufc-324-gaethje-vs-pimblett/">
-    
+
     <!-- Schema.org -->
     <script type="application/ld+json">
         {"@context":"https://schema.org","@type":"SportsEvent","name":"UFC 324: Gaethje vs. Pimblett","startDate":"2026-01-25T00:00:00.000Z","description":"Watch UFC 324: Gaethje vs. Pimblett live stream on Footybite.","location":{"@type":"Place","name":"Online"},"offers":{"@type":"Offer","url":"https://footybite.online/combat-sports/2026-01-25/ufc-324-gaethje-vs-pimblett/","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock"}}
     </script>
 </head>
+
 <body>
     <header>
         <div class="container nav-content">
             <a href="/" class="logo">FOOTYBITE</a>
             <nav class="nav-links">
-                <a href="/soccer/">Soccer</a>
-                <a href="/american-football/">NFL</a>
-                <a href="/basketball/">NBA</a>
-                <a href="/fighting/">Boxing/UFC</a>
-                <a href="/live-streams/">All Streams</a>
+                <a href="/soccer/" data-sport="soccer">Soccer</a>
+                <a href="/american-football/" data-sport="american-football">NFL</a>
+                <a href="/basketball/" data-sport="basketball">NBA</a>
+                <a href="/fighting/" data-sport="fighting">Boxing/UFC</a>
+                <a href="/formula-1/" data-sport="formula-1">F1</a>
+                <a href="/live-streams/" data-sport="all">All Streams</a>
             </nav>
         </div>
     </header>
@@ -98,5 +103,20 @@
             <p>&copy; 2025 Footybite Online. All rights reserved. Footybite, Fotybyte, Footybyte official site.</p>
         </div>
     </footer>
+
+    <script>
+        // Active link highlighting
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+        // Optional: Intercept nav clicks for SPA-like filtering if on home/category pages
+        // This is handled by the React component if we use query params,
+        // but since we have static category pages, we let the browser navigate for SEO.
+    </script>
 </body>
+
 </html>

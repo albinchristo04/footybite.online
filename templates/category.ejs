@@ -6,28 +6,12 @@
     </div>
 </section>
 
-<section class="container">
-    <div class="match-grid">
-        <% events.forEach(event=> { %>
-            <a href="/<%= event.url %>" class="match-card">
-                <span class="category">
-                    <%= event.category_name %>
-                </span>
-                <h3>
-                    <%= event.name %>
-                </h3>
-                <div class="match-info">
-                    <span>
-                        <%= event.time %>
-                    </span>
-                    <% if (event.isLive) { %>
-                        <span class="live-badge">LIVE</span>
-                        <% } %>
-                </div>
-            </a>
-            <% }) %>
-    </div>
+<div id="filter-engine-root" data-events='<%- JSON.stringify(events).replace(/' /g, "&#39;" ) %>' data-sport="<%=
+        catSlug %>">
+        <%- filterHtml %>
+</div>
 
+<section class="container">
     <div class="seo-content">
         <h2>Watch <%= categoryName %> Online Free</h2>
         <p>Footybite is the premier destination for <%= categoryName %> fans. We offer a wide range of free <%=
@@ -38,3 +22,5 @@
                     categoryName %> matches.</p>
     </div>
 </section>
+
+<script src="/assets/client.iife.js"></script>
