@@ -1,0 +1,47 @@
+<section class="hero">
+    <div class="container">
+        <h1>Free Live Sports Streaming</h1>
+        <p>Watch Footybite, Fotybyte, and Footybyte live streams. The best place for free soccer streams, NFL, NBA, and
+            more.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="match-grid">
+        <% events.forEach(event=> { %>
+            <a href="/<%= event.url %>" class="match-card">
+                <span class="category">
+                    <%= event.category_name %>
+                </span>
+                <h3>
+                    <%= event.name %>
+                </h3>
+                <div class="match-info">
+                    <span>
+                        <%= event.time %>
+                    </span>
+                    <% if (event.isLive) { %>
+                        <span class="live-badge">LIVE</span>
+                        <% } %>
+                </div>
+            </a>
+            <% }) %>
+    </div>
+
+    <div class="seo-content">
+        <h2>Footybite: Your Ultimate Destination for Free Soccer Streams</h2>
+        <p>Welcome to the official Footybite (also known as Fotybyte or Footybyte) platform. We provide the highest
+            quality live streams for all major sporting events. Whether you are looking for soccer streams, NFL game
+            live stream free, or NBA watch live free, we have you covered.</p>
+        <p>Our platform is designed to be fast, reliable, and easy to navigate. We aggregate the best streams from
+            across the web, including Reddit soccer streams and other popular sources, to ensure you never miss a moment
+            of the action.</p>
+        <h3>Why Choose Footybite?</h3>
+        <ul>
+            <li>Free soccer streams in HD quality.</li>
+            <li>Live streams for Premier League, La Liga, Champions League, and more.</li>
+            <li>Comprehensive coverage of NFL, NBA, MLB, and NHL.</li>
+            <li>No registration required - just click and watch.</li>
+        </ul>
+    </div>
+</section>

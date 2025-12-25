@@ -1,0 +1,40 @@
+<section class="hero">
+    <div class="container">
+        <h1>Free <%= categoryName %> Live Streams</h1>
+        <p>Watch the best <%= categoryName %> live streams for free. Footybite coverage of all <%= categoryName %>
+                    events.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="match-grid">
+        <% events.forEach(event=> { %>
+            <a href="/<%= event.url %>" class="match-card">
+                <span class="category">
+                    <%= event.category_name %>
+                </span>
+                <h3>
+                    <%= event.name %>
+                </h3>
+                <div class="match-info">
+                    <span>
+                        <%= event.time %>
+                    </span>
+                    <% if (event.isLive) { %>
+                        <span class="live-badge">LIVE</span>
+                        <% } %>
+                </div>
+            </a>
+            <% }) %>
+    </div>
+
+    <div class="seo-content">
+        <h2>Watch <%= categoryName %> Online Free</h2>
+        <p>Footybite is the premier destination for <%= categoryName %> fans. We offer a wide range of free <%=
+                    categoryName %> streams, from major leagues to international tournaments. Our goal is to provide a
+                    seamless viewing experience for all <%= categoryName %> enthusiasts.</p>
+        <p>Whether you call it Footybite, Fotybyte, or Footybyte, you can trust us to deliver the best <%= categoryName
+                %> live streams available on the internet. Bookmark this page to stay updated with all upcoming <%=
+                    categoryName %> matches.</p>
+    </div>
+</section>

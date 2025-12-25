@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="canonical" href="<%= canonical %>">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+        <%- JSON.stringify(schema) %>
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container nav-content">
+            <a href="/" class="logo">FOOTYBITE</a>
+            <nav class="nav-links">
+                <a href="/soccer/">Soccer</a>
+                <a href="/american-football/">NFL</a>
+                <a href="/basketball/">NBA</a>
+                <a href="/fighting/">Boxing/UFC</a>
+                <a href="/live-streams/">All Streams</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <%- body %>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/soccer/">Soccer Streams</a>
+                <a href="/american-football/">NFL Streams</a>
+                <a href="/basketball/">NBA Streams</a>
+            </div>
+            <p>&copy; 2025 Footybite Online. All rights reserved. Footybite, Fotybyte, Footybyte official site.</p>
+        </div>
+    </footer>
+</body>
+</html>

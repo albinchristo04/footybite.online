@@ -1,0 +1,54 @@
+<section class="container">
+    <div class="match-header">
+        <span class="category">
+            <%= event.category_name %>
+        </span>
+        <h1>
+            <%= h1 %>
+        </h1>
+        <p>Watch <%= event.name %> free live stream online. Footybite coverage of <%= event.category_name %>.</p>
+        <% if (event.poster) { %>
+            <img src="<%= event.poster %>" alt="<%= event.name %>"
+                style="width: 100%; max-width: 800px; border-radius: 12px; margin-top: 20px;">
+            <% } %>
+    </div>
+
+    <div class="player-container">
+        <iframe src="<%= event.iframe %>" allowfullscreen scrolling="no"></iframe>
+    </div>
+
+    <div class="seo-content">
+        <h2>How to Watch <%= event.name %> Live Online</h2>
+        <p>Looking for a reliable way to watch <%= event.name %>? You've come to the right place. Footybite (Fotybyte)
+                offers free live streaming for this <%= event.category_name %> event. Our streams are optimized for all
+                    devices, including mobile, tablet, and desktop.</p>
+        <p>To start watching, simply click the play button on the player above. If the stream doesn't load immediately,
+            try refreshing the page or checking back closer to the start time: <%= event.time %>.</p>
+
+        <h3>Event Details</h3>
+        <ul>
+            <li><strong>Event:</strong>
+                <%= event.name %>
+            </li>
+            <li><strong>Category:</strong>
+                <%= event.category_name %>
+            </li>
+            <li><strong>Start Time:</strong>
+                <%= event.time %>
+            </li>
+            <li><strong>Platform:</strong> Footybite / Footybyte</li>
+        </ul>
+
+        <h3>Frequently Asked Questions</h3>
+        <div class="faq-item">
+            <h4>Is <%= event.name %> free to watch?</h4>
+            <p>Yes, you can watch <%= event.name %> live stream for free on Footybite. We do not require any
+                    subscription or payment.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Where can I find soccer streams for today?</h4>
+            <p>You can find all today's soccer streams and other sports events on our homepage or the dedicated category
+                pages.</p>
+        </div>
+    </div>
+</section>
