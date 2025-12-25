@@ -1,0 +1,31 @@
+<section class="hero">
+    <div class="container">
+        <h1>
+            <%= pageTitle %>
+        </h1>
+    </div>
+</section>
+
+<section class="container">
+    <div class="static-content-card">
+        <% if (pageTitle.includes('About')) { %>
+            <p>Footybite is a leading sports streaming platform dedicated to providing fans with free access to their
+                favorite games. We aggregate the best live streaming links for Football, NFL, NBA, Boxing, and F1.</p>
+            <p>Our platform is built by sports fans, for sports fans. We understand the importance of high-quality,
+                reliable streams, and we work around the clock to maintain our reputation as the most trusted name in
+                the industry.</p>
+            <% } else if (pageTitle.includes('Contact')) { %>
+                <p>Have questions or feedback? We'd love to hear from you. While we don't host any content ourselves, we
+                    are always looking to improve our link aggregation service.</p>
+                <p>You can reach out to us via our official social media channels or check back here for updated contact
+                    information.</p>
+                <% } else if (pageTitle.includes('DMCA')) { %>
+                    <p>Footybite is a link aggregation service. We do not host, upload, or store any videos, media
+                        files, or live streams on our servers.</p>
+                    <p>We simply provide links to content that is already available on the public internet. If you are a
+                        copyright owner and wish to have a link removed, please contact the original hosting provider.
+                        However, if you would like us to remove a specific link from our index, please provide the exact
+                        URL and proof of ownership.</p>
+                    <% } %>
+    </div>
+</section>

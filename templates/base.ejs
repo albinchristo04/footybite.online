@@ -14,10 +14,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="canonical" href="<%= canonical %>">
 
-    <!-- Schema.org -->
-    <script type="application/ld+json">
+    <% if (noindex) { %>
+        <meta name="robots" content="noindex, follow">
+        <% } else { %>
+            <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+            <% } %>
+
+                <!-- Open Graph -->
+                <meta property="og:title" content="<%= title %>">
+                <meta property="og:description" content="<%= description %>">
+                <meta property="og:url" content="<%= canonical %>">
+                <meta property="og:type" content="website">
+                <meta property="og:site_name" content="Footybite">
+                <% if (typeof event !=='undefined' && event.thumbnail) { %>
+                    <meta property="og:image" content="<%= event.thumbnail %>">
+                    <meta name="twitter:card" content="summary_large_image">
+                    <% } %>
+
+                        <!-- Schema.org -->
+                        <% if (typeof schema !=='undefined' ) { %>
+                            <script type="application/ld+json">
         <%- JSON.stringify(schema) %>
     </script>
+                            <% } %>
 </head>
 
 <body>
@@ -41,13 +60,29 @@
 
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="/">Home</a>
-                <a href="/football/">Football Streams</a>
-                <a href="/nfl/">NFL Streams</a>
-                <a href="/nba/">NBA Streams</a>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">FOOTYBITE</div>
+                    <p>The #1 destination for free sports streaming. Watch Football, NFL, NBA and more in HD.</p>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Quick Links</h4>
+                    <a href="/">Home</a>
+                    <a href="/football/">Football Streams</a>
+                    <a href="/nfl/">NFL Streams</a>
+                    <a href="/nba/">NBA Streams</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Company</h4>
+                    <a href="/about-footybite/">About Us</a>
+                    <a href="/contact/">Contact</a>
+                    <a href="/dmca/">DMCA</a>
+                </div>
             </div>
-            <p>&copy; 2025 Footybite Online. All rights reserved. Footybite, Fotybyte, Footybyte official site.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Footybite Online. Last updated: <%= new Date(lastUpdated).toLocaleString() %>. All rights
+                        reserved.</p>
+            </div>
         </div>
     </footer>
 
