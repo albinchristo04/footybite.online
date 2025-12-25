@@ -8,35 +8,38 @@
         <%= title %>
     </title>
     <meta name="description" content="<%= description %>">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
-    <link rel="canonical" href="<%= canonical %>">
 
-    <% if (noindex) { %>
-        <meta name="robots" content="noindex, follow">
-        <% } else { %>
-            <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-            <% } %>
+    <%- criticalCss %>
 
-                <!-- Open Graph -->
-                <meta property="og:title" content="<%= title %>">
-                <meta property="og:description" content="<%= description %>">
-                <meta property="og:url" content="<%= canonical %>">
-                <meta property="og:type" content="website">
-                <meta property="og:site_name" content="Footybite">
-                <% if (typeof event !=='undefined' && event.thumbnail) { %>
-                    <meta property="og:image" content="<%= event.thumbnail %>">
-                    <meta name="twitter:card" content="summary_large_image">
-                    <% } %>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+        <link rel="canonical" href="<%= canonical %>">
 
-                        <!-- Schema.org -->
-                        <% if (typeof schema !=='undefined' ) { %>
-                            <script type="application/ld+json">
+        <% if (noindex) { %>
+            <meta name="robots" content="noindex, follow">
+            <% } else { %>
+                <meta name="robots"
+                    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+                <% } %>
+
+                    <!-- Open Graph -->
+                    <meta property="og:title" content="<%= title %>">
+                    <meta property="og:description" content="<%= description %>">
+                    <meta property="og:url" content="<%= canonical %>">
+                    <meta property="og:type" content="website">
+                    <meta property="og:site_name" content="FootyBite">
+                    <% if (typeof event !=='undefined' && event.thumbnail) { %>
+                        <meta property="og:image" content="<%= event.thumbnail %>">
+                        <meta name="twitter:card" content="summary_large_image">
+                        <% } %>
+
+                            <!-- Schema.org -->
+                            <% if (typeof schema !=='undefined' ) { %>
+                                <script type="application/ld+json">
         <%- JSON.stringify(schema) %>
     </script>
-                            <% } %>
+                                <% } %>
 </head>
 
 <body>
@@ -63,7 +66,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="logo">FOOTYBITE</div>
-                    <p>The #1 destination for free sports streaming. Watch Football, NFL, NBA and more in HD.</p>
+                    <p>The official FootyBite site. Watch Football, NFL, NBA and more in HD for free.</p>
                 </div>
                 <div class="footer-links-group">
                     <h4>Quick Links</h4>
@@ -80,7 +83,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Footybite Online. Last updated: <%= new Date(lastUpdated).toLocaleString() %>. All rights
+                <p>&copy; 2025 FootyBite Online. Last updated: <%= new Date(lastUpdated).toLocaleString() %>. All rights
                         reserved.</p>
             </div>
         </div>

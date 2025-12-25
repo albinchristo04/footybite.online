@@ -1,0 +1,38 @@
+<a href="/<%= event.url %>" class="match-card">
+    <div class="match-thumb-wrapper">
+        <div class="league-badge">
+            <%= event.league %>
+        </div>
+        <img src="<%= event.thumbnail || 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop' %>"
+            alt="<%= event.name %> live stream" loading="lazy" />
+        <div class="match-status-overlay">
+            <% if (event.status==='live' ) { %>
+                <span class="status-badge live">LIVE NOW</span>
+                <% } %>
+        </div>
+    </div>
+    <div class="match-card-content">
+        <div class="match-date-small">
+            <%= new Date(event.startTime).toLocaleDateString([], { weekday: 'short' , month: 'short' , day: 'numeric' })
+                %> · <%= new Date(event.startTime).toLocaleTimeString([], { hour: '2-digit' , minute: '2-digit' }) %>
+        </div>
+        <div class="match-teams">
+            <% event.teams.forEach(team=> { %>
+                <div class="team-row">
+                    <span class="team-name">
+                        <%= team %>
+                    </span>
+                </div>
+                <% }) %>
+        </div>
+        <div class="match-card-footer">
+            <% if (event.status==='upcoming' ) { %>
+                <div class="status-badge upcoming">⏱️ Starts Soon</div>
+                <% } else if (event.status==='live' ) { %>
+                    <div class="status-badge live">LIVE NOW</div>
+                    <% } else { %>
+                        <div class="status-badge finished">FINISHED</div>
+                        <% } %>
+        </div>
+    </div>
+</a>

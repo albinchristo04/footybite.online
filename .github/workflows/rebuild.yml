@@ -30,6 +30,8 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          DATA_URL: ${{ secrets.DATA_URL }}
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1

@@ -11,7 +11,12 @@ const { renderToString } = require('react-dom/server');
 // Import React components
 const FilterEngine = require('./src/components/FilterEngine').default;
 
-const DATA_URL = 'https://raw.githubusercontent.com/albinchristo04/ptv/refs/heads/main/events.json';
+const DATA_URL = process.env.DATA_URL;
+if (!DATA_URL) {
+    console.error('Error: DATA_URL environment variable is not set.');
+    process.exit(1);
+}
+
 const DIST_DIR = path.join(__dirname, 'dist');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const DOMAIN = 'https://footybite.online';
@@ -96,7 +101,10 @@ async function generate() {
     console.log('Starting generation...');
     const lastUpdated = new Date().toISOString();
     await fs.ensureDir(DIST_DIR);
-    await fs.copy(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
+
+    // Inline Critical CSS
+    const cssContent = await fs.readFile(path.join(__dirname, 'style.css'), 'utf-8');
+    const criticalCss = `<style>${cssContent}</style>`;
 
     const response = await axios.get(DATA_URL);
     const categories = response.data.events.streams;
@@ -104,48 +112,121 @@ async function generate() {
     const allEvents = [];
     const sitemapMatches = [];
     const sitemapHubs = [];
+    const sitemapImages = [];
 
-    // 1. Normalize all data
     for (const cat of categories) {
         for (const stream of cat.streams) {
             allEvents.push(normalizeEvent(stream, cat.category));
         }
     }
 
-    // Filter out finished matches (Scale & Frequency Engine: Delete old matches)
     const activeEvents = allEvents.filter(e => e.status !== 'finished');
+    const finishedEvents = allEvents.filter(e => e.status === 'finished');
 
-    // 2. Generate Match Pages
+    // 1. Generate Match Pages (Live & Upcoming)
     for (const event of activeEvents) {
         const isBigGame = event.popularityScore > 70;
         const livePrefix = event.status === 'live' ? '🔴 LIVE: ' : '';
         const title = `${livePrefix}${event.name} LIVE Stream Free | FootyBite`;
-        const h1 = isBigGame ? `🔥 MUST WATCH: ${event.name} Live Stream` : `${event.name} LIVE Stream`;
 
         const related = activeEvents
             .filter(e => e.id !== event.id && (e.sport === event.sport || e.league === event.league))
             .sort((a, b) => b.popularityScore - a.popularityScore)
-            .slice(0, 6);
+            .slice(0, 10);
 
         await renderPage(
             path.join(DIST_DIR, event.url, 'index.html'),
             'match',
             {
                 title,
-                h1,
+                h1: isBigGame ? `🔥 MUST WATCH: ${event.name} Live Stream` : `${event.name} LIVE Stream`,
                 description: `Watch ${event.name} LIVE stream free on FootyBite. Kickoff at ${new Date(event.startTime).toLocaleTimeString()}. High quality ${event.sport} coverage.`,
                 canonical: `${DOMAIN}/${event.url}`,
                 event,
                 related,
                 lastUpdated,
+                criticalCss,
                 schema: generateMatchSchema(event),
                 noindex: false
             }
         );
         sitemapMatches.push({ url: `${DOMAIN}/${event.url}`, priority: 0.9, changefreq: 'hourly' });
+        if (event.thumbnail) sitemapImages.push({ url: event.thumbnail, title: event.name });
     }
 
-    // 3. Generate Category Pages
+    // 2. Generate Replay Pages (Finished Matches)
+    for (const event of finishedEvents) {
+        const replayUrl = `replay/${slugify(event.name, { lower: true, strict: true })}-full-match-replay/`;
+        await renderPage(
+            path.join(DIST_DIR, replayUrl, 'index.html'),
+            'match',
+            {
+                title: `${event.name} Full Match Replay | FootyBite`,
+                h1: `${event.name} Replay`,
+                description: `Watch ${event.name} full match replay on FootyBite. Missed the live action? Catch up here.`,
+                canonical: `${DOMAIN}/${replayUrl}`,
+                event: { ...event, status: 'finished' },
+                related: activeEvents.slice(0, 6),
+                lastUpdated,
+                criticalCss,
+                schema: generateMatchSchema(event),
+                noindex: false
+            }
+        );
+        sitemapMatches.push({ url: `${DOMAIN}/${replayUrl}`, priority: 0.6, changefreq: 'daily' });
+    }
+
+    // 3. Generate Team Long-Tail Pages
+    const teams = [...new Set(allEvents.flatMap(e => e.teams))];
+    for (const team of teams) {
+        const teamSlug = slugify(team, { lower: true, strict: true });
+        const teamUrl = `football/${teamSlug}-live-stream/`;
+        const teamEvents = activeEvents.filter(e => e.teams.includes(team));
+
+        await renderPage(
+            path.join(DIST_DIR, teamUrl, 'index.html'),
+            'longtail',
+            {
+                title: `${team} LIVE Stream Free Today | FootyBite`,
+                h1: `${team} Live Stream`,
+                description: `Watch ${team} live stream free. Get the latest ${team} match links and schedules on FootyBite.`,
+                canonical: `${DOMAIN}/${teamUrl}`,
+                subject: team,
+                events: teamEvents,
+                lastUpdated,
+                criticalCss,
+                noindex: false
+            }
+        );
+        sitemapHubs.push({ url: `${DOMAIN}/${teamUrl}`, priority: 0.7, changefreq: 'daily' });
+    }
+
+    // 4. Generate League Long-Tail Pages
+    const leagues = [...new Set(allEvents.map(e => e.league))];
+    for (const league of leagues) {
+        const leagueSlug = slugify(league, { lower: true, strict: true });
+        const leagueUrl = `${leagueSlug}-live-stream-today/`;
+        const leagueEvents = activeEvents.filter(e => e.league === league);
+
+        await renderPage(
+            path.join(DIST_DIR, leagueUrl, 'index.html'),
+            'longtail',
+            {
+                title: `${league} LIVE Stream Free Today | FootyBite`,
+                h1: `${league} Live Stream`,
+                description: `Watch ${league} live stream free today. High quality links for all ${league} matches on FootyBite.`,
+                canonical: `${DOMAIN}/${leagueUrl}`,
+                subject: league,
+                events: leagueEvents,
+                lastUpdated,
+                criticalCss,
+                noindex: false
+            }
+        );
+        sitemapHubs.push({ url: `${DOMAIN}/${leagueUrl}`, priority: 0.7, changefreq: 'daily' });
+    }
+
+    // 5. Generate Category Pages
     const sports = ['football', 'nfl', 'nba', 'boxing', 'f1'];
     for (const sport of sports) {
         const sportEvents = activeEvents.filter(e => e.sport === sport);
@@ -156,19 +237,19 @@ async function generate() {
         }));
 
         const catUrl = `${sport}/`;
-        const title = `${sport.charAt(0).toUpperCase() + sport.slice(1)} LIVE Stream Free | FootyBite`;
         await renderPage(
             path.join(DIST_DIR, catUrl, 'index.html'),
             'category',
             {
-                title,
-                description: `Watch the best ${sport} live streams for free on FootyBite. Real-time updates for all ${sport} matches.`,
+                title: `${sport.toUpperCase()} LIVE Stream Free | FootyBite`,
+                description: `Watch the best ${sport} live streams for free on FootyBite. Real-time updates for all matches.`,
                 canonical: `${DOMAIN}/${catUrl}`,
                 categoryName: sport.charAt(0).toUpperCase() + sport.slice(1),
                 catSlug: sport,
                 events: sportEvents,
                 filterHtml,
                 lastUpdated,
+                criticalCss,
                 schema: generateCategorySchema(sport, catUrl),
                 noindex: false
             }
@@ -176,7 +257,7 @@ async function generate() {
         sitemapHubs.push({ url: `${DOMAIN}/${catUrl}`, priority: 0.8, changefreq: 'daily' });
     }
 
-    // 4. Generate Keyword Hub Pages
+    // 6. Generate Keyword Hubs
     const hubs = [
         { slug: 'live-streams', keyword: 'Live Streams' },
         { slug: 'free-live-stream', keyword: 'Free Live Stream' },
@@ -197,53 +278,33 @@ async function generate() {
                 keyword: hub.keyword,
                 events: activeEvents.slice(0, 20),
                 lastUpdated,
+                criticalCss,
                 noindex: false
             }
         );
         sitemapHubs.push({ url: `${DOMAIN}/${hub.slug}/`, priority: 0.8, changefreq: 'daily' });
     }
 
-    // 5. Generate Brand Domination Pages
+    // 7. Brand Pages
     const brands = ['footybite', 'footybyte', 'fotybyte'];
     for (const brand of brands) {
         await renderPage(
             path.join(DIST_DIR, brand, 'index.html'),
             'brand',
             {
-                title: `${brand.toUpperCase()} LIVE Stream Free | FootyBite`,
-                description: `Official FootyBite sports streaming site. Watch live football, NFL, NBA, and more for free on ${brand}.`,
+                title: `${brand.toUpperCase()} Official Site - Free Sports Streaming`,
+                description: `Official FootyBite sports streaming site. Watch live football, NFL, NBA, and more for free.`,
                 canonical: `${DOMAIN}/${brand}/`,
                 brandName: brand,
                 lastUpdated,
+                criticalCss,
                 noindex: false
             }
         );
         sitemapHubs.push({ url: `${DOMAIN}/${brand}/`, priority: 0.8, changefreq: 'daily' });
     }
 
-    // 6. Generate Static Pages
-    const staticPages = [
-        { slug: 'about-footybite', title: 'About Footybite' },
-        { slug: 'contact', title: 'Contact Us' },
-        { slug: 'dmca', title: 'DMCA Policy' }
-    ];
-    for (const p of staticPages) {
-        await renderPage(
-            path.join(DIST_DIR, p.slug, 'index.html'),
-            'static',
-            {
-                title: `${p.title} | FootyBite`,
-                description: `${p.title} for FootyBite, the best sports streaming platform.`,
-                canonical: `${DOMAIN}/${p.slug}/`,
-                pageTitle: p.title,
-                lastUpdated,
-                noindex: false
-            }
-        );
-        sitemapHubs.push({ url: `${DOMAIN}/${p.slug}/`, priority: 0.3, changefreq: 'monthly' });
-    }
-
-    // 7. Generate Homepage
+    // 8. Homepage
     const homeFilterHtml = renderToString(React.createElement(FilterEngine, {
         initialEvents: activeEvents,
         initialSport: 'all',
@@ -260,14 +321,14 @@ async function generate() {
             events: activeEvents,
             filterHtml: homeFilterHtml,
             lastUpdated,
+            criticalCss,
             schema: generateHomeSchema(),
             noindex: false
         }
     );
     sitemapHubs.push({ url: `${DOMAIN}/`, priority: 1.0, changefreq: 'hourly' });
 
-    // 8. Generate Multi-Sitemap Strategy
-    await generateMultiSitemaps(sitemapMatches, sitemapHubs);
+    await generateMultiSitemaps(sitemapMatches, sitemapHubs, sitemapImages);
     await fs.writeFile(path.join(DIST_DIR, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${DOMAIN}/sitemap-index.xml\nDisallow: /*?`);
 
     console.log('Generation complete!');
@@ -303,37 +364,33 @@ function generateHomeSchema() {
     return { "@context": "https://schema.org", "@type": "WebSite", "name": "FootyBite", "url": DOMAIN };
 }
 
-async function generateMultiSitemaps(matches, hubs) {
+async function generateMultiSitemaps(matches, hubs, images) {
     const matchXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${matches.map(e => `  <url>
-    <loc>${e.url}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>${e.changefreq}</changefreq>
-    <priority>${e.priority}</priority>
-  </url>`).join('\n')}
+${matches.map(e => `  <url><loc>${e.url}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod><changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`).join('\n')}
 </urlset>`;
 
     const hubXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${hubs.map(e => `  <url>
-    <loc>${e.url}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>${e.changefreq}</changefreq>
-    <priority>${e.priority}</priority>
-  </url>`).join('\n')}
+${hubs.map(e => `  <url><loc>${e.url}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod><changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`).join('\n')}
+</urlset>`;
+
+    const imageXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${images.map(e => `  <url><loc>${e.url}</loc><image:image><image:loc>${e.url}</image:loc><image:title>${e.title}</image:title></image:image></url>`).join('\n')}
 </urlset>`;
 
     const indexXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap><loc>${DOMAIN}/sitemap-matches.xml</loc></sitemap>
   <sitemap><loc>${DOMAIN}/sitemap-hubs.xml</loc></sitemap>
+  <sitemap><loc>${DOMAIN}/sitemap-images.xml</loc></sitemap>
 </sitemapindex>`;
 
     await fs.writeFile(path.join(DIST_DIR, 'sitemap-matches.xml'), matchXml);
     await fs.writeFile(path.join(DIST_DIR, 'sitemap-hubs.xml'), hubXml);
+    await fs.writeFile(path.join(DIST_DIR, 'sitemap-images.xml'), imageXml);
     await fs.writeFile(path.join(DIST_DIR, 'sitemap-index.xml'), indexXml);
-    // Legacy support
     await fs.writeFile(path.join(DIST_DIR, 'sitemap.xml'), indexXml);
 }
 

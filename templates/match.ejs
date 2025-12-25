@@ -30,22 +30,39 @@
         <!-- PAA Block (Above the Fold) -->
         <div class="paa-block-top">
             <div class="paa-card">
-                <h3>How to watch <%= event.name %>?</h3>
-                <p>You can watch <%= event.name %> live for free on Footybite. Simply use the player below to start the
-                        high-definition stream.</p>
+                <h3>How to watch <%= event.name %> live?</h3>
+                <p>You can watch <%= event.name %> live for free on FootyBite. Simply use the player below to start the
+                        high-definition stream. No sign up required.</p>
             </div>
             <div class="paa-card">
-                <h3>Is it free?</h3>
-                <p>Yes, Footybite (Fotybyte) provides 100% free access to this <%= event.league %> match without any
-                        subscription required.</p>
+                <h3>Is <%= event.name %> free to stream?</h3>
+                <p>Yes, FootyBite (Fotybyte) provides 100% free access to this <%= event.league %> match. We aggregate
+                        the best links from across the web.</p>
+            </div>
+            <div class="paa-card">
+                <h3>What time does <%= event.name %> start?</h3>
+                <p>The match between <%= event.teams[0] %> and <%= event.teams[1] %> kicks off at <%= new
+                                Date(event.startTime).toLocaleTimeString() %> local time on <%= new
+                                    Date(event.startTime).toLocaleDateString() %>.</p>
+            </div>
+            <div class="paa-card">
+                <h3>Which channel shows <%= event.name %>?</h3>
+                <p>While official broadcasters vary by region, you can find all reliable free streaming links for <%=
+                        event.name %> right here on FootyBite.</p>
             </div>
         </div>
 
         <div class="player-section">
             <div class="player-aspect-ratio">
                 <div class="player-container">
-                    <iframe src="<%= event.iframe %>" allowfullscreen scrolling="no"
-                        allow="autoplay; encrypted-media"></iframe>
+                    <% if (event.status==='finished' ) { %>
+                        <div class="replay-overlay">
+                            <h2>Match Finished</h2>
+                            <p>Watch the full match replay below.</p>
+                        </div>
+                        <% } %>
+                            <iframe src="<%= event.iframe %>" allowfullscreen scrolling="no"
+                                allow="autoplay; encrypted-media"></iframe>
                 </div>
             </div>
             <div class="player-controls-hint">
@@ -87,16 +104,17 @@
                 <h2>Streaming Details</h2>
                 <p>Experience <strong>
                         <%= event.name %>
-                    </strong> live. Footybite is the most trusted source for <%= event.sport %> fans to find reliable
+                    </strong> live. FootyBite is the most trusted source for <%= event.sport %> fans to find reliable
                         links.</p>
-                <p>Our links are updated hourly to ensure zero downtime. Watch on any device: Mobile, PC, or Tablet.</p>
+                <p>Our links are updated hourly to ensure zero downtime. Watch on any device: Mobile, PC, or Tablet. No
+                    registration or credit card needed.</p>
             </div>
         </div>
 
-        <!-- Related Matches -->
+        <!-- Internal Link Overdrive -->
         <% if (related && related.length> 0) { %>
             <div class="related-matches-section">
-                <h2 class="section-title">Related Matches</h2>
+                <h2 class="section-title">More Matches You Might Like</h2>
                 <div class="match-grid">
                     <% related.forEach(rel=> { %>
                         <a href="/<%= rel.url %>" class="match-card-mini">
@@ -120,14 +138,13 @@
                     <div class="faq-grid">
                         <div class="faq-item">
                             <h4>Where can I stream <%= event.name %>?</h4>
-                            <p>Footybite (Footybyte) is the best place to stream <%= event.name %> live. We offer
+                            <p>FootyBite (Footybyte) is the best place to stream <%= event.name %> live. We offer
                                     multiple mirror links to ensure you never miss the kickoff.</p>
                         </div>
                         <div class="faq-item">
-                            <h4>What time does the match start?</h4>
-                            <p>The match between <%= event.teams[0] %> and <%= event.teams[1] %> starts at <%= new
-                                            Date(event.startTime).toLocaleTimeString() %> on <%= new
-                                                Date(event.startTime).toLocaleDateString() %>.</p>
+                            <h4>Is there a replay for <%= event.name %>?</h4>
+                            <p>Yes, once the live broadcast ends, we provide full match replays and highlights for <%=
+                                    event.name %> on this same page.</p>
                         </div>
                     </div>
                 </div>
