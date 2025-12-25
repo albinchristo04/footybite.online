@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        MOTORSPORTS LIVE Stream Free | FootyBite
+    </title>
+    <meta name="description" content="Watch the best motorsports live streams for free on FootyBite. Real-time updates for all matches.">
+
+    <style>:root {
+    --primary: #ff2d2d;
+    --primary-glow: rgba(255, 45, 45, 0.3);
+    --secondary: #ff416c;
+    --dark: #0f172a;
+    --darker: #020617;
+    --light: #f8fafc;
+    --gray: #94a3b8;
+    --accent: #38bdf8;
+    --amber: #fbbf24;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-bg: #111827;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--darker);
+    color: var(--light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    font-weight: 600;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+    padding: 5rem 0;
+    text-align: center;
+    background: radial-gradient(circle at top, rgba(255, 45, 45, 0.15) 0%, transparent 70%);
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -2px;
+}
+
+.hero p {
+    color: var(--gray);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.hero-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 12px 24px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px var(--primary-glow);
+}
+
+/* Filters */
+.sticky-filters {
+    position: sticky;
+    top: 70px;
+    z-index: 900;
+    background: var(--darker);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Date Tabs */
+.date-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: none;
+}
+
+.date-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.date-tab {
+    padding: 10px 24px;
+    border-radius: 50px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--gray);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.date-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+/* League Chips */
+.league-chips {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 5px 0;
+    scrollbar-width: none;
+}
+
+.league-chips::-webkit-scrollbar {
+    display: none;
+}
+
+.league-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--gray);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.league-chip:hover {
+    border-color: var(--gray);
+}
+
+.league-chip.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--light);
+    color: var(--light);
+}
+
+/* Match Sections */
+.sections-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin: 2rem 0;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--light);
+}
+
+.empty-state-small {
+    padding: 2rem;
+    background: var(--glass);
+    border-radius: 16px;
+    border: 1px dashed var(--glass-border);
+    text-align: center;
+    color: var(--gray);
+    grid-column: 1 / -1;
+}
+
+/* Match Grid */
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+/* Match Card */
+.match-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.match-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
+}
+
+.match-thumb-wrapper {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.match-thumb-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.match-card:hover .match-thumb-wrapper img {
+    transform: scale(1.1);
+}
+
+.league-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: white;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.match-status-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
+.match-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.match-date-small {
+    font-size: 0.75rem;
+    color: var(--gray);
+    font-weight: 500;
+}
+
+.match-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.team-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--light);
+}
+
+.match-card-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Status Badges */
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.status-badge.live {
+    background: rgba(255, 45, 45, 0.15);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.status-badge.live::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 45, 45, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 45, 45, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 45, 45, 0);
+    }
+}
+
+.status-badge.upcoming {
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--amber);
+    border: 1px solid var(--amber);
+}
+
+.countdown-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--amber);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: var(--glass);
+    border-radius: 24px;
+    border: 1px dashed var(--glass-border);
+    grid-column: 1 / -1;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.reset-btn {
+    background: var(--light);
+    color: var(--darker);
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+
+/* Match Page Styles */
+.match-page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+}
+
+.cinematic-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    filter: blur(60px) brightness(0.3);
+    opacity: 0.6;
+    z-index: -1;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.match-main {
+    padding-top: 3rem;
+}
+
+.match-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.match-meta-top {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.sport-label {
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.league-label {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+.live-indicator {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    animation: pulse-red 1.5s infinite;
+}
+
+.match-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.match-time-info {
+    font-size: 1.1rem;
+    color: var(--gray);
+}
+
+.time-badge {
+    background: var(--glass);
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+}
+
+/* Player Section */
+.player-section {
+    margin-bottom: 4rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: #000;
+}
+
+.player-aspect-ratio {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9 */
+}
+
+.player-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.player-controls-hint {
+    padding: 15px;
+    background: #0a0a0a;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gray);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Match Details Grid */
+.match-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 4rem;
+}
+
+.match-info-card,
+.match-seo-card {
+    background: var(--glass);
+    padding: 30px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+}
+
+.match-info-card h2,
+.match-seo-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--light);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row .label {
+    color: var(--gray);
+    font-weight: 600;
+}
+
+.info-row .value {
+    color: var(--light);
+    font-weight: 700;
+}
+
+.value.status-live {
+    color: var(--primary);
+}
+
+.value.status-upcoming {
+    color: var(--amber);
+}
+
+.match-seo-card p {
+    color: var(--gray);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* SEO Content Bottom */
+.seo-content-bottom {
+    margin-top: 4rem;
+}
+
+.seo-content-bottom h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.faq-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--light);
+}
+
+.faq-item p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* PAA Block */
+.paa-block-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 3rem;
+}
+
+.paa-card {
+    background: var(--glass);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+}
+
+.paa-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.paa-card p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.5;
+}
+
+/* Related Matches */
+.related-matches-section {
+    margin: 4rem 0;
+}
+
+.match-card-mini {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--glass);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.match-card-mini:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    border-color: var(--primary);
+}
+
+.mini-thumb {
+    width: 60px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.mini-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.mini-league {
+    font-size: 0.65rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.mini-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Footer Grid */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.footer-brand .logo {
+    margin-bottom: 15px;
+}
+
+.footer-brand p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    max-width: 300px;
+}
+
+.footer-links-group h4 {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: var(--light);
+}
+
+.footer-links-group a {
+    display: block;
+    color: var(--gray);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.footer-links-group a:hover {
+    color: var(--primary);
+}
+
+.footer-bottom {
+    padding-top: 30px;
+    text-align: center;
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+/* Static & Brand Content */
+.brand-content-card,
+.static-content-card {
+    background: var(--glass);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+.brand-content-card h2,
+.static-content-card h2 {
+    margin-bottom: 20px;
+}
+
+.brand-content-card p,
+.static-content-card p {
+    margin-bottom: 20px;
+    color: var(--gray);
+    line-height: 1.8;
+}
+
+.brand-content-card ul {
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.brand-content-card li {
+    margin-bottom: 10px;
+    color: var(--gray);
+}
+
+.brand-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Replay Overlay */
+.replay-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+}
+
+.replay-overlay h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.replay-overlay p {
+    color: var(--gray);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .match-title {
+        font-size: 2.5rem;
+    }
+
+    .match-details-grid,
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .match-title {
+        font-size: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .match-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero-filters {
+        gap: 10px;
+    }
+
+    .hero-btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+
+    .paa-block-top {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}</style>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+        <link rel="canonical" href="https://footybite.online/motorsports/">
+
+        
+                <meta name="robots"
+                    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+                
+
+                    <!-- Open Graph -->
+                    <meta property="og:title" content="MOTORSPORTS LIVE Stream Free | FootyBite">
+                    <meta property="og:description" content="Watch the best motorsports live streams for free on FootyBite. Real-time updates for all matches.">
+                    <meta property="og:url" content="https://footybite.online/motorsports/">
+                    <meta property="og:type" content="website">
+                    <meta property="og:site_name" content="FootyBite">
+                    
+
+                            <!-- Schema.org -->
+                            
+                                <script type="application/ld+json">
+        {"@context":"https://schema.org","@type":"WebPage","name":"motorsports","url":"https://footybite.online/motorsports/"}
+    </script>
+                                
+</head>
+
+<body>
+    <header>
+        <div class="container nav-content">
+            <a href="/" class="logo">FOOTYBITE</a>
+            <nav class="nav-links">
+                <a href="/football/" data-sport="football">Football</a>
+                <a href="/nfl/" data-sport="nfl">NFL</a>
+                <a href="/nba/" data-sport="nba">NBA</a>
+                <a href="/boxing/" data-sport="boxing">Boxing/UFC</a>
+                <a href="/f1/" data-sport="f1">F1</a>
+                <a href="/live-streams/" data-sport="all">All Streams</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+    <div class="container">
+        <h1>Free Motorsports Live Streams</h1>
+        <p>Watch the best Motorsports live streams for free. Footybite coverage of all Motorsports
+                    events.</p>
+    </div>
+</section>
+
+<div id="filter-engine-root" data-events='[{"id":15337,"sport":"nfl","league":"Netflix","teams":["Dallas Cowboys","Washington Commanders"],"name":"Dallas Cowboys vs. Washington Commanders","startTime":1766685600000,"endTime":1766698200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/3c4da57019a3db5ddc05846665384761-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-25/dal-wsh","url":"nfl/2025-12-25/dallas-cowboys-vs-washington-commanders/","popularityScore":30},{"id":15342,"sport":"nfl","league":"Netflix","teams":["Detroit Lions","Minnesota Vikings"],"name":"Detroit Lions vs. Minnesota Vikings","startTime":1766698200000,"endTime":1766710800000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/03acdf9085886d1cc43f0e5e625e64b7-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-25/det-min","url":"nfl/2025-12-26/detroit-lions-vs-minnesota-vikings/","popularityScore":0},{"id":15345,"sport":"nfl","league":"Prime Video","teams":["Denver Broncos","Kansas City Chiefs"],"name":"Denver Broncos vs. Kansas City Chiefs","startTime":1766711700000,"endTime":1766724300000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/f62324be7b3bf56476438d49563762f2-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-25/den-kc","url":"nfl/2025-12-26/denver-broncos-vs-kansas-city-chiefs/","popularityScore":30},{"id":15347,"sport":"nfl","league":"NFL Net","teams":["Houston Texans","Los Angeles Chargers"],"name":"Houston Texans vs. Los Angeles Chargers","startTime":1766871000000,"endTime":1766883600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/4aa181f5dc2a6ba15bb634a389592ce0-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-27/hou-lac","url":"nfl/2025-12-28/houston-texans-vs-los-angeles-chargers/","popularityScore":50},{"id":15354,"sport":"nfl","league":"Peacock","teams":["Baltimore Ravens","Green Bay Packers"],"name":"Baltimore Ravens vs. Green Bay Packers","startTime":1766883600000,"endTime":1766896200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/de39ba20ea4671132358f4d801684320-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-27/bal-gb","url":"nfl/2025-12-28/baltimore-ravens-vs-green-bay-packers/","popularityScore":0},{"id":15356,"sport":"nfl","league":"FOX","teams":["Arizona Cardinals","Cincinnati Bengals"],"name":"Arizona Cardinals vs. Cincinnati Bengals","startTime":1766944800000,"endTime":1766957400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/25035c294ebc26e362cc076873365827-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/ari-cin","url":"nfl/2025-12-28/arizona-cardinals-vs-cincinnati-bengals/","popularityScore":0},{"id":15359,"sport":"nfl","league":"CBS","teams":["Pittsburgh Steelers","Cleveland Browns"],"name":"Pittsburgh Steelers vs. Cleveland Browns","startTime":1766944800000,"endTime":1766957400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/e48fc14b33e31a3a596c628d15b01ed9-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/pit-cle","url":"nfl/2025-12-28/pittsburgh-steelers-vs-cleveland-browns/","popularityScore":0},{"id":15362,"sport":"nfl","league":"CBS","teams":["New Orleans Saints","Tennessee Titans"],"name":"New Orleans Saints vs. Tennessee Titans","startTime":1766944800000,"endTime":1766957400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/61a6d4c8d6c69316e8584f2f3a48bb51-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/no-ten","url":"nfl/2025-12-28/new-orleans-saints-vs-tennessee-titans/","popularityScore":0},{"id":15365,"sport":"nfl","league":"FOX","teams":["Jacksonville Jaguars","Indianapolis Colts"],"name":"Jacksonville Jaguars vs. Indianapolis Colts","startTime":1766944800000,"endTime":1766957400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/f06f88f731415663cd77133b9e102bac-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/jax-ind","url":"nfl/2025-12-28/jacksonville-jaguars-vs-indianapolis-colts/","popularityScore":30},{"id":15370,"sport":"nfl","league":"FOX","teams":["Tampa Bay Buccaneers","Miami Dolphins"],"name":"Tampa Bay Buccaneers vs. Miami Dolphins","startTime":1766944800000,"endTime":1766957400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/48af8d5b583ca5322ece9643802b23a5-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/tb-mia","url":"nfl/2025-12-28/tampa-bay-buccaneers-vs-miami-dolphins/","popularityScore":0},{"id":15373,"sport":"nfl","league":"FOX","teams":["New England Patriots","New York Jets"],"name":"New England Patriots vs. New York Jets","startTime":1766944800000,"endTime":1766957400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/43e0f565474b3d0cb791a89438c2f605-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/ne-nyj","url":"nfl/2025-12-28/new-england-patriots-vs-new-york-jets/","popularityScore":0},{"id":15376,"sport":"nfl","league":"CBS","teams":["Seattle Seahawks","Carolina Panthers"],"name":"Seattle Seahawks vs. Carolina Panthers","startTime":1766944800000,"endTime":1766957400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/24a50be34f52ac5c251f2d2470d5483a-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/sea-car","url":"nfl/2025-12-28/seattle-seahawks-vs-carolina-panthers/","popularityScore":0},{"id":15378,"sport":"nfl","league":"CBS","teams":["New York Giants","Las Vegas Raiders"],"name":"New York Giants vs. Las Vegas Raiders","startTime":1766955900000,"endTime":1766968500000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/28ae5673cbb9e16046091b51d12b2c62-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/nyg-lv","url":"nfl/2025-12-29/new-york-giants-vs-las-vegas-raiders/","popularityScore":0},{"id":15379,"sport":"nfl","league":"FOX","teams":["Philadelphia Eagles","Buffalo Bills"],"name":"Philadelphia Eagles vs. Buffalo Bills","startTime":1766957100000,"endTime":1766969700000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/99d0118ed74a6f0772dc5389bfb457a8-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/phi-buf","url":"nfl/2025-12-29/philadelphia-eagles-vs-buffalo-bills/","popularityScore":0},{"id":15380,"sport":"nfl","league":"NBC","teams":["Chicago Bears","San Francisco 49ers"],"name":"Chicago Bears vs. San Francisco 49ers","startTime":1766971200000,"endTime":1766983800000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/3c6e96c183dc419879fb33d07bf334de-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-28/chi-sf","url":"nfl/2025-12-29/chicago-bears-vs-san-francisco-49ers/","popularityScore":0},{"id":15381,"sport":"nfl","league":"ESPN","teams":["Los Angeles Rams","Atlanta Falcons"],"name":"Los Angeles Rams vs. Atlanta Falcons","startTime":1767057300000,"endTime":1767069900000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/78103dcbc7712cff3aa665658996a4d7-thumbnail.jpg","iframe":"https://pooembed.top/embed/nfl/2025-12-29/lar-atl","url":"nfl/2025-12-30/los-angeles-rams-vs-atlanta-falcons/","popularityScore":0},{"id":15386,"sport":"nba","league":"ABC","teams":["Cleveland Cavaliers","New York Knicks"],"name":"Cleveland Cavaliers vs. New York Knicks","startTime":1766682000000,"endTime":1766692080000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/ea292e3ffdc5d047125c791245056e00-thumbnail.jpg","iframe":"https://pooembed.top/embed/nba/2025-12-25/cle-ny","url":"nba/2025-12-25/cleveland-cavaliers-vs-new-york-knicks/","popularityScore":0},{"id":15387,"sport":"nba","league":"ABC","teams":["San Antonio Spurs","Oklahoma City Thunder"],"name":"San Antonio Spurs vs. Oklahoma City Thunder","startTime":1766691000000,"endTime":1766701080000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/d03a1547f0924a87418143df7354dbdf-thumbnail.jpg","iframe":"https://pooembed.top/embed/nba/2025-12-25/sa-okc","url":"nba/2025-12-26/san-antonio-spurs-vs-oklahoma-city-thunder/","popularityScore":0},{"id":15388,"sport":"nba","league":"ABC","teams":["Dallas Mavericks","Golden State Warriors"],"name":"Dallas Mavericks vs. Golden State Warriors","startTime":1766700000000,"endTime":1766710080000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/c662fce981315be4e1d45ea6ce6e7472-thumbnail.jpg","iframe":"https://pooembed.top/embed/nba/2025-12-25/dal-gs","url":"nba/2025-12-26/dallas-mavericks-vs-golden-state-warriors/","popularityScore":30},{"id":15389,"sport":"nba","league":"ABC","teams":["Houston Rockets","Los Angeles Lakers"],"name":"Houston Rockets vs. Los Angeles Lakers","startTime":1766710800000,"endTime":1766720880000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/bc8a0205874312de7bb7281ddeeceb7a-thumbnail.jpg","iframe":"https://pooembed.top/embed/nba/2025-12-25/hou-lal","url":"nba/2025-12-26/houston-rockets-vs-los-angeles-lakers/","popularityScore":30},{"id":15390,"sport":"nba","league":"ABC","teams":["Minnesota Timberwolves","Denver Nuggets"],"name":"Minnesota Timberwolves vs. Denver Nuggets","startTime":1766719800000,"endTime":1766729880000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/70e160085451e4a30248126cf7172a72-thumbnail.jpg","iframe":"https://pooembed.top/embed/nba/2025-12-25/min-den","url":"nba/2025-12-26/minnesota-timberwolves-vs-denver-nuggets/","popularityScore":0},{"id":14284,"sport":"other","league":"Paramount+","teams":["UFC 324: Gaethje","Pimblett"],"name":"UFC 324: Gaethje vs. Pimblett","startTime":1769299200000,"endTime":1769328000000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/0009785da1e175b7995e8c25313f5404-thumbnail.jpg","iframe":"https://pooembed.top/embed/ufc-324","url":"other/2026-01-25/ufc-324-gaethje-vs-pimblett/","popularityScore":0},{"id":15383,"sport":"other","league":"FOX Cricket","teams":["Australia","England"],"name":"Australia vs. England","startTime":1766705400000,"endTime":1766734200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/133beba7b8cbe3c0a88fb0faf7048588-thumbnail.jpg","iframe":"https://pooembed.top/embed/cricket/2025/au-en/4th-test","url":"other/2025-12-26/australia-vs-england/","popularityScore":0},{"id":14899,"sport":"other","league":"PDC Darts","teams":["World Darts Championship"],"name":"World Darts Championship","startTime":1766838600000,"endTime":1766878200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/4e218218e0ba40cac4b0d2867873c96a-thumbnail.jpg","iframe":"https://pooembed.top/embed/2025-world-darts-championship","url":"other/2025-12-27/world-darts-championship/","popularityScore":0},{"id":15279,"sport":"football","league":"AFCON","teams":["Angola","Zimbabwe"],"name":"Angola vs. Zimbabwe","startTime":1766752200000,"endTime":1766759400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/69f93ba1393a3b513724f9c2fe1a9ca1-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-26/ang-zim","url":"football/2025-12-26/angola-vs-zimbabwe/","popularityScore":50},{"id":15280,"sport":"football","league":"AFCON","teams":["Egypt","South Africa"],"name":"Egypt vs. South Africa","startTime":1766761200000,"endTime":1766768400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/9e59e840cdbc7f9e09811f5d1c92b31f-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-26/egy-rsa","url":"football/2025-12-26/egypt-vs-south-africa/","popularityScore":50},{"id":15281,"sport":"football","league":"AFCON","teams":["Zambia","Comoros"],"name":"Zambia vs. Comoros","startTime":1766770200000,"endTime":1766777400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/23c5edb466b9e3a77e0874594c4d0c67-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-26/zam-com","url":"football/2025-12-26/zambia-vs-comoros/","popularityScore":50},{"id":15282,"sport":"football","league":"AFCON","teams":["Morocco","Mali"],"name":"Morocco vs. Mali","startTime":1766779200000,"endTime":1766786400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/202f862d91145346dce248f942a7ebbd-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-26/mar-mli","url":"football/2025-12-27/morocco-vs-mali/","popularityScore":50},{"id":15307,"sport":"football","league":"Premier League","teams":["Manchester United","Newcastle United"],"name":"Manchester United vs. Newcastle United","startTime":1766779200000,"endTime":1766788200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/2a6e9a66d74168c31ebf0e7a25a41727-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-26/man-new","url":"football/2025-12-27/manchester-united-vs-newcastle-united/","popularityScore":50},{"id":15317,"sport":"football","league":"Serie A","teams":["Parma","Fiorentina"],"name":"Parma vs. Fiorentina","startTime":1766835000000,"endTime":1766844000000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/002ff9b1c5b148746fcd15cae6c84d85-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-27/par-fio","url":"football/2025-12-27/parma-vs-fiorentina/","popularityScore":50},{"id":15283,"sport":"football","league":"AFCON","teams":["Benin","Botswana"],"name":"Benin vs. Botswana","startTime":1766838600000,"endTime":1766845800000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/a87a16fe03300966a32385adb147db34-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-27/ben-bot","url":"football/2025-12-27/benin-vs-botswana/","popularityScore":50},{"id":15308,"sport":"football","league":"Premier League","teams":["Nottingham Forest","Manchester City"],"name":"Nottingham Forest vs. Manchester City","startTime":1766838600000,"endTime":1766847600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/bcfdc0d30d7eb54d6fe8a98369e8a731-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-27/nfo-mnc","url":"football/2025-12-27/nottingham-forest-vs-manchester-city/","popularityScore":50},{"id":15318,"sport":"football","league":"Serie A","teams":["Lecce","Como"],"name":"Lecce vs. Como","startTime":1766844000000,"endTime":1766853000000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/d3b9f1a79ec1df7e7bdbc501d223026b-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-27/lec-como","url":"football/2025-12-27/lecce-vs-como/","popularityScore":50},{"id":15319,"sport":"football","league":"Serie A","teams":["Torino","Cagliari"],"name":"Torino vs. Cagliari","startTime":1766844000000,"endTime":1766853000000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/b56ce66b9e28f118b25a63409a351c41-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-27/tor-cag","url":"football/2025-12-27/torino-vs-cagliari/","popularityScore":50},{"id":15284,"sport":"football","league":"AFCON","teams":["Senegal","Congo DR"],"name":"Senegal vs. Congo DR","startTime":1766847600000,"endTime":1766854800000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/c4ac43aa4405c3e85e1bd0daa562fe2d-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-27/sen-cod","url":"football/2025-12-27/senegal-vs-congo-dr/","popularityScore":50},{"id":15309,"sport":"football","league":"Premier League","teams":["Arsenal","Brighton & Hove Albion"],"name":"Arsenal vs. Brighton & Hove Albion","startTime":1766847600000,"endTime":1766856600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/314103ff84388e79ab57b61c4f8e5e98-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-27/ars-bha","url":"football/2025-12-27/arsenal-vs-brighton-and-hove-albion/","popularityScore":80},{"id":15310,"sport":"football","league":"Premier League","teams":["Brentford","AFC Bournemouth"],"name":"Brentford vs. AFC Bournemouth","startTime":1766847600000,"endTime":1766856600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/27ecf816e5ececca7169c176a8980ef0-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-27/bre-bou","url":"football/2025-12-27/brentford-vs-afc-bournemouth/","popularityScore":50},{"id":15311,"sport":"football","league":"Premier League","teams":["Burnley","Everton"],"name":"Burnley vs. Everton","startTime":1766847600000,"endTime":1766856600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/6d98bbc129f9d903dc36d7537bd1f7e5-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-27/bur-eve","url":"football/2025-12-27/burnley-vs-everton/","popularityScore":50},{"id":15312,"sport":"football","league":"Premier League","teams":["Liverpool","Wolverhampton Wanderers"],"name":"Liverpool vs. Wolverhampton Wanderers","startTime":1766847600000,"endTime":1766856600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/abc63d6d6a8782ab6e65062f88329716-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-27/liv-wol","url":"football/2025-12-27/liverpool-vs-wolverhampton-wanderers/","popularityScore":80},{"id":15313,"sport":"football","league":"Premier League","teams":["West Ham United","Fulham"],"name":"West Ham United vs. Fulham","startTime":1766847600000,"endTime":1766856600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/8012c94dd2a5a9d3c678e941edb1dbcc-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-27/whu-ful","url":"football/2025-12-27/west-ham-united-vs-fulham/","popularityScore":50},{"id":15320,"sport":"football","league":"Serie A","teams":["Udinese","Lazio"],"name":"Udinese vs. Lazio","startTime":1766854800000,"endTime":1766863800000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/fa3a88b0d40d06d17ecce1ab668932f3-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-27/udi-laz","url":"football/2025-12-27/udinese-vs-lazio/","popularityScore":50},{"id":15285,"sport":"football","league":"AFCON","teams":["Uganda","Tanzania"],"name":"Uganda vs. Tanzania","startTime":1766856600000,"endTime":1766863800000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/6459ca9955f5647d30777c2c63b51a7d-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-27/uga-tan","url":"football/2025-12-27/uganda-vs-tanzania/","popularityScore":50},{"id":15314,"sport":"football","league":"Premier League","teams":["Chelsea","Aston Villa"],"name":"Chelsea vs. Aston Villa","startTime":1766856600000,"endTime":1766865600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/57ef40bc59d56d3a24d8f65fe68e3467-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-27/che-avl","url":"football/2025-12-27/chelsea-vs-aston-villa/","popularityScore":80},{"id":15321,"sport":"football","league":"Serie A","teams":["Pisa","Juventus"],"name":"Pisa vs. Juventus","startTime":1766864700000,"endTime":1766873700000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/b92dcfdafa3f6f10549d7b72ef9a5cbb-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-27/pis-juv","url":"football/2025-12-28/pisa-vs-juventus/","popularityScore":80},{"id":15286,"sport":"football","league":"AFCON","teams":["Nigeria","Tunisia"],"name":"Nigeria vs. Tunisia","startTime":1766865600000,"endTime":1766872800000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/c99920a9fadbb7ef9ce52c7393aad27c-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-27/nga-tun","url":"football/2025-12-28/nigeria-vs-tunisia/","popularityScore":50},{"id":15322,"sport":"football","league":"Serie A","teams":["AC Milan","Hellas Verona"],"name":"AC Milan vs. Hellas Verona","startTime":1766921400000,"endTime":1766930400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/767b97568a9a2bba26deebf8c94056e0-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-28/mil-ver","url":"football/2025-12-28/ac-milan-vs-hellas-verona/","popularityScore":80},{"id":15287,"sport":"football","league":"AFCON","teams":["Gabon","Mozambique"],"name":"Gabon vs. Mozambique","startTime":1766925000000,"endTime":1766932200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/a325ba7490fb3271d96c92890ead13c2-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-28/gab-moz","url":"football/2025-12-28/gabon-vs-mozambique/","popularityScore":50},{"id":15315,"sport":"football","league":"Premier League","teams":["Sunderland","Leeds United"],"name":"Sunderland vs. Leeds United","startTime":1766930400000,"endTime":1766939400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/2283b42a20c3bbf41283bc10ad2c0d97-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-28/sun-lee","url":"football/2025-12-28/sunderland-vs-leeds-united/","popularityScore":50},{"id":15323,"sport":"football","league":"Serie A","teams":["Cremonese","Napoli"],"name":"Cremonese vs. Napoli","startTime":1766930400000,"endTime":1766939400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/c19eaa828a9e7f4cdc9776193c91927f-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-28/cre-nap","url":"football/2025-12-28/cremonese-vs-napoli/","popularityScore":80},{"id":15288,"sport":"football","league":"AFCON","teams":["Equatorial Guinea","Sudan"],"name":"Equatorial Guinea vs. Sudan","startTime":1766934000000,"endTime":1766941200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/6484d9a6022907b1733cc9640d0d4a6b-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-28/eqg-sud","url":"football/2025-12-28/equatorial-guinea-vs-sudan/","popularityScore":50},{"id":15316,"sport":"football","league":"Premier League","teams":["Crystal Palace","Tottenham Hotspur"],"name":"Crystal Palace vs. Tottenham Hotspur","startTime":1766939400000,"endTime":1766948400000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/9041e5048b1d05666bf9b3a217adc617-thumbnail.jpg","iframe":"https://pooembed.top/embed/premierleague/2025-12-28/cry-tot","url":"football/2025-12-28/crystal-palace-vs-tottenham-hotspur/","popularityScore":80},{"id":15324,"sport":"football","league":"Serie A","teams":["Bologna","Sassuolo"],"name":"Bologna vs. Sassuolo","startTime":1766941200000,"endTime":1766950200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/e64191771cbf9c6554dd7cc307250b9f-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-28/bol-sas","url":"football/2025-12-28/bologna-vs-sassuolo/","popularityScore":50},{"id":15289,"sport":"football","league":"AFCON","teams":["Algeria","Burkina Faso"],"name":"Algeria vs. Burkina Faso","startTime":1766943000000,"endTime":1766950200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/a137e15b77c8c4fea21da71ecdf71a37-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-28/alg-bka","url":"football/2025-12-28/algeria-vs-burkina-faso/","popularityScore":50},{"id":15325,"sport":"football","league":"Serie A","teams":["Atalanta","Inter Milan"],"name":"Atalanta vs. Inter Milan","startTime":1766951100000,"endTime":1766960100000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/d1a635fb918d88d70a0f45b071ece37d-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-28/ata-int","url":"football/2025-12-29/atalanta-vs-inter-milan/","popularityScore":80},{"id":15290,"sport":"football","league":"AFCON","teams":["Ivory Coast","Cameroon"],"name":"Ivory Coast vs. Cameroon","startTime":1766952000000,"endTime":1766959200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/a98cabc88d5a7ac1f3b8e86c362dcb7b-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-28/civ-cmr","url":"football/2025-12-29/ivory-coast-vs-cameroon/","popularityScore":50},{"id":15333,"sport":"football","league":"AFCON","teams":["Angola","Egypt"],"name":"Angola vs. Egypt","startTime":1767024000000,"endTime":1767031200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/083cca91bb79170f7010740874cedf83-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-29/ang-egy","url":"football/2025-12-29/angola-vs-egypt/","popularityScore":50},{"id":15334,"sport":"football","league":"AFCON","teams":["Zimbabwe","South Africa"],"name":"Zimbabwe vs. South Africa","startTime":1767024000000,"endTime":1767031200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/a15a395c2d12b467ae03c857af0a956d-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-29/zim-rsa","url":"football/2025-12-29/zimbabwe-vs-south-africa/","popularityScore":50},{"id":15335,"sport":"football","league":"AFCON","teams":["Comoros","Mali"],"name":"Comoros vs. Mali","startTime":1767034800000,"endTime":1767042000000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/283ff43aacfcd8873528213e5f0bd53b-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-29/com-mli","url":"football/2025-12-30/comoros-vs-mali/","popularityScore":50},{"id":15336,"sport":"football","league":"AFCON","teams":["Zambia","Morocco"],"name":"Zambia vs. Morocco","startTime":1767034800000,"endTime":1767042000000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/b30e758b4226fa904d70985e522c941e-thumbnail.jpg","iframe":"https://pooembed.top/embed/afcon/2025-12-29/zam-mar","url":"football/2025-12-30/zambia-vs-morocco/","popularityScore":50},{"id":15326,"sport":"football","league":"Serie A","teams":["AS Roma","Genoa"],"name":"AS Roma vs. Genoa","startTime":1767037500000,"endTime":1767046500000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/0b5e56b9047d65c0856b6195cf3856d9-thumbnail.jpg","iframe":"https://pooembed.top/embed/seriea/2025-12-29/roma-gen","url":"football/2025-12-30/as-roma-vs-genoa/","popularityScore":80},{"id":15330,"sport":"other","league":"AXS TV","teams":["TNA: Impact"],"name":"TNA: Impact","startTime":1766710800000,"endTime":1766721600000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/78f581ee61589a76f6bcdeb095f95c12-thumbnail.jpg","iframe":"https://pooembed.top/embed/tna/impact/2025-12-26","url":"other/2025-12-26/tna-impact/","popularityScore":0},{"id":15332,"sport":"other","league":"TNT","teams":["AEW: Saturday Night Collision"],"name":"AEW: Saturday Night Collision","startTime":1766714400000,"endTime":1766725200000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/6e29b1bb679dd5133c85bbaadc2c4b13-thumbnail.jpg","iframe":"https://pooembed.top/embed/aew/collision/2025-12-28","url":"other/2025-12-26/aew-saturday-night-collision/","popularityScore":0},{"id":15331,"sport":"other","league":"USA Network","teams":["WWE: Friday Night Smackdown"],"name":"WWE: Friday Night Smackdown","startTime":1766797200000,"endTime":1766808000000,"status":"upcoming","thumbnail":"https://old.ppv.to/assets/thumb/ec7810b68fc39115ce3510bcf9687a63-thumbnail.jpg","iframe":"https://pooembed.top/embed/wwe/smackdown/2025-12-27","url":"other/2025-12-27/wwe-friday-night-smackdown/","popularityScore":0}]' data-sport="motorsports"
+    data-homepage="false">
+    <div class="container"><div class="sticky-filters"><div class="filters-container"><div class="date-tabs"><div class="date-tab active">🔴 Today</div><div class="date-tab ">Tomorrow</div></div></div></div><div class="sections-container"><div class="empty-state"><h3>No matches found</h3><p>Try adjusting your filters or checking back later.</p><button class="reset-btn">Reset All Filters</button></div></div></div>
+</div>
+
+<section class="container">
+    <div class="seo-content">
+        <h2>Watch Motorsports Online Free</h2>
+        <p>Footybite is the premier destination for Motorsports fans. We offer a wide range of free Motorsports streams, from major leagues to international tournaments. Our goal is to provide a
+                    seamless viewing experience for all Motorsports enthusiasts.</p>
+        <p>Whether you call it Footybite, Fotybyte, or Footybyte, you can trust us to deliver the best Motorsports live streams available on the internet. Bookmark this page to stay updated with all upcoming Motorsports matches.</p>
+    </div>
+</section>
+
+<script src="/assets/client.iife.js"></script>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">FOOTYBITE</div>
+                    <p>The official FootyBite site. Watch Football, NFL, NBA and more in HD for free.</p>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Quick Links</h4>
+                    <a href="/">Home</a>
+                    <a href="/football/">Football Streams</a>
+                    <a href="/nfl/">NFL Streams</a>
+                    <a href="/nba/">NBA Streams</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Company</h4>
+                    <a href="/about-footybite/">About Us</a>
+                    <a href="/contact/">Contact</a>
+                    <a href="/dmca/">DMCA</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FootyBite Online. Last updated: 25/12/2025, 5:35:08 pm. All rights
+                        reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Active link highlighting
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>

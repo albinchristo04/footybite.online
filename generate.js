@@ -21,8 +21,11 @@ const DIST_DIR = path.join(__dirname, 'dist');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const DOMAIN = 'https://footybite.online';
 
-const BIG_LEAGUES = ['Premier League', 'Champions League', 'La Liga', 'World Cup', 'Euros', 'UEFA', 'Serie A', 'Bundesliga', 'NFL', 'NBA'];
-const BIG_TEAMS = ['Real Madrid', 'Barcelona', 'Man City', 'Man United', 'Arsenal', 'Bayern', 'PSG', 'Liverpool', 'Chelsea', 'Juventus', 'Inter Milan', 'AC Milan', 'Lakers', 'Warriors', 'Cowboys', 'Chiefs'];
+const BIG_LEAGUES = ['Premier League', 'Champions League', 'La Liga', 'World Cup', 'Euros', 'UEFA', 'Serie A', 'Bundesliga', 'NFL', 'NBA', 'AFCON', 'Ligue 1', 'Eredivisie', 'MLS'];
+const BIG_TEAMS = [
+    'Real Madrid', 'Barcelona', 'Man City', 'Man United', 'Arsenal', 'Bayern', 'PSG', 'Liverpool', 'Chelsea', 'Juventus', 'Inter Milan', 'AC Milan', 'Lakers', 'Warriors', 'Cowboys', 'Chiefs',
+    'Tottenham', 'Atletico Madrid', 'Dortmund', 'Napoli', 'Roma', 'Ajax', 'Benfica', 'Porto', 'Celtic', 'Rangers', 'Al Nassr', 'Al Ittihad', 'Inter Miami'
+];
 
 function computePopularity(event) {
     let score = 0;
@@ -54,18 +57,28 @@ function normalizeEvent(stream, categoryName) {
     const nameLower = stream.name.toLowerCase();
     const tagLower = (stream.tag || '').toLowerCase();
 
+    // 🧠 GLOBAL DATA RULE: Football detection
     let sport = 'other';
-    if (
-        sportLower.includes('soccer') ||
-        (sportLower.includes('football') && !sportLower.includes('american')) ||
+    const isFootball =
         leagueLower.includes('premier') ||
         leagueLower.includes('la liga') ||
         leagueLower.includes('serie a') ||
         leagueLower.includes('bundesliga') ||
         leagueLower.includes('uefa') ||
         leagueLower.includes('champions') ||
-        tagLower.includes('soccer')
-    ) {
+        leagueLower.includes('europa') ||
+        leagueLower.includes('world cup') ||
+        leagueLower.includes('euro') ||
+        leagueLower.includes('afcon') ||
+        leagueLower.includes('ligue 1') ||
+        leagueLower.includes('eredivisie') ||
+        leagueLower.includes('mls') ||
+        sportLower.includes('soccer') ||
+        (sportLower.includes('football') && !sportLower.includes('american')) ||
+        tagLower.includes('soccer') ||
+        BIG_TEAMS.some(team => nameLower.includes(team.toLowerCase()) && !sportLower.includes('basketball') && !sportLower.includes('american'));
+
+    if (isFootball) {
         sport = 'football';
     } else if (sportLower.includes('american football') || sportLower.includes('nfl')) {
         sport = 'nfl';
@@ -73,8 +86,8 @@ function normalizeEvent(stream, categoryName) {
         sport = 'nba';
     } else if (sportLower.includes('fighting') || sportLower.includes('boxing') || sportLower.includes('ufc')) {
         sport = 'boxing';
-    } else if (sportLower.includes('formula 1') || sportLower.includes('f1')) {
-        sport = 'f1';
+    } else if (sportLower.includes('formula 1') || sportLower.includes('f1') || sportLower.includes('motorsport')) {
+        sport = 'motorsports';
     }
 
     const teams = stream.name.split(/ vs\.? /i).map(t => t.trim());
@@ -126,13 +139,16 @@ async function generate() {
     // 1. Generate Match Pages (Live & Upcoming)
     for (const event of activeEvents) {
         const isBigGame = event.popularityScore > 70;
-        const livePrefix = event.status === 'live' ? '🔴 LIVE: ' : '';
-        const title = `${livePrefix}${event.name} LIVE Stream Free | FootyBite`;
+        const title = `${event.name} ${event.status === 'live' ? 'LIVE Stream' : 'Live Stream Free'} | FootyBite`;
 
         const related = activeEvents
             .filter(e => e.id !== event.id && (e.sport === event.sport || e.league === event.league))
             .sort((a, b) => b.popularityScore - a.popularityScore)
             .slice(0, 10);
+
+        // Internal Link Overdrive: Same team, same date
+        const teamLinks = activeEvents.filter(e => e.id !== event.id && e.teams.some(t => event.teams.includes(t))).slice(0, 5);
+        const dateLinks = activeEvents.filter(e => e.id !== event.id && format(new Date(e.startTime), 'yyyy-MM-dd') === format(new Date(event.startTime), 'yyyy-MM-dd')).slice(0, 5);
 
         await renderPage(
             path.join(DIST_DIR, event.url, 'index.html'),
@@ -144,6 +160,8 @@ async function generate() {
                 canonical: `${DOMAIN}/${event.url}`,
                 event,
                 related,
+                teamLinks,
+                dateLinks,
                 lastUpdated,
                 criticalCss,
                 schema: generateMatchSchema(event),
@@ -167,6 +185,8 @@ async function generate() {
                 canonical: `${DOMAIN}/${replayUrl}`,
                 event: { ...event, status: 'finished' },
                 related: activeEvents.slice(0, 6),
+                teamLinks: [],
+                dateLinks: [],
                 lastUpdated,
                 criticalCss,
                 schema: generateMatchSchema(event),
@@ -227,11 +247,10 @@ async function generate() {
     }
 
     // 5. Generate Category Pages
-    const sports = ['football', 'nfl', 'nba', 'boxing', 'f1'];
+    const sports = ['football', 'motorsports', 'basketball', 'nfl', 'boxing'];
     for (const sport of sports) {
-        const sportEvents = activeEvents.filter(e => e.sport === sport);
         const filterHtml = renderToString(React.createElement(FilterEngine, {
-            initialEvents: sportEvents,
+            initialEvents: activeEvents,
             initialSport: sport,
             isHomepage: false
         }));
@@ -246,7 +265,7 @@ async function generate() {
                 canonical: `${DOMAIN}/${catUrl}`,
                 categoryName: sport.charAt(0).toUpperCase() + sport.slice(1),
                 catSlug: sport,
-                events: sportEvents,
+                events: activeEvents,
                 filterHtml,
                 lastUpdated,
                 criticalCss,
@@ -344,16 +363,28 @@ async function renderPage(filePath, templateName, data) {
 }
 
 function generateMatchSchema(event) {
-    return {
-        "@context": "https://schema.org",
-        "@type": "SportsEvent",
-        "name": event.name,
-        "startDate": new Date(event.startTime).toISOString(),
-        "location": { "@type": "Place", "name": "Online" },
-        "image": event.thumbnail,
-        "description": `Watch ${event.name} live stream on FootyBite.`,
-        "isLiveBroadcast": event.status === 'live'
-    };
+    const isoDate = new Date(event.startTime).toISOString();
+    return [
+        {
+            "@context": "https://schema.org",
+            "@type": "SportsEvent",
+            "name": event.name,
+            "startDate": isoDate,
+            "location": { "@type": "Place", "name": "Online" },
+            "image": event.thumbnail,
+            "description": `Watch ${event.name} live stream on FootyBite.`,
+            "competitor": event.teams.map(t => ({ "@type": "SportsTeam", "name": t })),
+            "isLiveBroadcast": event.status === 'live'
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BroadcastEvent",
+            "name": `${event.name} Live Broadcast`,
+            "isLiveBroadcast": event.status === 'live',
+            "startDate": isoDate,
+            "videoFormat": "HD"
+        }
+    ];
 }
 
 function generateCategorySchema(name, url) {
