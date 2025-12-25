@@ -44,7 +44,7 @@ const FALLBACK_NEWS = [
 
 const newsCache = {};
 let apiCallCount = 0;
-const MAX_API_CALLS = 95;
+const MAX_API_CALLS = 0;
 
 /**
  * Fetches news from GNews API with smart fallbacks and documentation-optimized parameters.
@@ -175,7 +175,10 @@ async function generate() {
         }
     }
 
-    const activeEvents = allEvents.filter(e => e.status !== 'finished').sort((a, b) => b.popularityScore - a.popularityScore);
+    const activeEvents = allEvents.filter(e => e.status !== 'finished').sort((a, b) => {
+        if (a.startTime !== b.startTime) return a.startTime - b.startTime;
+        return b.popularityScore - a.popularityScore;
+    });
 
     // 1. Generate Match Pages with GNews Integration
     for (const event of activeEvents) {

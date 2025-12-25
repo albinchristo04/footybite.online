@@ -70,8 +70,8 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
 
             return true;
         }).sort((a, b) => {
-            if (b.popularityScore !== a.popularityScore) return b.popularityScore - a.popularityScore;
-            return a.startTime - b.startTime;
+            if (a.startTime !== b.startTime) return a.startTime - b.startTime;
+            return b.popularityScore - a.popularityScore;
         });
     }, [initialEvents, initialSport, selectedDate, selectedLeague]);
 
@@ -99,8 +99,8 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
             sports.forEach(s => {
                 const sportEvents = initialEvents.filter(e => e.sport === s.id && e.status !== 'finished')
                     .sort((a, b) => {
-                        if (b.popularityScore !== a.popularityScore) return b.popularityScore - a.popularityScore;
-                        return a.startTime - b.startTime;
+                        if (a.startTime !== b.startTime) return a.startTime - b.startTime;
+                        return b.popularityScore - a.popularityScore;
                     });
                 if (sportEvents.length > 0) result.push({ title: `${s.icon} ${s.name}`, events: sportEvents });
             });
