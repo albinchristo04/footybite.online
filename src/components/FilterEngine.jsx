@@ -11,8 +11,20 @@ export default function FilterEngine({ initialEvents, initialSport = 'all' }) {
         const params = new URLSearchParams(window.location.search);
         const sport = params.get('sport');
         const league = params.get('league');
+        const date = params.get('date');
         if (sport) setSelectedSport(sport);
         if (league) setSelectedLeague(league);
+        if (date) setSelectedDate(date);
+
+        // Listen for custom events from hero buttons
+        const handleHeroFilter = (e) => {
+            if (e.detail.sport) {
+                setSelectedSport(e.detail.sport);
+                setSelectedLeague('all');
+            }
+        };
+        window.addEventListener('heroFilter', handleHeroFilter);
+        return () => window.removeEventListener('heroFilter', handleHeroFilter);
     }, []);
 
     // Update URL when filters change
@@ -24,15 +36,31 @@ export default function FilterEngine({ initialEvents, initialSport = 'all' }) {
         if (selectedLeague !== 'all') url.searchParams.set('league', selectedLeague);
         else url.searchParams.delete('league');
 
+        if (selectedDate !== 'today') url.searchParams.set('date', selectedDate);
+        else url.searchParams.delete('date');
+
         window.history.pushState({}, '', url);
-    }, [selectedSport, selectedLeague]);
+    }, [selectedSport, selectedLeague, selectedDate]);
 
     const leagues = useMemo(() => {
         const filtered = selectedSport === 'all'
             ? initialEvents
             : initialEvents.filter(e => e.catSlug === selectedSport);
-        const uniqueLeagues = [...new Set(filtered.map(e => e.tag).filter(Boolean))];
-        return uniqueLeagues.sort();
+
+        const uniqueLeagues = [];
+        const seenLeagues = new Set();
+
+        filtered.forEach(e => {
+            if (e.tag && !seenLeagues.has(e.tag)) {
+                seenLeagues.add(e.tag);
+                uniqueLeagues.push({
+                    name: e.tag,
+                    logo: e.poster // Using poster as a proxy for league logo if available
+                });
+            }
+        });
+
+        return uniqueLeagues.sort((a, b) => a.name.localeCompare(b.name));
     }, [selectedSport, initialEvents]);
 
     const filteredEvents = useMemo(() => {
@@ -69,59 +97,48 @@ export default function FilterEngine({ initialEvents, initialSport = 'all' }) {
         });
     }, [selectedSport, selectedDate, selectedLeague, initialEvents]);
 
-    const sports = [
-        { id: 'all', name: 'All Sports' },
-        { id: 'soccer', name: 'Soccer' },
-        { id: 'basketball', name: 'NBA' },
-        { id: 'american-football', name: 'NFL' },
-        { id: 'fighting', name: 'Boxing/UFC' },
-        { id: 'formula-1', name: 'Formula 1' }
-    ];
+    const resetFilters = () => {
+        setSelectedSport('all');
+        setSelectedDate('today');
+        setSelectedLeague('all');
+    };
 
     return (
         <div className="container">
-            <div className="filters-container">
-                <div className="tabs">
-                    <div
-                        className={`tab ${selectedDate === 'today' ? 'active' : ''}`}
-                        onClick={() => setSelectedDate('today')}
-                    >Today</div>
-                    <div
-                        className={`tab ${selectedDate === 'tomorrow' ? 'active' : ''}`}
-                        onClick={() => setSelectedDate('tomorrow')}
-                    >Tomorrow</div>
-                    <div
-                        className={`tab ${selectedDate === 'week' ? 'active' : ''}`}
-                        onClick={() => setSelectedDate('week')}
-                    >This Week</div>
-                </div>
-
-                <div className="filter-row">
-                    <div className="select-wrapper">
-                        <select
-                            value={selectedSport}
-                            onChange={(e) => {
-                                setSelectedSport(e.target.value);
-                                setSelectedLeague('all');
-                            }}
-                        >
-                            {sports.map(s => (
-                                <option key={s.id} value={s.id}>{s.name}</option>
-                            ))}
-                        </select>
+            <div className="sticky-filters">
+                <div className="filters-container">
+                    {/* Date Tabs */}
+                    <div className="date-tabs">
+                        <div
+                            className={`date-tab ${selectedDate === 'today' ? 'active' : ''}`}
+                            onClick={() => setSelectedDate('today')}
+                        >🔴 Today</div>
+                        <div
+                            className={`date-tab ${selectedDate === 'tomorrow' ? 'active' : ''}`}
+                            onClick={() => setSelectedDate('tomorrow')}
+                        >Tomorrow</div>
+                        <div
+                            className={`date-tab ${selectedDate === 'week' ? 'active' : ''}`}
+                            onClick={() => setSelectedDate('week')}
+                        >This Week</div>
                     </div>
 
+                    {/* League Chips - Only show if sport is selected or if we want them always visible */}
                     {leagues.length > 0 && (
-                        <div className="select-wrapper">
-                            <select
-                                value={selectedLeague}
-                                onChange={(e) => setSelectedLeague(e.target.value)}
-                            >
-                                <option value="all">All Leagues</option>
-                                {leagues.map(l => (
-                                    <option key={l} value={l}>{l}</option>
-                                ))}
-                            </select>
+                        <div className="league-chips">
+                            <div
+                                className={`league-chip ${selectedLeague === 'all' ? 'active' : ''}`}
+                                onClick={() => setSelectedLeague('all')}
+                            >All Leagues</div>
+                            {leagues.map(league => (
+                                <div
+                                    key={league.name}
+                                    className={`league-chip ${selectedLeague === league.name ? 'active' : ''}`}
+                                    onClick={() => setSelectedLeague(league.name)}
+                                >
+                                    {league.name}
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>
@@ -133,8 +150,10 @@ export default function FilterEngine({ initialEvents, initialSport = 'all' }) {
                         <MatchCard key={event.id} event={event} />
                     ))
                 ) : (
-                    <div style={{ textAlign: 'center', gridColumn: '1/-1', padding: '4rem', color: 'var(--gray)' }}>
-                        No matches found for the selected filters.
+                    <div className="empty-state">
+                        <h3>No matches found</h3>
+                        <p>No matches found for <strong>{selectedSport === 'all' ? 'All Sports' : selectedSport}</strong> · <strong>{selectedDate}</strong></p>
+                        <button className="reset-btn" onClick={resetFilters}>Reset All Filters</button>
                     </div>
                 )}
             </div>

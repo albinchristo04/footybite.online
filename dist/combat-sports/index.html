@@ -41,11 +41,18 @@
         <h1>Free Combat Sports Live Streams</h1>
         <p>Watch the best Combat Sports live streams for free. Footybite coverage of all Combat Sports
                     events.</p>
+
+        <div class="hero-filters">
+            <button class="hero-btn" onclick="triggerHeroFilter('soccer')">Watch Soccer</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('american-football')">Watch NFL</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('basketball')">Watch NBA</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('fighting')">Watch Boxing/UFC</button>
+        </div>
     </div>
 </section>
 
 <div id="filter-engine-root" data-events='[{"id":14284,"name":"UFC 324: Gaethje vs. Pimblett","tag":"Paramount+","poster":"https://old.ppv.to/assets/thumb/0009785da1e175b7995e8c25313f5404-thumbnail.jpg","blurhash":"LGFOKAxav0V?L4$*R#V?8^WCpdof","colors":["#eaad9a","#b26064"],"uri_name":"ufc-324","starts_at":1769299200,"ends_at":1769328000,"always_live":0,"locale":"en","category_name":"Combat Sports","iframe":"https://pooembed.top/embed/ufc-324","viewers":"0","substreams":[],"url":"combat-sports/2026-01-25/ufc-324-gaethje-vs-pimblett/","catSlug":"combat-sports","dateStr":"2026-01-25","time":"January 25th, 2026 5:30 AM"}]' data-sport="combat-sports">
-        <div class="container"><div class="filters-container"><div class="tabs"><div class="tab active">Today</div><div class="tab ">Tomorrow</div><div class="tab ">This Week</div></div><div class="filter-row"><div class="select-wrapper"><select><option value="all">All Sports</option><option value="soccer">Soccer</option><option value="basketball">NBA</option><option value="american-football">NFL</option><option value="fighting">Boxing/UFC</option><option value="formula-1">Formula 1</option></select></div><div class="select-wrapper"><select><option value="all" selected="">All Leagues</option><option value="Paramount+">Paramount+</option></select></div></div></div><div class="match-grid"><div style="text-align:center;grid-column:1/-1;padding:4rem;color:var(--gray)">No matches found for the selected filters.</div></div></div>
+        <div class="container"><div class="sticky-filters"><div class="filters-container"><div class="date-tabs"><div class="date-tab active">🔴 Today</div><div class="date-tab ">Tomorrow</div><div class="date-tab ">This Week</div></div><div class="league-chips"><div class="league-chip active">All Leagues</div><div class="league-chip ">Paramount+</div></div></div></div><div class="match-grid"><div class="empty-state"><h3>No matches found</h3><p>No matches found for <strong>combat-sports</strong> · <strong>today</strong></p><button class="reset-btn">Reset All Filters</button></div></div></div>
 </div>
 
 <section class="container">
@@ -57,6 +64,27 @@
     </div>
 </section>
 
+<script>
+    function triggerHeroFilter(sport) {
+        // If we are on a category page and click a different sport, we should navigate
+        const currentSport = 'combat-sports';
+        if (sport !== currentSport && sport !== 'all') {
+            window.location.href = '/' + sport + '/';
+            return;
+        }
+
+        const event = new CustomEvent('heroFilter', { detail: { sport } });
+        window.dispatchEvent(event);
+
+        const root = document.getElementById('filter-engine-root');
+        if (root) {
+            window.scrollTo({
+                top: root.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
 <script src="/assets/client.iife.js"></script>
     </main>
 

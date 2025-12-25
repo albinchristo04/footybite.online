@@ -3,6 +3,13 @@
         <h1>Free <%= categoryName %> Live Streams</h1>
         <p>Watch the best <%= categoryName %> live streams for free. Footybite coverage of all <%= categoryName %>
                     events.</p>
+
+        <div class="hero-filters">
+            <button class="hero-btn" onclick="triggerHeroFilter('soccer')">Watch Soccer</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('american-football')">Watch NFL</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('basketball')">Watch NBA</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('fighting')">Watch Boxing/UFC</button>
+        </div>
     </div>
 </section>
 
@@ -23,4 +30,25 @@
     </div>
 </section>
 
+<script>
+    function triggerHeroFilter(sport) {
+        // If we are on a category page and click a different sport, we should navigate
+        const currentSport = '<%= catSlug %>';
+        if (sport !== currentSport && sport !== 'all') {
+            window.location.href = '/' + sport + '/';
+            return;
+        }
+
+        const event = new CustomEvent('heroFilter', { detail: { sport } });
+        window.dispatchEvent(event);
+
+        const root = document.getElementById('filter-engine-root');
+        if (root) {
+            window.scrollTo({
+                top: root.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
 <script src="/assets/client.iife.js"></script>

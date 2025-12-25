@@ -3,6 +3,13 @@
         <h1>Free Live Sports Streaming</h1>
         <p>Watch Footybite, Fotybyte, and Footybyte live streams. The best place for free soccer streams, NFL, NBA, and
             more.</p>
+
+        <div class="hero-filters">
+            <button class="hero-btn" onclick="triggerHeroFilter('soccer')">Watch Soccer</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('american-football')">Watch NFL</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('basketball')">Watch NBA</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('fighting')">Watch Boxing/UFC</button>
+        </div>
     </div>
 </section>
 
@@ -29,4 +36,20 @@
     </div>
 </section>
 
+<script>
+    function triggerHeroFilter(sport) {
+        // Dispatch custom event for React component
+        const event = new CustomEvent('heroFilter', { detail: { sport } });
+        window.dispatchEvent(event);
+
+        // Scroll to filters
+        const root = document.getElementById('filter-engine-root');
+        if (root) {
+            window.scrollTo({
+                top: root.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
 <script src="/assets/client.iife.js"></script>

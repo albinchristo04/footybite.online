@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Countdown({ startTime, onLive }) {
+export default function Countdown({ startTime }) {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     function calculateTimeLeft() {
@@ -20,18 +20,17 @@ export default function Countdown({ startTime, onLive }) {
             setTimeLeft(left);
             if (!left) {
                 clearInterval(timer);
-                if (onLive) onLive();
             }
         }, 1000);
 
         return () => clearInterval(timer);
     }, [startTime]);
 
-    if (!timeLeft) return <span className="status-badge live">LIVE NOW</span>;
+    if (!timeLeft) return null;
 
     const { hours, minutes, seconds } = timeLeft;
     return (
-        <span className="countdown-timer">
+        <span className="countdown-text">
             {hours.toString().padStart(2, '0')}:{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
         </span>
     );

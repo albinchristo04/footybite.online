@@ -41,11 +41,18 @@
         <h1>Free Wrestling Live Streams</h1>
         <p>Watch the best Wrestling live streams for free. Footybite coverage of all Wrestling
                     events.</p>
+
+        <div class="hero-filters">
+            <button class="hero-btn" onclick="triggerHeroFilter('soccer')">Watch Soccer</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('american-football')">Watch NFL</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('basketball')">Watch NBA</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('fighting')">Watch Boxing/UFC</button>
+        </div>
     </div>
 </section>
 
 <div id="filter-engine-root" data-events='[{"id":15330,"name":"TNA: Impact","tag":"AXS TV","poster":"https://old.ppv.to/assets/thumb/78f581ee61589a76f6bcdeb095f95c12-thumbnail.jpg","blurhash":"L6GFdr].0|t700EfGZR*3;J-{gt6","colors":["#030303","#050505"],"uri_name":"tna/impact/2025-12-26","starts_at":1766710800,"ends_at":1766721600,"always_live":0,"locale":"en","category_name":"Wrestling","iframe":"https://pooembed.top/embed/tna/impact/2025-12-26","viewers":"3","substreams":[],"url":"wrestling/2025-12-26/tna-impact/","catSlug":"wrestling","dateStr":"2025-12-26","time":"December 26th, 2025 6:30 AM"},{"id":15332,"name":"AEW: Saturday Night Collision","tag":"TNT","poster":"https://old.ppv.to/assets/thumb/6e29b1bb679dd5133c85bbaadc2c4b13-thumbnail.jpg","blurhash":"LDDk_9Na01of}mNwNMbF0TS#^cae","colors":["#210e10","#160c0a"],"uri_name":"aew/collision/2025-12-28","starts_at":1766714400,"ends_at":1766725200,"always_live":0,"locale":"en","category_name":"Wrestling","iframe":"https://pooembed.top/embed/aew/collision/2025-12-28","viewers":"0","substreams":[],"url":"wrestling/2025-12-26/aew-saturday-night-collision/","catSlug":"wrestling","dateStr":"2025-12-26","time":"December 26th, 2025 7:30 AM"},{"id":15331,"name":"WWE: Friday Night Smackdown","tag":"USA Network","poster":"https://old.ppv.to/assets/thumb/ec7810b68fc39115ce3510bcf9687a63-thumbnail.jpg","blurhash":"LF4ezej]M?s{kFkDf2fKIUWGxsfT","colors":["#001b65","#0001b4"],"uri_name":"wwe/smackdown/2025-12-27","starts_at":1766797200,"ends_at":1766808000,"always_live":0,"locale":"en","category_name":"Wrestling","iframe":"https://pooembed.top/embed/wwe/smackdown/2025-12-27","viewers":"0","substreams":[],"url":"wrestling/2025-12-27/wwe-friday-night-smackdown/","catSlug":"wrestling","dateStr":"2025-12-27","time":"December 27th, 2025 6:30 AM"}]' data-sport="wrestling">
-        <div class="container"><div class="filters-container"><div class="tabs"><div class="tab active">Today</div><div class="tab ">Tomorrow</div><div class="tab ">This Week</div></div><div class="filter-row"><div class="select-wrapper"><select><option value="all">All Sports</option><option value="soccer">Soccer</option><option value="basketball">NBA</option><option value="american-football">NFL</option><option value="fighting">Boxing/UFC</option><option value="formula-1">Formula 1</option></select></div><div class="select-wrapper"><select><option value="all" selected="">All Leagues</option><option value="AXS TV">AXS TV</option><option value="TNT">TNT</option><option value="USA Network">USA Network</option></select></div></div></div><div class="match-grid"><div style="text-align:center;grid-column:1/-1;padding:4rem;color:var(--gray)">No matches found for the selected filters.</div></div></div>
+        <div class="container"><div class="sticky-filters"><div class="filters-container"><div class="date-tabs"><div class="date-tab active">🔴 Today</div><div class="date-tab ">Tomorrow</div><div class="date-tab ">This Week</div></div><div class="league-chips"><div class="league-chip active">All Leagues</div><div class="league-chip ">AXS TV</div><div class="league-chip ">TNT</div><div class="league-chip ">USA Network</div></div></div></div><div class="match-grid"><div class="empty-state"><h3>No matches found</h3><p>No matches found for <strong>wrestling</strong> · <strong>today</strong></p><button class="reset-btn">Reset All Filters</button></div></div></div>
 </div>
 
 <section class="container">
@@ -57,6 +64,27 @@
     </div>
 </section>
 
+<script>
+    function triggerHeroFilter(sport) {
+        // If we are on a category page and click a different sport, we should navigate
+        const currentSport = 'wrestling';
+        if (sport !== currentSport && sport !== 'all') {
+            window.location.href = '/' + sport + '/';
+            return;
+        }
+
+        const event = new CustomEvent('heroFilter', { detail: { sport } });
+        window.dispatchEvent(event);
+
+        const root = document.getElementById('filter-engine-root');
+        if (root) {
+            window.scrollTo({
+                top: root.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
 <script src="/assets/client.iife.js"></script>
     </main>
 

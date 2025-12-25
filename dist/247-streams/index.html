@@ -41,11 +41,18 @@
         <h1>Free 24/7 Streams Live Streams</h1>
         <p>Watch the best 24/7 Streams live streams for free. Footybite coverage of all 24/7 Streams
                     events.</p>
+
+        <div class="hero-filters">
+            <button class="hero-btn" onclick="triggerHeroFilter('soccer')">Watch Soccer</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('american-football')">Watch NFL</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('basketball')">Watch NBA</button>
+            <button class="hero-btn" onclick="triggerHeroFilter('fighting')">Watch Boxing/UFC</button>
+        </div>
     </div>
 </section>
 
 <div id="filter-engine-root" data-events='[{"id":5112,"name":"24/7 South Park","tag":"24/7 channel","poster":"https://thumbs.poocloud.in/southpark/preview.jpg","blurhash":"","colors":["#349150","#510080"],"uri_name":"247-south-park","starts_at":0,"ends_at":0,"always_live":1,"locale":"en","category_name":"24/7 Streams","iframe":"https://pooembed.top/embed/247-south-park","viewers":"29","substreams":[],"url":"247-streams/1970-01-01/247-south-park/","catSlug":"247-streams","dateStr":"1970-01-01","time":"January 1st, 1970 5:30 AM"},{"id":3663,"name":"24/7 COWS","tag":"24/7 channel","poster":"https://old.ppv.to/assets/thumb/213d77252211e1926309f43b38263a4f-thumbnail.jpg","blurhash":"LLHBJBIU.SIV~WD%.7n#%#nOoJi{","colors":["#8c797d","#746353"],"uri_name":"247-cows","starts_at":1737176400,"ends_at":1740772800,"always_live":1,"locale":"en","category_name":"24/7 Streams","iframe":"https://pooembed.top/embed/247-cows","viewers":"0","substreams":[],"url":"247-streams/2025-01-18/247-cows/","catSlug":"247-streams","dateStr":"2025-01-18","time":"January 18th, 2025 10:30 AM"},{"id":8008,"name":"24/7 Family Guy","tag":"24/7 channel","poster":"https://thumbs.poocloud.in/familyguy/preview.jpg","blurhash":"","colors":["#349150","#510080"],"uri_name":"247-family-guy","starts_at":1737187200,"ends_at":1737190800,"always_live":1,"locale":"en","category_name":"24/7 Streams","iframe":"https://pooembed.top/embed/247-family-guy","viewers":"41","substreams":[],"url":"247-streams/2025-01-18/247-family-guy/","catSlug":"247-streams","dateStr":"2025-01-18","time":"January 18th, 2025 1:30 PM"},{"id":5191,"name":"24/7 The Simpsons","tag":"24/7 channel","poster":"https://thumbs.poocloud.in/thesimpsons/preview.jpg","blurhash":"","colors":["#349150","#510080"],"uri_name":"247-the-simpsons","starts_at":1737196080,"ends_at":1737196080,"always_live":1,"locale":"en","category_name":"24/7 Streams","iframe":"https://pooembed.top/embed/247-the-simpsons","viewers":"18","substreams":[],"url":"247-streams/2025-01-18/247-the-simpsons/","catSlug":"247-streams","dateStr":"2025-01-18","time":"January 18th, 2025 3:58 PM"},{"id":10681,"name":"Master stream test","tag":"South Park/PPV","poster":"https://old.ppv.to/assets/thumb/c7caf570cf3494e7f9ad1ae3f3122242-thumbnail.jpg","blurhash":"L-K_5zRj~qt7?bj[xuofD%j[M{WB","colors":["#fffafe","#fefcff"],"uri_name":"master-stream-test-delete-12568","starts_at":1756101600,"ends_at":1756116000,"always_live":1,"locale":"en","category_name":"24/7 Streams","iframe":"https://pooembed.top/embed/master-stream-test-delete-12568","viewers":"0","substreams":[{"id":10682,"name":"Family Guy","tag":"Family Guy/PPV","locale":"en","iframe":"https://pooembed.top/embed/slave-stream-test-delete-12568"}],"url":"247-streams/2025-08-25/master-stream-test/","catSlug":"247-streams","dateStr":"2025-08-25","time":"August 25th, 2025 11:30 AM"}]' data-sport="247-streams">
-        <div class="container"><div class="filters-container"><div class="tabs"><div class="tab active">Today</div><div class="tab ">Tomorrow</div><div class="tab ">This Week</div></div><div class="filter-row"><div class="select-wrapper"><select><option value="all">All Sports</option><option value="soccer">Soccer</option><option value="basketball">NBA</option><option value="american-football">NFL</option><option value="fighting">Boxing/UFC</option><option value="formula-1">Formula 1</option></select></div><div class="select-wrapper"><select><option value="all" selected="">All Leagues</option><option value="24/7 channel">24/7 channel</option><option value="South Park/PPV">South Park/PPV</option></select></div></div></div><div class="match-grid"><div style="text-align:center;grid-column:1/-1;padding:4rem;color:var(--gray)">No matches found for the selected filters.</div></div></div>
+        <div class="container"><div class="sticky-filters"><div class="filters-container"><div class="date-tabs"><div class="date-tab active">🔴 Today</div><div class="date-tab ">Tomorrow</div><div class="date-tab ">This Week</div></div><div class="league-chips"><div class="league-chip active">All Leagues</div><div class="league-chip ">24/7 channel</div><div class="league-chip ">South Park/PPV</div></div></div></div><div class="match-grid"><div class="empty-state"><h3>No matches found</h3><p>No matches found for <strong>247-streams</strong> · <strong>today</strong></p><button class="reset-btn">Reset All Filters</button></div></div></div>
 </div>
 
 <section class="container">
@@ -57,6 +64,27 @@
     </div>
 </section>
 
+<script>
+    function triggerHeroFilter(sport) {
+        // If we are on a category page and click a different sport, we should navigate
+        const currentSport = '247-streams';
+        if (sport !== currentSport && sport !== 'all') {
+            window.location.href = '/' + sport + '/';
+            return;
+        }
+
+        const event = new CustomEvent('heroFilter', { detail: { sport } });
+        window.dispatchEvent(event);
+
+        const root = document.getElementById('filter-engine-root');
+        if (root) {
+            window.scrollTo({
+                top: root.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
 <script src="/assets/client.iife.js"></script>
     </main>
 

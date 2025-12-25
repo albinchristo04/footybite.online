@@ -11,33 +11,63 @@ const FALLBACK_IMAGES = {
 };
 
 export default function MatchCard({ event }) {
-    const isLive = (event.starts_at * 1000) <= new Date().getTime() && (event.ends_at * 1000) > new Date().getTime();
-    const isFinished = (event.ends_at * 1000) <= new Date().getTime();
-    const isUpcoming = (event.starts_at * 1000) > new Date().getTime();
+    const startTime = event.starts_at * 1000;
+    const endTime = event.ends_at * 1000;
+    const now = new Date().getTime();
+
+    const isLive = now >= startTime && now < endTime;
+    const isFinished = now >= endTime;
+    const isUpcoming = now < startTime;
 
     const thumb = event.poster || FALLBACK_IMAGES[event.category_name] || FALLBACK_IMAGES.default;
 
+    // Split name into teams if possible (e.g., "Team A vs. Team B")
+    const teams = event.name.split(/ vs\.? /i);
+
     return (
         <a href={`/${event.url}`} className="match-card">
-            <div className="match-thumb">
+            <div className="match-thumb-wrapper">
+                <div className="league-badge">{event.tag || event.category_name}</div>
                 <img
                     src={thumb}
                     alt={`${event.name} live stream thumbnail`}
                     loading="lazy"
                 />
-            </div>
-            <div className="match-card-content">
-                <div className="category-league">
-                    <span>{event.category_name}</span>
-                    <span>{event.tag || ''}</span>
+                <div className="match-status-overlay">
+                    {isLive && <span className="status-badge live">LIVE NOW</span>}
                 </div>
-                <h3>{event.name}</h3>
+            </div>
+
+            <div className="match-card-content">
+                <div className="match-date-small">
+                    {new Date(startTime).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })} · {new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </div>
+
+                <div className="match-teams">
+                    {teams.length === 2 ? (
+                        <>
+                            <div className="team-row">
+                                <span className="team-name">{teams[0]}</span>
+                            </div>
+                            <div className="team-row">
+                                <span className="team-name">{teams[1]}</span>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="team-row">
+                            <span className="team-name">{event.name}</span>
+                        </div>
+                    )}
+                </div>
+
                 <div className="match-card-footer">
-                    <div className="match-time">
-                        {new Date(event.starts_at * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </div>
-                    {isLive && <span className="status-badge live">LIVE</span>}
-                    {isUpcoming && <Countdown startTime={event.starts_at} />}
+                    {isUpcoming && (
+                        <div className="status-badge upcoming">
+                            <span>⏱️ Starts in </span>
+                            <Countdown startTime={event.starts_at} />
+                        </div>
+                    )}
+                    {isLive && <span className="status-badge live">LIVE NOW</span>}
                     {isFinished && <span className="status-badge finished">FINISHED</span>}
                 </div>
             </div>
