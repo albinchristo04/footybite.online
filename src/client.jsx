@@ -6,5 +6,6 @@ const container = document.getElementById('filter-engine-root');
 if (container) {
     const initialEvents = JSON.parse(container.dataset.events);
     const initialSport = container.dataset.sport || 'all';
-    hydrateRoot(container, <FilterEngine initialEvents={initialEvents} initialSport={initialSport} />);
+    const isHomepage = container.dataset.homepage === 'true';
+    hydrateRoot(container, <FilterEngine initialEvents={initialEvents} initialSport={initialSport} isHomepage={isHomepage} />);
 }

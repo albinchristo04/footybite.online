@@ -213,10 +213,32 @@ header {
     color: var(--light);
 }
 
-.league-chip img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
+/* Match Sections */
+.sections-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin: 2rem 0;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--light);
+}
+
+.empty-state-small {
+    padding: 2rem;
+    background: var(--glass);
+    border-radius: 16px;
+    border: 1px dashed var(--glass-border);
+    text-align: center;
+    color: var(--gray);
+    grid-column: 1 / -1;
 }
 
 /* Match Grid */
@@ -224,7 +246,6 @@ header {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 24px;
-    margin: 2rem 0 4rem;
 }
 
 /* Match Card */
@@ -307,12 +328,6 @@ header {
     display: flex;
     align-items: center;
     gap: 12px;
-}
-
-.team-logo {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
 }
 
 .team-name {

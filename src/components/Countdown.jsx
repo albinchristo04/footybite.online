@@ -4,7 +4,7 @@ export default function Countdown({ startTime }) {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     function calculateTimeLeft() {
-        const difference = startTime * 1000 - new Date().getTime();
+        const difference = startTime - Date.now();
         if (difference <= 0) return null;
 
         const hours = Math.floor((difference / (1000 * 60 * 60)));
@@ -31,7 +31,7 @@ export default function Countdown({ startTime }) {
     const { hours, minutes, seconds } = timeLeft;
     return (
         <span className="countdown-text">
-            {hours.toString().padStart(2, '0')}:{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
+            {hours}h {minutes}m {seconds}s
         </span>
     );
 }

@@ -5,15 +5,16 @@
             more.</p>
 
         <div class="hero-filters">
-            <button class="hero-btn" onclick="triggerHeroFilter('soccer')">Watch Soccer</button>
-            <button class="hero-btn" onclick="triggerHeroFilter('american-football')">Watch NFL</button>
-            <button class="hero-btn" onclick="triggerHeroFilter('basketball')">Watch NBA</button>
-            <button class="hero-btn" onclick="triggerHeroFilter('fighting')">Watch Boxing/UFC</button>
+            <a href="/soccer/" class="hero-btn">Watch Soccer</a>
+            <a href="/nfl/" class="hero-btn">Watch NFL</a>
+            <a href="/nba/" class="hero-btn">Watch NBA</a>
+            <a href="/boxing/" class="hero-btn">Watch Boxing/UFC</a>
         </div>
     </div>
 </section>
 
-<div id="filter-engine-root" data-events='<%- JSON.stringify(events).replace(/' /g, "&#39;" ) %>' data-sport="all">
+<div id="filter-engine-root" data-events='<%- JSON.stringify(events).replace(/' /g, "&#39;" ) %>' data-sport="all"
+    data-homepage="true">
     <%- filterHtml %>
 </div>
 
@@ -36,20 +37,4 @@
     </div>
 </section>
 
-<script>
-    function triggerHeroFilter(sport) {
-        // Dispatch custom event for React component
-        const event = new CustomEvent('heroFilter', { detail: { sport } });
-        window.dispatchEvent(event);
-
-        // Scroll to filters
-        const root = document.getElementById('filter-engine-root');
-        if (root) {
-            window.scrollTo({
-                top: root.offsetTop - 100,
-                behavior: 'smooth'
-            });
-        }
-    }
-</script>
 <script src="/assets/client.iife.js"></script>

@@ -4,112 +4,144 @@ const fs = require('fs-extra');
 const ejs = require('ejs');
 const path = require('path');
 const slugify = require('slugify');
-const { format, isAfter, isBefore, addHours } = require('date-fns');
+const { format } = require('date-fns');
 const React = require('react');
 const { renderToString } = require('react-dom/server');
 
 // Import React components
 const FilterEngine = require('./src/components/FilterEngine').default;
-const MatchCard = require('./src/components/MatchCard').default;
 
 const DATA_URL = 'https://raw.githubusercontent.com/albinchristo04/ptv/refs/heads/main/events.json';
 const DIST_DIR = path.join(__dirname, 'dist');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const DOMAIN = 'https://footybite.online';
 
+function normalizeEvent(stream, categoryName) {
+    const startTime = stream.starts_at * 1000;
+    const endTime = stream.ends_at * 1000;
+    const now = Date.now();
+
+    let status = 'upcoming';
+    if (now >= startTime && now < endTime) status = 'live';
+    else if (now >= endTime) status = 'finished';
+
+    // Sport Resolution Rule (CRITICAL)
+    let sport = 'other';
+    const sportLower = categoryName.toLowerCase();
+    const nameLower = stream.name.toLowerCase();
+    const tagLower = (stream.tag || '').toLowerCase();
+
+    if (sportLower.includes('soccer') ||
+        sportLower.includes('football') && !sportLower.includes('american') ||
+        nameLower.includes('premier league') ||
+        nameLower.includes('la liga') ||
+        nameLower.includes('uefa') ||
+        tagLower.includes('soccer')) {
+        sport = 'soccer';
+    } else if (sportLower.includes('american football') || sportLower.includes('nfl')) {
+        sport = 'nfl';
+    } else if (sportLower.includes('basketball') || sportLower.includes('nba')) {
+        sport = 'nba';
+    } else if (sportLower.includes('fighting') || sportLower.includes('boxing') || sportLower.includes('ufc')) {
+        sport = 'boxing';
+    } else if (sportLower.includes('formula 1') || sportLower.includes('f1')) {
+        sport = 'f1';
+    }
+
+    const teams = stream.name.split(/ vs\.? /i).map(t => t.trim());
+
+    return {
+        id: stream.id,
+        sport,
+        league: stream.tag || categoryName,
+        teams,
+        name: stream.name,
+        startTime,
+        endTime,
+        status,
+        thumbnail: stream.poster,
+        iframe: stream.iframe,
+        url: `${sport}/${format(new Date(startTime), 'yyyy-MM-dd')}/${slugify(stream.name, { lower: true, strict: true })}/`
+    };
+}
+
 async function generate() {
     console.log('Starting generation...');
-
-    // Ensure dist directory exists
     await fs.ensureDir(DIST_DIR);
-
-    // Copy static assets
     await fs.copy(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
 
-    // Fetch data
     const response = await axios.get(DATA_URL);
-    const data = response.data;
-    const categories = data.events.streams;
+    const categories = response.data.events.streams;
 
     const allEvents = [];
     const sitemapEntries = [];
 
-    // Process categories and events
+    // 1. Normalize all data
     for (const cat of categories) {
-        const catSlug = slugify(cat.category, { lower: true, strict: true });
-        const catEvents = [];
-
         for (const stream of cat.streams) {
-            const eventDate = new Date(stream.starts_at * 1000);
-            const dateStr = format(eventDate, 'yyyy-MM-dd');
-            const matchSlug = slugify(stream.name, { lower: true, strict: true });
-            const url = `${catSlug}/${dateStr}/${matchSlug}/`;
-
-            const event = {
-                ...stream,
-                url,
-                catSlug,
-                dateStr,
-                time: format(eventDate, 'PPP p'),
-                category_name: cat.category
-            };
-
-            catEvents.push(event);
-            allEvents.push(event);
-
-            // Generate Match Page
-            const discoverTitle = `LIVE: ${event.name} Free Stream - Don't Miss the Action!`;
-            await renderPage(
-                path.join(DIST_DIR, url, 'index.html'),
-                'match',
-                {
-                    title: `${event.name} Live Stream - Watch ${event.category_name} Online Free`,
-                    h1: discoverTitle,
-                    description: `Watch ${event.name} free live stream online. Footybite coverage of ${event.category_name}. Fotybyte and Footybyte official streams.`,
-                    canonical: `${DOMAIN}/${url}`,
-                    event,
-                    schema: generateMatchSchema(event)
-                }
-            );
-            sitemapEntries.push(`${DOMAIN}/${url}`);
+            allEvents.push(normalizeEvent(stream, cat.category));
         }
+    }
 
-        // Generate Category Page
-        const catUrl = `${catSlug}/`;
+    // 2. Generate Match Pages
+    for (const event of allEvents) {
+        const discoverTitle = `LIVE: ${event.name} Free Stream - Don't Miss the Action!`;
+        await renderPage(
+            path.join(DIST_DIR, event.url, 'index.html'),
+            'match',
+            {
+                title: `${event.name} Live Stream - Watch ${event.sport.toUpperCase()} Online Free`,
+                h1: discoverTitle,
+                description: `Watch ${event.name} free live stream online. Footybite coverage of ${event.sport}.`,
+                canonical: `${DOMAIN}/${event.url}`,
+                event,
+                schema: generateMatchSchema(event)
+            }
+        );
+        sitemapEntries.push(`${DOMAIN}/${event.url}`);
+    }
+
+    // 3. Generate Category Pages
+    const sports = ['soccer', 'nfl', 'nba', 'boxing', 'f1'];
+    for (const sport of sports) {
+        const sportEvents = allEvents.filter(e => e.sport === sport);
         const filterHtml = renderToString(React.createElement(FilterEngine, {
-            initialEvents: catEvents,
-            initialSport: catSlug
+            initialEvents: sportEvents,
+            initialSport: sport,
+            isHomepage: false
         }));
 
+        const catUrl = `${sport}/`;
         await renderPage(
             path.join(DIST_DIR, catUrl, 'index.html'),
             'category',
             {
-                title: `Free ${cat.category} Live Streams | Watch ${cat.category} Online - Footybite`,
-                description: `Watch the best ${cat.category} live streams for free. Footybite coverage of all ${cat.category} events. Fotybyte and Footybyte official site.`,
+                title: `Free ${sport.toUpperCase()} Live Streams | Footybite`,
+                description: `Watch the best ${sport} live streams for free on Footybite.`,
                 canonical: `${DOMAIN}/${catUrl}`,
-                categoryName: cat.category,
-                catSlug: catSlug,
-                events: catEvents,
+                categoryName: sport.toUpperCase(),
+                catSlug: sport,
+                events: sportEvents,
                 filterHtml,
-                schema: generateCategorySchema(cat.category, catUrl)
+                schema: generateCategorySchema(sport, catUrl)
             }
         );
         sitemapEntries.push(`${DOMAIN}/${catUrl}`);
     }
 
-    // Generate Homepage
+    // 4. Generate Homepage
     const homeFilterHtml = renderToString(React.createElement(FilterEngine, {
         initialEvents: allEvents,
-        initialSport: 'all'
+        initialSport: 'all',
+        isHomepage: true
     }));
 
     await renderPage(
         path.join(DIST_DIR, 'index.html'),
         'index',
         {
-            title: 'Footybite | Free Live Sports Streaming | Soccer Streams, NFL, NBA',
-            description: 'Footybite (Fotybyte) is the best place for free soccer streams, NFL, NBA, and live sports streaming. Watch Footybyte official streams online.',
+            title: 'Footybite | Free Live Sports Streaming | Soccer, NFL, NBA',
+            description: 'Footybite is the best place for free soccer streams, NFL, NBA, and live sports streaming.',
             canonical: `${DOMAIN}/`,
             events: allEvents,
             filterHtml: homeFilterHtml,
@@ -118,10 +150,7 @@ async function generate() {
     );
     sitemapEntries.push(`${DOMAIN}/`);
 
-    // Generate Sitemap
     await generateSitemap(sitemapEntries);
-
-    // Generate Robots.txt
     await fs.writeFile(path.join(DIST_DIR, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${DOMAIN}/sitemap.xml`);
 
     console.log('Generation complete!');
@@ -130,10 +159,8 @@ async function generate() {
 async function renderPage(filePath, templateName, data) {
     const templatePath = path.join(TEMPLATES_DIR, `${templateName}.ejs`);
     const baseTemplatePath = path.join(TEMPLATES_DIR, 'base.ejs');
-
     const body = await ejs.renderFile(templatePath, data);
     const html = await ejs.renderFile(baseTemplatePath, { ...data, body });
-
     await fs.ensureDir(path.dirname(filePath));
     await fs.writeFile(filePath, html);
 }
@@ -143,43 +170,17 @@ function generateMatchSchema(event) {
         "@context": "https://schema.org",
         "@type": "SportsEvent",
         "name": event.name,
-        "startDate": new Date(event.starts_at * 1000).toISOString(),
-        "description": `Watch ${event.name} live stream on Footybite.`,
-        "location": {
-            "@type": "Place",
-            "name": "Online"
-        },
-        "offers": {
-            "@type": "Offer",
-            "url": `${DOMAIN}/${event.url}`,
-            "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-        }
+        "startDate": new Date(event.startTime).toISOString(),
+        "location": { "@type": "Place", "name": "Online" }
     };
 }
 
 function generateCategorySchema(name, url) {
-    return {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": `${name} Live Streams`,
-        "url": `${DOMAIN}/${url}`
-    };
+    return { "@context": "https://schema.org", "@type": "WebPage", "name": name, "url": `${DOMAIN}/${url}` };
 }
 
 function generateHomeSchema() {
-    return {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Footybite",
-        "url": DOMAIN,
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": `${DOMAIN}/search?q={search_term_string}`,
-            "query-input": "required name=search_term_string"
-        }
-    };
+    return { "@context": "https://schema.org", "@type": "WebSite", "name": "Footybite", "url": DOMAIN };
 }
 
 async function generateSitemap(entries) {
