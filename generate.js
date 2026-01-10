@@ -242,8 +242,8 @@ async function generate() {
     // 3. Homepage
     const homeFilterHtml = renderToString(React.createElement(FilterEngine, { initialEvents: activeEvents, initialSport: 'all', isHomepage: true }));
     await renderPage(path.join(DIST_DIR, 'index.html'), 'index', {
-        title: 'FootyBite | Free Live Sports Streaming 🔴 Football, NFL, NBA',
-        description: 'FootyBite is the #1 place for free football streams, NFL, NBA, and live sports. Watch in HD for free.',
+        title: 'Footybite (Footybites) - Official Footy Bite & Footybyte Sports Streams',
+        description: 'Experience the official Footybite (Footybites) for free live sports. Your top source for Footy Bite and Footybyte streams including Football, NFL, and NBA in HD.',
         canonical: `${DOMAIN}/`, events: activeEvents, filterHtml: homeFilterHtml, lastUpdated, criticalCss, schema: generateHomeSchema(), noindex: false
     });
     sitemapHubs.push({ url: `${DOMAIN}/`, priority: 1.0, changefreq: 'hourly' });

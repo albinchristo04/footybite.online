@@ -93,13 +93,12 @@ header {
 /* Hero Section */
 .hero {
     padding: 5rem 0;
-    text-align: center;
     background: radial-gradient(circle at top, rgba(255, 45, 45, 0.15) 0%, transparent 70%);
 }
 
 .hero h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
     font-weight: 900;
     line-height: 1.1;
     letter-spacing: -2px;
@@ -107,9 +106,55 @@ header {
 
 .hero p {
     color: var(--gray);
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: left;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
+    border: 1px solid var(--glass-border);
+}
+
+@media (max-width: 992px) {
+    .hero-content-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-image {
+        margin-top: 2rem;
+    }
 }
 
 .hero-filters {
@@ -978,7 +1023,7 @@ header {
                 </div>
             </div>
             <div class="player-controls-hint">
-                <span>Tip: If the stream freezes, try refreshing the page. Last updated: 7:25:54 pm</span>
+                <span>Tip: If the stream freezes, try refreshing the page. Last updated: 11:02:55 pm</span>
             </div>
         </div>
 
@@ -1017,15 +1062,15 @@ header {
                 <ul class="news-list">
                     
                         <li>
-                            Crystal Palace secures historic FA Cup win against Manchester City.
-                        </li>
-                        
-                        <li>
-                            Senegal starts AFCON title defense with dominant 3-0 win over Botswana.
-                        </li>
-                        
-                        <li>
                             Algeria captain Riyad Mahrez shines in 3-0 victory against Sudan.
+                        </li>
+                        
+                        <li>
+                            Ruben Amorim issues transfer warning to Manchester United squad for January window.
+                        </li>
+                        
+                        <li>
+                            Luca Zidane makes international debut for Algeria in AFCON opener.
                         </li>
                         
                 </ul>
@@ -1079,7 +1124,7 @@ header {
             <div class="match-seo-card">
                 <h2>📈 Match Preview</h2>
                 <p>
-                    The upcoming Paramount+ clash between UFC 324: Gaethje and Pimblett is set to be a highlight of the season. Both teams have shown remarkable form recently, and fans are expecting a high-intensity battle on the pitch. In related news, Mohamed Salah crowned Player of the Year 2025 after leading Liverpool to 20th title. This match is crucial for both sides as they look to climb the Paramount+ table and secure their objectives for the 2025/26 campaign. Expect a tactical masterclass as both managers look to outwit each other in this highly anticipated encounter.
+                    The upcoming Paramount+ clash between UFC 324: Gaethje and Pimblett is set to be a highlight of the season. Both teams have shown remarkable form recently, and fans are expecting a high-intensity battle on the pitch. In related news, Algeria captain Riyad Mahrez shines in 3-0 victory against Sudan. This match is crucial for both sides as they look to climb the Paramount+ table and secure their objectives for the 2025/26 campaign. Expect a tactical masterclass as both managers look to outwit each other in this highly anticipated encounter.
                 </p>
             </div>
         </div>
@@ -1132,62 +1177,122 @@ header {
                 <h2 class="section-title">More Matches You Might Like</h2>
                 <div class="match-grid">
                     
-                        <a href="/other/2025-12-26/australia-vs-england/" class="match-card-mini">
-                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/133beba7b8cbe3c0a88fb0faf7048588-thumbnail.jpg')"></div>
+                        <a href="/other/2026-01-11/calgary-flames-vs-pittsburgh-penguins/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/405a8094c806197679a722e0002d381a-thumbnail.jpg')"></div>
                             <div class="mini-info">
                                 <span class="mini-league">
-                                    FOX Cricket
+                                    ESPN+
                                 </span>
                                 <span class="mini-name">
-                                    Australia vs. England
+                                    Calgary Flames vs. Pittsburgh Penguins
                                 </span>
                             </div>
                         </a>
                         
-                        <a href="/other/2025-12-26/tna-impact/" class="match-card-mini">
-                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/78f581ee61589a76f6bcdeb095f95c12-thumbnail.jpg')"></div>
+                        <a href="/other/2026-01-11/columbus-blue-jackets-vs-colorado-avalanche/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/4e7b4043ed4c13678f6172cd43baa7e6-thumbnail.jpg')"></div>
                             <div class="mini-info">
                                 <span class="mini-league">
-                                    AXS TV
+                                    Altitude Sports
                                 </span>
                                 <span class="mini-name">
-                                    TNA: Impact
+                                    Columbus Blue Jackets vs. Colorado Avalanche
                                 </span>
                             </div>
                         </a>
                         
-                        <a href="/other/2025-12-26/aew-saturday-night-collision/" class="match-card-mini">
-                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/6e29b1bb679dd5133c85bbaadc2c4b13-thumbnail.jpg')"></div>
+                        <a href="/other/2026-01-11/dallas-stars-vs-san-jose-sharks/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/058f28b32f61c881a218037f9b6b2b0c-thumbnail.jpg')"></div>
                             <div class="mini-info">
                                 <span class="mini-league">
-                                    TNT
+                                    NBC Sports BA
                                 </span>
                                 <span class="mini-name">
-                                    AEW: Saturday Night Collision
+                                    Dallas Stars vs. San Jose Sharks
                                 </span>
                             </div>
                         </a>
                         
-                        <a href="/other/2025-12-27/wwe-friday-night-smackdown/" class="match-card-mini">
-                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/ec7810b68fc39115ce3510bcf9687a63-thumbnail.jpg')"></div>
+                        <a href="/other/2026-01-11/anaheim-ducks-vs-buffalo-sabres/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/62e441865850ccfd70392e0009d2d1fc-thumbnail.jpg')"></div>
                             <div class="mini-info">
                                 <span class="mini-league">
-                                    USA Network
+                                    MSGB
                                 </span>
                                 <span class="mini-name">
-                                    WWE: Friday Night Smackdown
+                                    Anaheim Ducks vs. Buffalo Sabres
                                 </span>
                             </div>
                         </a>
                         
-                        <a href="/other/2025-12-27/world-darts-championship/" class="match-card-mini">
-                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/4e218218e0ba40cac4b0d2867873c96a-thumbnail.jpg')"></div>
+                        <a href="/other/2026-01-11/vancouver-canucks-vs-toronto-maple-leafs/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/734a0adc25c5cf4722d5245a2e212374-thumbnail.jpg')"></div>
                             <div class="mini-info">
                                 <span class="mini-league">
-                                    PDC Darts
+                                    ESPN+
                                 </span>
                                 <span class="mini-name">
-                                    World Darts Championship
+                                    Vancouver Canucks vs. Toronto Maple Leafs
+                                </span>
+                            </div>
+                        </a>
+                        
+                        <a href="/other/2026-01-11/detroit-red-wings-vs-montreal-canadiens/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/5b6a34d2662dd594f47b1b29f5d39d62-thumbnail.jpg')"></div>
+                            <div class="mini-info">
+                                <span class="mini-league">
+                                    ESPN+
+                                </span>
+                                <span class="mini-name">
+                                    Detroit Red Wings vs. Montreal Canadiens
+                                </span>
+                            </div>
+                        </a>
+                        
+                        <a href="/other/2026-01-11/florida-panthers-vs-ottawa-senators/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/88195287a4e47f63350b6305876eff89-thumbnail.jpg')"></div>
+                            <div class="mini-info">
+                                <span class="mini-league">
+                                    NHL Net
+                                </span>
+                                <span class="mini-name">
+                                    Florida Panthers vs. Ottawa Senators
+                                </span>
+                            </div>
+                        </a>
+                        
+                        <a href="/other/2026-01-11/tampa-bay-lightning-vs-philadelphia-flyers/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/a9f76c813844291b34cb0d94381004f8-thumbnail.jpg')"></div>
+                            <div class="mini-info">
+                                <span class="mini-league">
+                                    NBC Sports Phil
+                                </span>
+                                <span class="mini-name">
+                                    Tampa Bay Lightning vs. Philadelphia Flyers
+                                </span>
+                            </div>
+                        </a>
+                        
+                        <a href="/other/2026-01-11/seattle-kraken-vs-carolina-hurricanes/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/3f066b457d247eb3bdd538c2ccbe257b-thumbnail.jpg')"></div>
+                            <div class="mini-info">
+                                <span class="mini-league">
+                                    FanDuel SN South
+                                </span>
+                                <span class="mini-name">
+                                    Seattle Kraken vs. Carolina Hurricanes
+                                </span>
+                            </div>
+                        </a>
+                        
+                        <a href="/other/2026-01-11/raf-05-covington-vs-rockhold/" class="match-card-mini">
+                            <div class="mini-thumb" style="background-image: url('https://old.ppv.to/assets/thumb/5625f9f76a23c5bebc87da63620ffda8-thumbnail.jpg')"></div>
+                            <div class="mini-info">
+                                <span class="mini-league">
+                                    FOX Nation
+                                </span>
+                                <span class="mini-name">
+                                    RAF 05: Covington vs. Rockhold
                                 </span>
                             </div>
                         </a>
@@ -1370,7 +1475,7 @@ header {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 FootyBite Online. Last updated: 25/12/2025, 7:25:54 pm. All rights
+                <p>&copy; 2025 FootyBite Online. Last updated: 10/1/2026, 11:02:55 pm. All rights
                         reserved.</p>
             </div>
         </div>

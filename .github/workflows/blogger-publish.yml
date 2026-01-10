@@ -1,0 +1,42 @@
+name: Blogger Auto Publisher
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          cd blogger
+          npm install axios date-fns slugify
+      
+      - name: Publish to Blogger
+        run: node blogger/scripts/blogger-publish.js
+        env:
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+      
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Blogger publish failed!"
+          echo "Check the logs above for details"

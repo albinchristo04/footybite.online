@@ -82,13 +82,12 @@ header {
 /* Hero Section */
 .hero {
     padding: 5rem 0;
-    text-align: center;
     background: radial-gradient(circle at top, rgba(255, 45, 45, 0.15) 0%, transparent 70%);
 }
 
 .hero h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
     font-weight: 900;
     line-height: 1.1;
     letter-spacing: -2px;
@@ -96,9 +95,55 @@ header {
 
 .hero p {
     color: var(--gray);
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: left;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
+    border: 1px solid var(--glass-border);
+}
+
+@media (max-width: 992px) {
+    .hero-content-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-image {
+        margin-top: 2rem;
+    }
 }
 
 .hero-filters {
