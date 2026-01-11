@@ -82,6 +82,17 @@ async function fetchNews(query, isHeadline = false) {
     }
 }
 
+/**
+ * Truncates a string to a maximum length, adding ellipsis if needed.
+ * @param {string} str - The string to truncate
+ * @param {number} maxLen - Maximum length (default 60 for titles)
+ * @returns {string} Truncated string
+ */
+function truncateString(str, maxLen = 60) {
+    if (str.length <= maxLen) return str;
+    return str.substring(0, maxLen - 3).trim() + '...';
+}
+
 function computePopularity(event) {
     let score = 0;
     const name = event.name.toLowerCase();
@@ -183,7 +194,9 @@ async function generate() {
     // 1. Generate Match Pages with GNews Integration
     for (const event of activeEvents) {
         const isBigGame = event.popularityScore > 70;
-        const title = `${event.name} ${event.status === 'live' ? 'LIVE Stream' : 'Live Stream Free'} | FootyBite`;
+        // SEO: Title must be under 60 characters for optimal display
+        const rawTitle = `${event.name} ${event.status === 'live' ? 'LIVE' : 'Live'} | FootyBite`;
+        const title = truncateString(rawTitle, 60);
 
         // Strategy: Search for specific match first, then fallback to trending team news
         const query = `"${event.teams[0]}" "${event.teams[1]}"`.trim();
@@ -211,9 +224,13 @@ async function generate() {
         const teamLinks = activeEvents.filter(e => e.id !== event.id && e.teams.some(t => event.teams.includes(t))).slice(0, 5);
         const dateLinks = activeEvents.filter(e => e.id !== event.id && format(new Date(e.startTime), 'yyyy-MM-dd') === format(new Date(event.startTime), 'yyyy-MM-dd')).slice(0, 5);
 
+        // SEO: Meta description must be under 160 characters
+        const rawDescription = `Watch ${event.name} live stream free on FootyBite. HD ${event.sport} coverage.`;
+        const description = truncateString(rawDescription, 155);
+
         await renderPage(path.join(DIST_DIR, event.url, 'index.html'), 'match', {
-            title, h1: isBigGame ? `🔥 MUST WATCH: ${event.name} Live Stream` : `${event.name} LIVE Stream`,
-            description: `Watch ${event.name} LIVE stream free on FootyBite. Kickoff at ${new Date(event.startTime).toLocaleTimeString()}. High quality ${event.sport} coverage.`,
+            title, h1: isBigGame ? `🔥 ${event.name} Live Stream` : `${event.name} Live Stream`,
+            description,
             canonical: `${DOMAIN}/${event.url}`, event, related, teamLinks, dateLinks,
             matchPreview: generateMatchPreview(event, articles),
             h2h: generateH2H(event),
@@ -231,9 +248,12 @@ async function generate() {
         const initialDate = hasToday ? 'today' : 'tomorrow';
         const filterHtml = renderToString(React.createElement(FilterEngine, { initialEvents: activeEvents, initialSport: sport, isHomepage: false, initialDate }));
         const catUrl = `${sport}/`;
+        // SEO: Shortened category titles and descriptions
+        const catTitle = truncateString(`${sport.charAt(0).toUpperCase() + sport.slice(1)} Live Streams | FootyBite`, 60);
+        const catDescription = truncateString(`Watch free ${sport} live streams on FootyBite. HD quality, real-time updates.`, 155);
         await renderPage(path.join(DIST_DIR, catUrl, 'index.html'), 'category', {
-            title: `${sport.toUpperCase()} LIVE Stream Free | FootyBite`,
-            description: `Watch the best ${sport} live streams for free on FootyBite. Real-time updates for all matches.`,
+            title: catTitle,
+            description: catDescription,
             canonical: `${DOMAIN}/${catUrl}`, categoryName: sport.charAt(0).toUpperCase() + sport.slice(1), catSlug: sport, events: activeEvents, filterHtml, lastUpdated, criticalCss, schema: generateCategorySchema(sport, catUrl), noindex: false
         });
         sitemapHubs.push({ url: `${DOMAIN}/${catUrl}`, priority: 0.8, changefreq: 'daily' });

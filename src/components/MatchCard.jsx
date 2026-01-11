@@ -21,7 +21,7 @@ export default function MatchCard({ event }) {
                 <div className="league-badge">{league}</div>
                 <img
                     src={thumb}
-                    alt={`${teams.join(' vs ')} live stream thumbnail`}
+                    alt={teams && teams.length > 0 ? `${teams.join(' vs ')} live stream thumbnail` : 'Live sports stream thumbnail'}
                     loading="lazy"
                 />
             </div>

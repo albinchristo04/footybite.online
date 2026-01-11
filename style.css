@@ -42,6 +42,7 @@ a {
 /* Header */
 header {
     background: var(--glass);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--glass-border);
     padding: 1rem 0;
@@ -333,6 +334,7 @@ header {
     top: 12px;
     left: 12px;
     background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     padding: 4px 10px;
     border-radius: 8px;
@@ -494,6 +496,7 @@ header {
     filter: blur(60px) brightness(0.3);
     opacity: 0.6;
     z-index: -1;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 }
 
