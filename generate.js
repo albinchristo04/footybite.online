@@ -1,4 +1,5 @@
 require('esbuild-register');
+const { marked } = require('marked');
 const axios = require('axios');
 const fs = require('fs-extra');
 const ejs = require('ejs');
@@ -257,6 +258,30 @@ async function generate() {
             canonical: `${DOMAIN}/${catUrl}`, categoryName: sport.charAt(0).toUpperCase() + sport.slice(1), catSlug: sport, events: activeEvents, filterHtml, lastUpdated, criticalCss, schema: generateCategorySchema(sport, catUrl), noindex: false
         });
         sitemapHubs.push({ url: `${DOMAIN}/${catUrl}`, priority: 0.8, changefreq: 'daily' });
+    }
+
+    // 2.5 Generate Static Pages (AdSense)
+    const adsenseContent = await fs.readFile(path.join(__dirname, 'ADSENSE_PAGES.md'), 'utf-8');
+    const pages = adsenseContent.split('\n---\n').map(p => p.trim()).filter(p => p);
+
+    for (const pageContent of pages) {
+        const titleMatch = pageContent.match(/^# (.*$)/m);
+        const title = titleMatch ? titleMatch[1] : 'Page';
+        const htmlContent = marked.parse(pageContent);
+        const slug = slugify(title, { lower: true, strict: true });
+        const pageUrl = `${slug}/`;
+
+        await renderPage(path.join(DIST_DIR, pageUrl, 'index.html'), 'page', {
+            title: `${title} | FootyBite`,
+            description: `${title} for FootyBite.online`,
+            canonical: `${DOMAIN}/${pageUrl}`,
+            pageTitle: title,
+            content: htmlContent,
+            lastUpdated,
+            criticalCss,
+            noindex: false
+        });
+        sitemapHubs.push({ url: `${DOMAIN}/${pageUrl}`, priority: 0.5, changefreq: 'monthly' });
     }
 
     // 3. Homepage
