@@ -12,13 +12,7 @@ const { renderToString } = require('react-dom/server');
 // Import React components
 const FilterEngine = require('./src/components/FilterEngine').default;
 
-const DATA_URL = process.env.DATA_URL;
-const GNEWS_API_KEY = '16e8a69fb00be06b4ad746ccd75cb285';
-
-if (!DATA_URL) {
-    console.error('Error: DATA_URL environment variable is not set.');
-    process.exit(1);
-}
+const DATA_URL = process.env.DATA_URL || 'https://raw.githubusercontent.com/albinchristo04/ptv/refs/heads/main/events.json';
 
 const DIST_DIR = path.join(__dirname, 'dist');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
