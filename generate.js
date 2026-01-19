@@ -289,6 +289,15 @@ async function generate() {
 
     await generateMultiSitemaps(sitemapMatches, sitemapHubs, sitemapImages);
     await fs.writeFile(path.join(DIST_DIR, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${DOMAIN}/sitemap-index.xml\nDisallow: /*?`);
+
+    // Copy ads.txt
+    try {
+        await fs.copy(path.join(__dirname, 'public', 'ads.txt'), path.join(DIST_DIR, 'ads.txt'));
+        console.log('ads.txt copied successfully.');
+    } catch (err) {
+        console.warn('Warning: ads.txt not found in public directory.');
+    }
+
     console.log(`Generation complete! Used ${apiCallCount} GNews API requests.`);
 }
 
