@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Privacy Policy | FootyBite
+    </title>
+    <meta name="description" content="Privacy Policy for FootyBite.online">
+
+    <style>:root {
+    --primary: #ff2d2d;
+    --primary-glow: rgba(255, 45, 45, 0.3);
+    --secondary: #ff416c;
+    --dark: #0f172a;
+    --darker: #020617;
+    --light: #f8fafc;
+    --gray: #94a3b8;
+    --accent: #38bdf8;
+    --amber: #fbbf24;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-bg: #111827;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--darker);
+    color: var(--light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    font-weight: 600;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+    padding: 5rem 0;
+    background: radial-gradient(circle at top, rgba(255, 45, 45, 0.15) 0%, transparent 70%);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -2px;
+}
+
+.hero p {
+    color: var(--gray);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: left;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
+    border: 1px solid var(--glass-border);
+}
+
+@media (max-width: 992px) {
+    .hero-content-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-image {
+        margin-top: 2rem;
+    }
+}
+
+.hero-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 12px 24px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px var(--primary-glow);
+}
+
+/* Filters */
+.sticky-filters {
+    position: sticky;
+    top: 70px;
+    z-index: 900;
+    background: var(--darker);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Date Tabs */
+.date-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: none;
+}
+
+.date-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.date-tab {
+    padding: 10px 24px;
+    border-radius: 50px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--gray);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.date-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+/* League Chips */
+.league-chips {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 5px 0;
+    scrollbar-width: none;
+}
+
+.league-chips::-webkit-scrollbar {
+    display: none;
+}
+
+.league-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--gray);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.league-chip:hover {
+    border-color: var(--gray);
+}
+
+.league-chip.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--light);
+    color: var(--light);
+}
+
+/* Match Sections */
+.sections-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin: 2rem 0;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--light);
+}
+
+.empty-state-small {
+    padding: 2rem;
+    background: var(--glass);
+    border-radius: 16px;
+    border: 1px dashed var(--glass-border);
+    text-align: center;
+    color: var(--gray);
+    grid-column: 1 / -1;
+}
+
+/* Match Grid */
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+/* Match Card */
+.match-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.match-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
+}
+
+.match-thumb-wrapper {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.match-thumb-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.match-card:hover .match-thumb-wrapper img {
+    transform: scale(1.1);
+}
+
+.league-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: white;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.match-status-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
+.match-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.match-date-small {
+    font-size: 0.75rem;
+    color: var(--gray);
+    font-weight: 500;
+}
+
+.match-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.team-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--light);
+}
+
+.match-card-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Status Badges */
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.status-badge.live {
+    background: rgba(255, 45, 45, 0.15);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.status-badge.live::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 45, 45, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 45, 45, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 45, 45, 0);
+    }
+}
+
+.status-badge.upcoming {
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--amber);
+    border: 1px solid var(--amber);
+}
+
+.countdown-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--amber);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: var(--glass);
+    border-radius: 24px;
+    border: 1px dashed var(--glass-border);
+    grid-column: 1 / -1;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.reset-btn {
+    background: var(--light);
+    color: var(--darker);
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+
+/* Match Page Styles */
+.match-page-wrapper {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+}
+
+.cinematic-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    filter: blur(60px) brightness(0.3);
+    opacity: 0.6;
+    z-index: -1;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.match-main {
+    padding-top: 3rem;
+}
+
+.match-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.match-meta-top {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.sport-label {
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.league-label {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+.live-indicator {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    animation: pulse-red 1.5s infinite;
+}
+
+.match-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.match-time-info {
+    font-size: 1.1rem;
+    color: var(--gray);
+}
+
+.time-badge {
+    background: var(--glass);
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+}
+
+/* Player Section */
+.player-section {
+    margin-bottom: 4rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: #000;
+}
+
+.player-aspect-ratio {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9 */
+}
+
+.player-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.player-controls-hint {
+    padding: 15px;
+    background: #0a0a0a;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gray);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Match Details Grid */
+.match-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 4rem;
+}
+
+.match-info-card,
+.match-seo-card {
+    background: var(--glass);
+    padding: 30px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+}
+
+.match-info-card h2,
+.match-seo-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--light);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row .label {
+    color: var(--gray);
+    font-weight: 600;
+}
+
+.info-row .value {
+    color: var(--light);
+    font-weight: 700;
+}
+
+.value.status-live {
+    color: var(--primary);
+}
+
+.value.status-upcoming {
+    color: var(--amber);
+}
+
+.match-seo-card p {
+    color: var(--gray);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* SEO Content Bottom */
+.seo-content-bottom {
+    margin-top: 4rem;
+}
+
+.seo-content-bottom h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.faq-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--light);
+}
+
+.faq-item p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* PAA Block */
+.paa-block-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 3rem;
+}
+
+.paa-card {
+    background: var(--glass);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+}
+
+.paa-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.paa-card p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.5;
+}
+
+/* Related Matches */
+.related-matches-section {
+    margin: 4rem 0;
+}
+
+.match-card-mini {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--glass);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.match-card-mini:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    border-color: var(--primary);
+}
+
+.mini-thumb {
+    width: 60px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.mini-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.mini-league {
+    font-size: 0.65rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.mini-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Footer Grid */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.footer-brand .logo {
+    margin-bottom: 15px;
+}
+
+.footer-brand p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    max-width: 300px;
+}
+
+.footer-links-group h4 {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: var(--light);
+}
+
+.footer-links-group a {
+    display: block;
+    color: var(--gray);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.footer-links-group a:hover {
+    color: var(--primary);
+}
+
+.footer-bottom {
+    padding-top: 30px;
+    text-align: center;
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+/* Static & Brand Content */
+.brand-content-card,
+.static-content-card {
+    background: var(--glass);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+.brand-content-card h2,
+.static-content-card h2 {
+    margin-bottom: 20px;
+}
+
+.brand-content-card p,
+.static-content-card p {
+    margin-bottom: 20px;
+    color: var(--gray);
+    line-height: 1.8;
+}
+
+.brand-content-card ul {
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.brand-content-card li {
+    margin-bottom: 10px;
+    color: var(--gray);
+}
+
+.brand-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Replay Overlay */
+.replay-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+}
+
+.replay-overlay h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.replay-overlay p {
+    color: var(--gray);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .match-title {
+        font-size: 2.5rem;
+    }
+
+    .match-details-grid,
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .match-title {
+        font-size: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .match-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero-filters {
+        gap: 10px;
+    }
+
+    .hero-btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+
+    .paa-block-top {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}</style>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+        <link rel="canonical" href="https://footybite.online/privacy-policy/">
+
+        
+                <meta name="robots"
+                    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+                
+
+                    <!-- Open Graph -->
+                    <meta property="og:title" content="Privacy Policy | FootyBite">
+                    <meta property="og:description" content="Privacy Policy for FootyBite.online">
+                    <meta property="og:url" content="https://footybite.online/privacy-policy/">
+                    <meta property="og:type" content="website">
+                    <meta property="og:site_name" content="FootyBite">
+                    
+
+                            <!-- Schema.org -->
+                            
+</head>
+
+<body>
+    <header>
+        <div class="container nav-content">
+            <a href="/" class="logo">FOOTYBITE</a>
+            <nav class="nav-links">
+                <a href="/football/" data-sport="football">Football</a>
+                <a href="/nfl/" data-sport="nfl">NFL</a>
+                <a href="/nba/" data-sport="nba">NBA</a>
+                <a href="/boxing/" data-sport="boxing">Boxing/UFC</a>
+                <a href="/f1/" data-sport="f1">F1</a>
+                <a href="/live-streams/" data-sport="all">All Streams</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+    <div class="container">
+        <h1>
+            Privacy Policy
+        </h1>
+    </div>
+</section>
+
+<section class="container">
+    <div class="static-content-card">
+        <h1 id="privacy-policy">Privacy Policy</h1>
+<p><strong>Last Updated:</strong> January 20, 2026</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Welcome to <strong>FootyBite.online</strong> (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <strong><a href="https://footybite.online/">https://footybite.online/</a></strong> (the &quot;Site&quot;).</p>
+<p>By accessing or using our Site, you agree to the terms of this Privacy Policy. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
+<h2 id="2-information-we-collect">2. Information We Collect</h2>
+<p>We may collect information about you in a variety of ways. The information we may collect on the Site includes:</p>
+<h3 id="personal-data">Personal Data</h3>
+<p>Personally identifiable information, such as your name and email address, that you voluntarily give to us when you choose to participate in various activities related to the Site, such as contacting us. You are under no obligation to provide us with personal information of any kind, however your refusal to do so may prevent you from using certain features of the Site.</p>
+<h3 id="derivative-data">Derivative Data</h3>
+<p>Information our servers automatically collect when you access the Site, such as your IP address, your browser type, your operating system, your access times, and the pages you have viewed directly before and after accessing the Site.</p>
+<h2 id="3-use-of-your-information">3. Use of Your Information</h2>
+<p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:</p>
+<ul>
+<li>Compile anonymous statistical data and analysis for use internally or with third parties.</li>
+<li>Monitor and analyze usage and trends to improve your experience with the Site.</li>
+<li>Respond to customer service requests and emails.</li>
+<li>Operate and maintain the Site.</li>
+</ul>
+<h2 id="4-google-adsense--doubleclick-cookie">4. Google AdSense &amp; DoubleClick Cookie</h2>
+<p>We use Google AdSense to display ads on our website. Google, as a third-party vendor, uses cookies to serve ads on our Site.</p>
+<ul>
+<li><strong>DoubleClick Cookie:</strong> Google&#39;s use of the DoubleClick cookie enables it and its partners to serve ads to our users based on their visit to our Site or other sites on the Internet.</li>
+<li><strong>Opt-Out:</strong> Users may opt-out of the use of the DoubleClick cookie for interest-based advertising by visiting the <a href="https://www.google.com/settings/ads">Google Ads Settings</a> page.</li>
+</ul>
+<h3 id="third-party-vendors">Third-Party Vendors</h3>
+<p>We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site. These companies may use non-personally identifiable information (e.g., click stream information, browser type, time and date, subject of advertisements clicked or scrolled over) during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you. These companies typically use a cookie or third party web beacon to collect this information.</p>
+<h2 id="5-gdpr-general-data-protection-regulation">5. GDPR (General Data Protection Regulation)</h2>
+<p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. FootyBite.online aims to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.</p>
+<ul>
+<li><strong>The right to access, update or to delete the information we have on you.</strong></li>
+<li><strong>The right of rectification.</strong></li>
+<li><strong>The right to object.</strong></li>
+<li><strong>The right of restriction.</strong></li>
+<li><strong>The right to data portability.</strong></li>
+<li><strong>The right to withdraw consent.</strong></li>
+</ul>
+<h2 id="6-ccpa-california-consumer-privacy-act">6. CCPA (California Consumer Privacy Act)</h2>
+<p>Under the CCPA, among other rights, California consumers have the right to:</p>
+<ul>
+<li>Request that a business that collects a consumer&#39;s personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.</li>
+<li>Request that a business delete any personal data about the consumer that a business has collected.</li>
+<li>Request that a business that sells a consumer&#39;s personal data, not sell the consumer&#39;s personal data.</li>
+</ul>
+<p>If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us.</p>
+<h2 id="7-cookies-and-web-beacons">7. Cookies and Web Beacons</h2>
+<p>We may use cookies, web beacons, tracking pixels, and other tracking technologies on the Site to help customize the Site and improve your experience. When you access the Site, your personal information is not collected through the use of tracking technology.</p>
+<h2 id="8-third-party-websites">8. Third-Party Websites</h2>
+<p>The Site may contain links to third-party websites and applications of interest, including advertisements and external services, that are not affiliated with us. Once you have used these links to leave the Site, any information you provide to these third parties is not covered by this Privacy Policy, and we cannot guarantee the safety and privacy of your information.</p>
+<h2 id="9-contact-us">9. Contact Us</h2>
+<p>If you have questions or comments about this Privacy Policy, please contact us at:
+<strong>Email:</strong> <a href="mailto:&#99;&#x6f;&#x6e;&#x74;&#x61;&#x63;&#116;&#x40;&#102;&#x6f;&#111;&#116;&#121;&#98;&#x69;&#116;&#x65;&#x2e;&#x6f;&#110;&#x6c;&#x69;&#110;&#x65;">&#99;&#x6f;&#x6e;&#x74;&#x61;&#x63;&#116;&#x40;&#102;&#x6f;&#111;&#116;&#121;&#98;&#x69;&#116;&#x65;&#x2e;&#x6f;&#110;&#x6c;&#x69;&#110;&#x65;</a></p>
+<hr>
+<h1 id="terms-and-conditions">Terms and Conditions</h1>
+<p><strong>Last Updated:</strong> January 20, 2026</p>
+<h2 id="1-agreement-to-terms">1. Agreement to Terms</h2>
+<p>These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (&quot;you&quot;) and <strong>FootyBite.online</strong> (&quot;we,&quot; &quot;us&quot; or &quot;our&quot;), concerning your access to and use of the <strong><a href="https://footybite.online/">https://footybite.online/</a></strong> website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the &quot;Site&quot;).</p>
+<p>You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions. If you do not agree with all of these Terms and Conditions, then you are expressly prohibited from using the Site and you must discontinue use immediately.</p>
+<h2 id="2-intellectual-property-rights">2. Intellectual Property Rights</h2>
+<p>Unless otherwise indicated, the Site is our proprietary property and all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics on the Site (collectively, the &quot;Content&quot;) and the trademarks, service marks, and logos contained therein (the &quot;Marks&quot;) are owned or controlled by us or licensed to us, and are protected by copyright and trademark laws.</p>
+<p>The Content and the Marks are provided on the Site &quot;AS IS&quot; for your information and personal use only.</p>
+<h2 id="3-user-representations">3. User Representations</h2>
+<p>By using the Site, you represent and warrant that:</p>
+<ol>
+<li>You have the legal capacity and you agree to comply with these Terms and Conditions.</li>
+<li>You are not a minor in the jurisdiction in which you reside.</li>
+<li>You will not access the Site through automated or non-human means, whether through a bot, script or otherwise.</li>
+<li>You will not use the Site for any illegal or unauthorized purpose.</li>
+<li>Your use of the Site will not violate any applicable law or regulation.</li>
+</ol>
+<h2 id="4-prohibited-activities">4. Prohibited Activities</h2>
+<p>You may not access or use the Site for any purpose other than that for which we make the Site available. The Site may not be used in connection with any commercial endeavors except those that are specifically endorsed or approved by us.</p>
+<p>As a user of the Site, you agree not to:</p>
+<ul>
+<li>Systematically retrieve data or other content from the Site to create or compile, directly or indirectly, a collection, compilation, database, or directory without written permission from us.</li>
+<li>Make any unauthorized use of the Site.</li>
+<li>Engage in unauthorized framing of or linking to the Site.</li>
+<li>Interfere with, disrupt, or create an undue burden on the Site or the networks or services connected to the Site.</li>
+</ul>
+<h2 id="5-third-party-links-and-content">5. Third-Party Links and Content</h2>
+<p>The Site may contain (or you may be sent via the Site) links to other websites (&quot;Third-Party Websites&quot;) as well as articles, photographs, text, graphics, pictures, designs, music, sound, video, information, applications, software, and other content or items belonging to or originating from third parties (&quot;Third-Party Content&quot;).</p>
+<p>Such Third-Party Websites and Third-Party Content are not investigated, monitored, or checked for accuracy, appropriateness, or completeness by us, and we are not responsible for any Third-Party Websites accessed through the Site or any Third-Party Content posted on, available through, or installed from the Site.</p>
+<h2 id="6-site-management">6. Site Management</h2>
+<p>We reserve the right, but not the obligation, to:</p>
+<ol>
+<li>Monitor the Site for violations of these Terms and Conditions.</li>
+<li>Take appropriate legal action against anyone who, in our sole discretion, violates the law or these Terms and Conditions.</li>
+<li>Refuse, restrict access to, limit the availability of, or disable (to the extent technologically feasible) any of your Contributions or any portion thereof.</li>
+<li>Otherwise manage the Site in a manner designed to protect our rights and property and to facilitate the proper functioning of the Site.</li>
+</ol>
+<h2 id="7-modifications-and-interruptions">7. Modifications and Interruptions</h2>
+<p>We reserve the right to change, modify, or remove the contents of the Site at any time or for any reason at our sole discretion without notice. We also reserve the right to modify or discontinue all or part of the Site without notice at any time.</p>
+<h2 id="8-governing-law">8. Governing Law</h2>
+<p>These Terms shall be governed by and defined following the laws of the jurisdiction in which the company is established. FootyBite.online and yourself irrevocably consent that the courts of that jurisdiction shall have exclusive jurisdiction to resolve any dispute which may arise in connection with these terms.</p>
+<h2 id="9-contact-us-1">9. Contact Us</h2>
+<p>In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at:
+<strong>Email:</strong> <a href="mailto:&#99;&#x6f;&#110;&#x74;&#x61;&#99;&#116;&#x40;&#x66;&#x6f;&#x6f;&#x74;&#121;&#98;&#x69;&#116;&#x65;&#46;&#x6f;&#110;&#x6c;&#x69;&#110;&#101;">&#99;&#x6f;&#110;&#x74;&#x61;&#99;&#116;&#x40;&#x66;&#x6f;&#x6f;&#x74;&#121;&#98;&#x69;&#116;&#x65;&#46;&#x6f;&#110;&#x6c;&#x69;&#110;&#101;</a></p>
+<hr>
+<h1 id="about-us">About Us</h1>
+<h2 id="who-we-are">Who We Are</h2>
+<p>Welcome to <strong>FootyBite.online</strong>, your premier destination for comprehensive sports information, match schedules, and real-time updates. We are passionate football enthusiasts dedicated to bringing fans closer to the game they love.</p>
+<h2 id="our-mission">Our Mission</h2>
+<p>Our mission is simple: to provide football fans worldwide with a reliable, fast, and user-friendly platform to stay updated with the latest match schedules, team news, and score updates. We believe that staying informed about your favorite teams shouldn&#39;t be complicated.</p>
+<h2 id="what-we-offer">What We Offer</h2>
+<p>At FootyBite.online, we specialize in:</p>
+<ul>
+<li><strong>Match Schedules:</strong> Detailed listings of upcoming matches across major leagues including the Premier League, La Liga, Serie A, Bundesliga, and international tournaments.</li>
+<li><strong>Live Scores &amp; Updates:</strong> Real-time information to keep you in the loop during the action.</li>
+<li><strong>Team News:</strong> The latest updates on lineups, injuries, and team form.</li>
+<li><strong>Sports Coverage:</strong> While our heart beats for football, we also cover major events in NBA, NFL, and other global sports.</li>
+</ul>
+<h2 id="our-values">Our Values</h2>
+<ul>
+<li><strong>Accuracy:</strong> We strive to ensure all information presented on our site is verified and up-to-date.</li>
+<li><strong>Transparency:</strong> We are open about our operations and respect user privacy.</li>
+<li><strong>User Experience:</strong> We design our platform with you in mind, ensuring easy navigation and accessibility across all devices.</li>
+</ul>
+<h2 id="why-choose-us">Why Choose Us?</h2>
+<p>In a digital world cluttered with information, FootyBite.online stands out by focusing on clarity and reliability. We are not just a website; we are a community of sports lovers. Whether you are looking for the kick-off time of the next big derby or checking the form guide of a title contender, we have got you covered.</p>
+<p>Thank you for being part of our community.</p>
+<hr>
+<h1 id="contact-us">Contact Us</h1>
+<h2 id="get-in-touch">Get in Touch</h2>
+<p>We love hearing from our users! Whether you have a question about our website, a suggestion for improvement, or just want to talk football, we are here to listen.</p>
+<h2 id="contact-information">Contact Information</h2>
+<p>For all inquiries, please email us directly at:</p>
+<p><strong>Email:</strong> <a href="mailto:contact@footybite.online">contact@footybite.online</a></p>
+<h2 id="response-time">Response Time</h2>
+<p>We aim to respond to all legitimate inquiries within 24-48 hours. Please note that during peak match days or weekends, response times may be slightly longer.</p>
+<h2 id="business-inquiries">Business Inquiries</h2>
+<p>For advertising opportunities, partnerships, or media inquiries, please use the email address above with the subject line &quot;Business Inquiry&quot;.</p>
+<h2 id="report-a-technical-issue">Report a Technical Issue</h2>
+<p>If you encounter any bugs or technical issues while using our site, please let us know. Include your browser type and a brief description of the issue so we can fix it as quickly as possible.</p>
+<hr>
+<h1 id="disclaimer">Disclaimer</h1>
+<p><strong>Last Updated:</strong> January 20, 2026</p>
+<h2 id="1-general-information">1. General Information</h2>
+<p>The information provided by <strong>FootyBite.online</strong> (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) on <strong><a href="https://footybite.online/">https://footybite.online/</a></strong> (the &quot;Site&quot;) is for general informational purposes only. All information on the Site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.</p>
+<h2 id="2-external-links-disclaimer">2. External Links Disclaimer</h2>
+<p>The Site may contain (or you may be sent through the Site) links to other websites or content belonging to or originating from third parties or links to websites and features in banners or other advertising. Such external links are not investigated, monitored, or checked for accuracy, adequacy, validity, reliability, availability, or completeness by us.</p>
+<p><strong>WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME RESPONSIBILITY FOR THE ACCURACY OR RELIABILITY OF ANY INFORMATION OFFERED BY THIRD-PARTY WEBSITES LINKED THROUGH THE SITE OR ANY WEBSITE OR FEATURE LINKED IN ANY BANNER OR OTHER ADVERTISING. WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING ANY TRANSACTION BETWEEN YOU AND THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES.</strong></p>
+<h2 id="3-professional-disclaimer">3. Professional Disclaimer</h2>
+<p>The Site cannot and does not provide professional advice. The sports information is provided for general informational and entertainment purposes only and is not a substitute for professional advice. Accordingly, before taking any actions based upon such information, we encourage you to consult with the appropriate professionals.</p>
+<h2 id="4-content-liability">4. Content Liability</h2>
+<p>FootyBite.online is a sports information portal. We do not host, upload, or control any video content or live streams. Any third-party content or links found on this site are the responsibility of their respective owners. We strictly adhere to copyright laws and do not endorse or promote illegal streaming or piracy. If you find any content that violates copyright laws, please contact the hosting provider directly.</p>
+<h2 id="5-as-is-and-as-available-disclaimer">5. &quot;As Is&quot; and &quot;As Available&quot; Disclaimer</h2>
+<p>The Site is provided on an &quot;as is&quot; and &quot;as available&quot; basis. You agree that your use of the Site and our services will be at your sole risk. To the fullest extent permitted by law, we disclaim all warranties, express or implied, in connection with the Site and your use thereof.</p>
+
+    </div>
+</section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">FOOTYBITE</div>
+                    <p>The official FootyBite site. Watch Football, NFL, NBA and more in HD for free.</p>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Quick Links</h4>
+                    <a href="/">Home</a>
+                    <a href="/football/">Football Streams</a>
+                    <a href="/nfl/">NFL Streams</a>
+                    <a href="/nba/">NBA Streams</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Company</h4>
+                    <a href="/about-us/">About Us</a>
+                    <a href="/contact-us/">Contact Us</a>
+                    <a href="/privacy-policy/">Privacy Policy</a>
+                    <a href="/terms-and-conditions/">Terms & Conditions</a>
+                    <a href="/disclaimer/">Disclaimer</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FootyBite Online. Last updated: 25/1/2026, 9:11:13 am. All rights
+                        reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Active link highlighting
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>

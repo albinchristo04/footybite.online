@@ -1,6 +1,7 @@
 import React from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import FilterEngine from './components/FilterEngine';
+import MobileNavigation from './components/MobileNavigation';
 
 const container = document.getElementById('filter-engine-root');
 if (container) {

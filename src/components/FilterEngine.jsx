@@ -1,9 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import MatchCard from './MatchCard';
+import EnhancedMatchCard from './EnhancedMatchCard';
+import SearchBar from './SearchBar';
+import { CardSkeleton } from './SkeletonLoader';
 
 export default function FilterEngine({ initialEvents, initialSport = 'all', isHomepage = false, initialDate = 'today' }) {
     const [selectedDate, setSelectedDate] = useState(initialDate);
     const [selectedLeague, setSelectedLeague] = useState('all');
+    const [searchResults, setSearchResults] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     // 2️⃣ DATE FILTER: Rehydrate from URL
     useEffect(() => {
@@ -75,8 +81,22 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
         });
     }, [initialEvents, initialSport, selectedDate, selectedLeague]);
 
-    const sections = useMemo(() => {
+const sections = useMemo(() => {
         const result = [];
+        
+        // If we have search results, show only those
+        if (searchResults) {
+            if (searchResults.length > 0) {
+                result.push({ 
+                    title: `🔍 Search Results for "${searchQuery}"`, 
+                    events: searchResults,
+                    isSearch: true
+                });
+            }
+            return result;
+        }
+        
+        // Regular sections
         if (upcoming3h.length > 0) result.push({ title: '⏱️ Upcoming (Next 3 Hours)', events: upcoming3h });
 
         if (!isHomepage) {
@@ -106,11 +126,41 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
             });
         }
         return result;
-    }, [filteredEvents, initialEvents, isHomepage, upcoming3h, initialSport]);
+    }, [filteredEvents, initialEvents, isHomepage, upcoming3h, initialSport, searchResults, searchQuery]);
+
+// Handle search results
+    const handleSearchResults = (results, query) => {
+        setSearchResults(results);
+        setSearchQuery(query);
+        setIsLoading(false);
+    };
+
+    // Handle search clear
+    const handleSearchClear = () => {
+        setSearchResults(null);
+        setSearchQuery('');
+    };
+
+    // Use enhanced match card for live matches
+    const renderMatchCard = (event, showLiveScore = false) => {
+        if (event.status === 'live' || showLiveScore) {
+            return <EnhancedMatchCard key={event.id} event={event} showLiveScore={true} />;
+        }
+        return <MatchCard key={event.id} event={event} />;
+    };
 
     return (
         <div className="container">
-            {!isHomepage && (
+            {/* Search Bar - Always visible */}
+            <div className="search-section">
+                <SearchBar 
+                    events={initialEvents} 
+                    onSearchResults={handleSearchResults}
+                    onClear={handleSearchClear}
+                />
+            </div>
+
+            {!isHomepage && !searchResults && (
                 <div className="sticky-filters">
                     <div className="filters-container">
                         <div className="date-tabs">
@@ -130,21 +180,42 @@ export default function FilterEngine({ initialEvents, initialSport = 'all', isHo
             )}
 
             <div className="sections-container">
-                {sections.map(section => (
-                    <div key={section.title} className="match-section">
-                        <h2 className="section-title">{section.title}</h2>
-                        <div className="match-grid">
-                            {section.events.map(event => (
-                                <MatchCard key={event.id} event={event} />
-                            ))}
-                        </div>
+                {isLoading ? (
+                    <div className="match-grid">
+                        {Array.from({ length: 6 }, (_, index) => (
+                            <CardSkeleton key={index} />
+                        ))}
                     </div>
-                ))}
-                {sections.length === 0 && (
+                ) : (
+                    sections.map(section => (
+                        <div key={section.title} className="match-section">
+                            <h2 className="section-title">
+                                {section.title}
+                                {section.isSearch && (
+                                    <span className="search-count">({section.events.length} results)</span>
+                                )}
+                            </h2>
+                            <div className="match-grid">
+                                {section.events.map(event => renderMatchCard(event, section.isSearch))}
+                            </div>
+                        </div>
+                    ))
+                )}
+                
+                {!isLoading && sections.length === 0 && (
                     <div className="empty-state">
                         <h3>No matches found</h3>
-                        <p>Try adjusting your filters or checking back later.</p>
-                        <button className="reset-btn" onClick={() => { setSelectedDate('today'); setSelectedLeague('all'); }}>Reset All Filters</button>
+                        <p>{searchResults ? 'Try different search terms.' : 'Try adjusting your filters or checking back later.'}</p>
+                        <button 
+                            className="reset-btn" 
+                            onClick={() => { 
+                                setSelectedDate('today'); 
+                                setSelectedLeague('all'); 
+                                handleSearchClear();
+                            }}
+                        >
+                            Reset All Filters
+                        </button>
                     </div>
                 )}
             </div>
