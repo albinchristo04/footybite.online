@@ -32,14 +32,20 @@
                     <% if (typeof event !=='undefined' && event.thumbnail) { %>
                         <meta property="og:image" content="<%= event.thumbnail %>">
                         <meta name="twitter:card" content="summary_large_image">
-                        <% } %>
+                        <meta name="twitter:image" content="<%= event.thumbnail %>">
+                        <% } else { %>
+                            <meta name="twitter:card" content="summary">
+                            <% } %>
+                                <meta name="twitter:title" content="<%= title %>">
+                                <meta name="twitter:description" content="<%= description %>">
+                                <meta name="twitter:site" content="@footybite">
 
-                            <!-- Schema.org -->
-                            <% if (typeof schema !=='undefined' ) { %>
-                                <script type="application/ld+json">
+                                <!-- Schema.org -->
+                                <% if (typeof schema !=='undefined' ) { %>
+                                    <script type="application/ld+json">
         <%- JSON.stringify(schema) %>
     </script>
-                                <% } %>
+                                    <% } %>
 </head>
 
 <body>
@@ -85,7 +91,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 FootyBite Online. Last updated: <%= new Date(lastUpdated).toLocaleString() %>. All rights
+                <p>&copy; 2026 FootyBite Online. Last updated: <%= new Date(lastUpdated).toLocaleString() %>. All rights
                         reserved.</p>
             </div>
         </div>

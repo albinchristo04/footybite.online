@@ -18,6 +18,92 @@ const DIST_DIR = path.join(__dirname, 'dist');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const DOMAIN = 'https://footybite.online';
 
+// SEO Hub Pages — brand keyword clusters from GSC
+const SEO_HUBS = [
+    {
+        slug: 'footybite-reddit',
+        keyword: 'Footybite Reddit',
+        title: 'Footybite Reddit - Official Reddit Streams Alternative 2026',
+        description: 'Looking for Footybite Reddit streams? FootyBite.online is the official alternative for Reddit soccer streams, NBA streams, and NFL streams. Free HD quality.',
+        extraContent: `<h3>Footybite Reddit: The Full Story</h3>
+            <p>After the original <strong>Reddit soccer streams</strong> community was shut down, fans turned to <strong>Footybite</strong> as the best alternative. We aggregate the same high-quality links that were shared on Reddit, but in a cleaner, more organized format.</p>
+            <p>Whether you searched for <strong>Footybite Reddit</strong>, <strong>r/soccerstreams</strong>, or <strong>Reddit NBA streams</strong>, this is your new home. FootyBite provides everything Reddit streams did — and more.</p>`
+    },
+    {
+        slug: 'nba-footybite',
+        keyword: 'NBA Footybite',
+        title: 'NBA Footybite - Watch NBA Live Streams Free HD 2026',
+        description: 'Watch NBA games free on Footybite. NBA Footybite provides HD live streams for every game including Lakers, Warriors, Celtics and all NBA teams. No signup required.',
+        extraContent: `<h3>NBA Footybite: Your Court-side Seat</h3>
+            <p>Don't miss a single dunk, three-pointer, or buzzer-beater. <strong>NBA Footybite</strong> brings you free HD streams for every NBA game, from regular season to the NBA Finals.</p>
+            <p>Whether you search for <strong>NBA Footybite</strong>, <strong>NBA Footybite live</strong>, or <strong>Footybite NBA streams</strong>, we've got you covered with multiple reliable links for every game.</p>`
+    },
+    {
+        slug: 'footybite-streams',
+        keyword: 'Footybite Streams',
+        title: 'Footybite Streams - Free HD Live Sports Streaming 2026',
+        description: 'Footybite Streams offers free HD live streaming for Football, NBA, NFL, Boxing and F1. The most reliable Footybite streaming links updated every hour.',
+        extraContent: `<h3>About Footybite Streams</h3>
+            <p><strong>Footybite Streams</strong> (also known as <strong>Footybite Streaming</strong> or <strong>Footybite Soccer Streams</strong>) is a curated collection of the best live sports links on the internet.</p>
+            <p>We verify every stream link to ensure quality and reliability. Whether it's Premier League, Champions League, NBA, or NFL — <strong>Footybite Streams</strong> has the best HD links.</p>`
+    },
+    {
+        slug: 'live-footybite',
+        keyword: 'Live Footybite',
+        title: 'Live Footybite - Watch Live Sports Streams Now 2026',
+        description: 'Live Footybite streams for Football, NBA, NFL and more. Watch live sports free in HD quality. No registration required. Updated every hour.',
+        extraContent: `<h3>Live Footybite: Real-Time Streaming</h3>
+            <p>When the match is on, <strong>Live Footybite</strong> is where you need to be. Our live feed updates in real-time with working HD stream links for every major sporting event.</p>
+            <p>Searched for <strong>live Footybite</strong>, <strong>Footybite live streams</strong>, or <strong>live.footybite</strong>? You're in the right place. Bookmark this page for instant access to live sports.</p>`
+    },
+    {
+        slug: 'footybite-to',
+        keyword: 'Footybite.to',
+        title: 'Footybite.to - New Official Domain is FootyBite.online 2026',
+        description: 'Footybite.to has moved! The official new Footybite domain is footybite.online. Same free HD streams, same quality. Bookmark the new official site now.',
+        extraContent: `<h3>Footybite.to Has Moved</h3>
+            <p>If you're looking for <strong>Footybite.to</strong>, you've found the right place. The official FootyBite has moved to <strong>footybite.online</strong> — the new permanent home for all your live sports streaming needs.</p>
+            <p>All the features you loved on <strong>Footybite.to</strong> are here: free HD streams, real-time updates, mobile-friendly design, and no registration required. Update your bookmarks to <strong>footybite.online</strong> today!</p>`
+    },
+    {
+        slug: 'footybite-alternatives',
+        keyword: 'Footybite Alternatives',
+        title: 'Footybite vs Alternatives - Why FootyBite is #1 in 2026',
+        description: 'Comparing Footybite vs alternatives? FootyBite.online is the #1 choice for free live sports streaming. HD quality, no signup, updated hourly.',
+        extraContent: `<h3>Footybite vs Other Streaming Sites</h3>
+            <p>Looking for <strong>Footybite alternatives</strong>? While there are other streaming sites, <strong>FootyBite</strong> consistently ranks as the #1 choice for sports fans worldwide. Here's why:</p>
+            <ul><li><strong>Reliability:</strong> Links verified and updated every hour</li><li><strong>Quality:</strong> HD 1080p and 720p streams prioritized</li><li><strong>Safety:</strong> Clean interface, no malicious pop-ups</li><li><strong>Coverage:</strong> Football, NBA, NFL, Boxing, F1 and more</li></ul>
+            <p>Stop searching for <strong>Footybite vs</strong> other sites — you've already found the best one.</p>`
+    },
+    {
+        slug: 'footbite',
+        keyword: 'Footbite',
+        title: 'Footbite (Footybite) - Official Free Streams Site 2026',
+        description: 'Footbite (correctly spelled Footybite) is the official free sports streaming site. Watch Football, NBA, NFL in HD. The real Footbite/Footybite site.',
+        extraContent: `<h3>Footbite = Footybite</h3>
+            <p>Searching for <strong>Footbite</strong>? You're likely looking for <strong>Footybite</strong> — the world's most popular free sports streaming aggregator. <strong>Footbite</strong> is a common misspelling, but you've found the real deal!</p>
+            <p>Whether you typed <strong>Footbite</strong>, <strong>Footbite stream</strong>, <strong>Foot Bite</strong>, or <strong>Footybite</strong>, this is the official site with free HD live streams for Football, NBA, NFL, and more.</p>`
+    },
+    {
+        slug: 'footem-org',
+        keyword: 'Footem.org Alternative',
+        title: 'Footem.org Alternative - FootyBite Free Streams 2026',
+        description: 'Better than Footem.org? FootyBite.online offers free HD live sports streams with hourly updates. The best Footem.org alternative for Football, NBA, NFL.',
+        extraContent: `<h3>Looking for Footem.org?</h3>
+            <p>If you're searching for <strong>Footem.org</strong> or <strong>Footem</strong>, try <strong>FootyBite</strong> instead. We offer the same sports coverage with better stream quality and more reliable links.</p>
+            <p><strong>FootyBite</strong> is the preferred <strong>Footem.org alternative</strong> with HD streams, mobile optimization, and hourly link verification. Make the switch today.</p>`
+    },
+    {
+        slug: 'nfl-footybite',
+        keyword: 'NFL Footybite',
+        title: 'NFL Footybite - Watch NFL Live Streams Free HD 2026',
+        description: 'Watch NFL games free on Footybite. NFL Footybite provides HD live streams for every game including Cowboys, Chiefs, Eagles. No signup needed.',
+        extraContent: `<h3>NFL Footybite: Your Game Day HQ</h3>
+            <p>From Thursday Night Football to the Super Bowl, <strong>NFL Footybite</strong> has you covered with free HD streams for every game.</p>
+            <p>Whether you search for <strong>NFL Footybite</strong>, <strong>Footybite NFL streams</strong>, or <strong>NFL live streams free</strong>, we provide the most reliable links updated before every kickoff.</p>`
+    }
+];
+
 const BIG_LEAGUES = ['Premier League', 'Champions League', 'La Liga', 'World Cup', 'Euros', 'UEFA', 'Serie A', 'Bundesliga', 'NFL', 'NBA', 'AFCON', 'Ligue 1', 'Eredivisie', 'MLS'];
 const BIG_TEAMS = [
     'Real Madrid', 'Barcelona', 'Man City', 'Man United', 'Arsenal', 'Bayern', 'PSG', 'Liverpool', 'Chelsea', 'Juventus', 'Inter Milan', 'AC Milan', 'Lakers', 'Warriors', 'Cowboys', 'Chiefs',
@@ -254,6 +340,25 @@ async function generate() {
         sitemapHubs.push({ url: `${DOMAIN}/${catUrl}`, priority: 0.8, changefreq: 'daily' });
     }
 
+    // 2.1 Generate SEO Hub Pages (brand keyword clusters)
+    for (const hub of SEO_HUBS) {
+        const hubUrl = `${hub.slug}/`;
+        const hubEvents = activeEvents.slice(0, 15);
+        await renderPage(path.join(DIST_DIR, hubUrl, 'index.html'), 'hub', {
+            title: truncateString(hub.title, 60),
+            description: truncateString(hub.description, 155),
+            canonical: `${DOMAIN}/${hubUrl}`,
+            keyword: hub.keyword,
+            events: hubEvents,
+            lastUpdated,
+            criticalCss,
+            schema: generateHubSchema(hub),
+            noindex: false,
+            extraContent: hub.extraContent || ''
+        });
+        sitemapHubs.push({ url: `${DOMAIN}/${hubUrl}`, priority: 0.7, changefreq: 'weekly' });
+    }
+
     // 2.5 Generate Static Pages (AdSense)
     const adsenseContent = await fs.readFile(path.join(__dirname, 'ADSENSE_PAGES.md'), 'utf-8');
     const pages = adsenseContent.split('\n---\n').map(p => p.trim()).filter(p => p);
@@ -281,8 +386,8 @@ async function generate() {
     // 3. Homepage
     const homeFilterHtml = renderToString(React.createElement(FilterEngine, { initialEvents: activeEvents, initialSport: 'all', isHomepage: true }));
     await renderPage(path.join(DIST_DIR, 'index.html'), 'index', {
-        title: 'Footybite (Footybites) - Official Footy Bite & Footybyte Sports Streams',
-        description: 'Experience the official Footybite (Footybites) for free live sports. Your top source for Footy Bite and Footybyte streams including Football, NFL, and NBA in HD.',
+        title: 'Footybite™ (Footybites) - Official Live Streams 2026',
+        description: 'Footybite (Footybites, Footy Bite, Footybyte) official site. Free live streams for Football, NBA, NFL in HD. The #1 Reddit streams alternative. No signup.',
         canonical: `${DOMAIN}/`, events: activeEvents, filterHtml: homeFilterHtml, lastUpdated, criticalCss, schema: generateHomeSchema(), noindex: false
     });
     sitemapHubs.push({ url: `${DOMAIN}/`, priority: 1.0, changefreq: 'hourly' });
@@ -318,7 +423,63 @@ function generateMatchSchema(event) {
     ];
 }
 function generateCategorySchema(name, url) { return { "@context": "https://schema.org", "@type": "WebPage", "name": name, "url": `${DOMAIN}/${url}` }; }
-function generateHomeSchema() { return { "@context": "https://schema.org", "@type": "WebSite", "name": "FootyBite", "url": DOMAIN }; }
+function generateHomeSchema() {
+    return [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "FootyBite",
+            "alternateName": ["Footybite", "Footybites", "Footy Bite", "Footybyte", "Footbite", "Fotybyte", "FootyBite.to", "FootyBite Online"],
+            "url": DOMAIN,
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": `${DOMAIN}/?q={search_term_string}`,
+                "query-input": "required name=search_term_string"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "FootyBite",
+            "alternateName": ["Footybite", "Footybites", "Footy Bite", "Footybyte", "Footbite"],
+            "url": DOMAIN,
+            "description": "The official FootyBite site for free live sports streaming. Watch Football, NBA, NFL, Boxing and F1 in HD."
+        }
+    ];
+}
+function generateHubSchema(hub) {
+    return [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": hub.keyword,
+            "url": `${DOMAIN}/${hub.slug}/`,
+            "description": hub.description,
+            "isPartOf": { "@type": "WebSite", "name": "FootyBite", "url": DOMAIN }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": `Is ${hub.keyword} really free on FootyBite?`,
+                    "acceptedAnswer": { "@type": "Answer", "text": "Yes! FootyBite is a free link aggregation service. We do not charge users for access to any of the sports streams we list." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Do I need to create an account?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "No registration is required. We value your privacy and want to make the process as fast as possible." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What if a stream stops working?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "We provide multiple mirror links for every match. If one link goes down, simply try another one from the list." }
+                }
+            ]
+        }
+    ];
+}
 async function generateMultiSitemaps(matches, hubs, images) {
     const matchXml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${matches.map(e => `  <url><loc>${e.url}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod><changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`).join('\n')}</urlset>`;
     const hubXml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${hubs.map(e => `  <url><loc>${e.url}</loc><lastmod>${new Date().toISOString().split('T')[0]}</lastmod><changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`).join('\n')}</urlset>`;

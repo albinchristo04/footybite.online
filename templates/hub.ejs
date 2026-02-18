@@ -49,25 +49,32 @@
                     specific match you're looking for. Once you find your game, click the link, and you'll be taken
                     directly to the player. It's that simple!</p>
 
-                <h3>Frequently Asked Questions about <%= keyword %>
-                </h3>
-                <div class="hub-faq">
-                    <div class="faq-item">
-                        <h4>Is <%= keyword %> really free on FootyBite?</h4>
-                        <p>Yes! FootyBite is a free link aggregation service. We do not charge users for access to any
-                            of the sports streams we list.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h4>Do I need to create an account?</h4>
-                        <p>No registration is required. We value your privacy and want to make the process as fast as
-                            possible.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h4>What if a stream stops working?</h4>
-                        <p>We provide multiple mirror links for every match. If one link goes down, simply try another
-                            one from the list.</p>
-                    </div>
-                </div>
+                <% if (typeof extraContent !=='undefined' && extraContent) { %>
+                    <%- extraContent %>
+                        <% } %>
+
+                            <h3>Frequently Asked Questions about <%= keyword %>
+                            </h3>
+                            <div class="hub-faq">
+                                <div class="faq-item">
+                                    <h4>Is <%= keyword %> really free on FootyBite?</h4>
+                                    <p>Yes! FootyBite is a free link aggregation service. We do not charge users for
+                                        access to any
+                                        of the sports streams we list.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>Do I need to create an account?</h4>
+                                    <p>No registration is required. We value your privacy and want to make the process
+                                        as fast as
+                                        possible.</p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4>What if a stream stops working?</h4>
+                                    <p>We provide multiple mirror links for every match. If one link goes down, simply
+                                        try another
+                                        one from the list.</p>
+                                </div>
+                            </div>
             </article>
         </div>
 
@@ -90,10 +97,14 @@
             <div class="sidebar-card">
                 <h3>🌍 Popular Hubs</h3>
                 <div class="hub-links">
-                    <a href="/live-streams/">Live Streams</a>
-                    <a href="/football-live-tv/">Football Live TV</a>
-                    <a href="/nba-live-stream/">NBA Live Stream</a>
-                    <a href="/nfl-live-stream/">NFL Live Stream</a>
+                    <a href="/footybite-streams/">Footybite Streams</a>
+                    <a href="/live-footybite/">Live Footybite</a>
+                    <a href="/nba-footybite/">NBA Footybite</a>
+                    <a href="/nfl-footybite/">NFL Footybite</a>
+                    <a href="/footybite-reddit/">Footybite Reddit</a>
+                    <a href="/footybite-to/">Footybite.to</a>
+                    <a href="/footbite/">Footbite</a>
+                    <a href="/footybite-alternatives/">Footybite Alternatives</a>
                 </div>
             </div>
         </aside>
